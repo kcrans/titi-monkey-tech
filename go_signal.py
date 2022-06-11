@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from psychopy import visual, core, event, monitors  # import some libraries from PsychoPy
-from psychopy.sound import Sound
-from random import choice
+from psychopy import visual, core, event, monitors, prefs, gui, data  # import some basic libraries from PsychoPy
+from psychopy.sound import Sound # methods for handling audio
+from random import choice # for randomness in the display of stimuli
 import numpy as np
 
 # Parameters
@@ -11,20 +11,33 @@ positive_reinforcement_delay = 1.0
 hold_phase_delay = 0.5 
 session_timeout_time = 30 # Normallly 480.0 seconds
 
-mon = monitors.Monitor('macbook')
-
+mon = monitors.Monitor('kalebs_desktop')
+print(prefs.general['winType'])
 #[500, 500]
 #create a window
-mywin = visual.Window(size=[100, 100], fullscr=True, color="black", monitor=mon, units="height")
+mywin = visual.Window(size=[2048, 1152], fullscr=False, color="black", monitor=mon, units="height")
 #mywin.monitor.setCurrent('macbook.json')
-print(mywin.size)
 
-#create a mouse event class to track touch input
+#create a mouse event class to track touch input
 touch_tracker = event.Mouse(visible=True, win=mywin)
 
-#trial_start_sound = Sound('trialStartSound.wav', name='startsound')
+trial_start_sound = Sound('trialStartSoundStereo.wav', name='startsound', stereo = True)
 click_sound = Sound('clickSound.wav', name='clicksound')
 neg_reinforce_sound = Sound('negativeReinforcement.wav', name='negsound')
+
+
+info = {'name':'charles', 'ExpVersion':1.1 }
+info['dateStr'] = data.getDateStr()
+infoDlg = gui.DlgFromDict(dictionary=info, title= 'test', fixed=['ExpVersion'])
+if infoDlg.OK:
+    print(info)
+else:
+    print('no')
+
+fileName = info['name'] + info['dateStr']
+dataFile = open(fileName+'.csv', 'w')  # a simple text file with 'comma-separated-values'
+dataFile.write('name,time,success\n')
+
 
 #create circle stimuli
 circle = visual.ShapeStim(
@@ -47,7 +60,7 @@ print(circle.units)
 
 globalClock = core.Clock()
 trialClock = core.Clock()
-shapes = [circle, triangle]
+shapes = [circle, triangle] # 
 
 i = 0
 
@@ -57,7 +70,6 @@ left = circle.vertices - added
 
 print(np.shape(added))
 while globalClock.getTime() < session_timeout_time - 6.0:
-    #trial_start_sound.play()
     index = i % 2
     dis_shape = shapes[index]
     mywin.flip()
@@ -68,7 +80,7 @@ while globalClock.getTime() < session_timeout_time - 6.0:
      #       dis_shape.vertices = left
      #   else:
       #      dis_shape.vertices = right
-    
+    trial_start_sound.play()
     core.wait(hold_phase_delay)
     trialClock.reset()
     while trialClock.getTime() < 30.0 and globalClock.getTime() < session_timeout_time:
@@ -79,17 +91,19 @@ while globalClock.getTime() < session_timeout_time - 6.0:
 
         if touch_tracker.getPressed(getTime=True)[0][0] == 1:
             if dis_shape.contains(touch_tracker) and index == 0:
+                dataFile.write(f'{info["name"]},{trialClock.getTime()},type,yes\n')
                 click_sound.play()
                 mywin.flip()
                 core.wait(positive_reinforcement_delay)
             else:
+                dataFile.write(f'{info["name"]},{trialClock.getTime()},type,no\n')
                 neg_reinforce_sound.play()
                 mywin.flip()
                 core.wait(negative_reinforcement_delay)
-            break
+            break # Break out of inner loop if anywhere on screen is touched
     i += 1
-    #mywin.flip()
-    #core.wait(hold_phase_delay)
+
+    
     
     #buttons, times = touch_tracker.
 #pause, so you get a chance to see it!
