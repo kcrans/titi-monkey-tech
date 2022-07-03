@@ -69,7 +69,7 @@ while globalClock.getTime() < session_timeout_time:
     touch_tracker.clickReset() 
     if touch_tracker.getPressed(getTime=True)[0][0] == 1: #and click_sound.status != 'STARTED' and neg_reinforce_sound.status != 'STARTED'
         click_sound.stop() # Stop sounds early if another click is registered
-        neg_reinforce_sound.stop() #
+        neg_reinforce_sound.stop() # Stop both sounds as we don't know which is playing
         if my_contains(circle, *touch_tracker.getPos()):
             click_sound.play()
             #print('in')
