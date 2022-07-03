@@ -68,6 +68,8 @@ while globalClock.getTime() < session_timeout_time:
     mywin.update()
     touch_tracker.clickReset() 
     if touch_tracker.getPressed(getTime=True)[0][0] == 1: #and click_sound.status != 'STARTED' and neg_reinforce_sound.status != 'STARTED'
+        click_sound.stop() # Stop sounds early if another click is registered
+        neg_reinforce_sound.stop() #
         if my_contains(circle, *touch_tracker.getPos()):
             click_sound.play()
             #print('in')
@@ -85,5 +87,4 @@ while globalClock.getTime() < session_timeout_time:
             grow(circle)
             miss_count = 0
         core.wait(touch_delay)
-
 
