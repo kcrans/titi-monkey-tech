@@ -8,14 +8,16 @@ import numpy as np
 session_timeout_time = 60
 touch_delay = 0.25
 
-mon = monitors.Monitor('surface')
+mon = monitors.Monitor('macbook')
 print(prefs.general['winType'])
 #[500, 500]
 #create a window
 mywin = visual.Window(size=[1440, 900], fullscr=False, color="black", monitor=mon, units="height")
 #mywin.monitor.setCurrent('macbook.json')
-
-print(mywin.size)
+upper_bound = 0.9
+lower_bound = 0
+start = 0.8
+increment = 0.05
 
 #create a mouse event class to track touch input
 touch_tracker = event.Mouse(visible=True, win=mywin)
@@ -26,7 +28,7 @@ neg_reinforce_sound = Sound('negativeReinforcement.wav', name='negsound')
 #create circle stimuli
 circle = visual.ShapeStim(
     win=mywin, name='go_circle',
-    size=0.8, vertices='circle',
+    size=start, vertices='circle',
     ori=0.0, pos=(0, 0), anchor='center',
     lineWidth=0.0,     colorSpace='rgb', fillColor='white',
     opacity=None, depth=0.0, interpolate=True)
@@ -44,15 +46,15 @@ miss_count = 0
 
 def shrink(shape):
     width = shape.size[0]
-    if width > 0:
-        new_size = width - 0.05
+    if width > lower_bound:
+        new_size = width - increment
         shape.size = (new_size, new_size)
     #hit_count = 0
 
 def grow(shape):
     width= shape.size[0]
-    if width < 0.9:
-        new_size = width + 0.05
+    if width < upper_bound:
+        new_size = width + increment
         shape.size = (new_size, new_size)
     #miss_count = 0
     
@@ -98,5 +100,4 @@ while globalClock.getTime() < session_timeout_time:
             circle.draw()
             mywin.update()
         core.wait(touch_delay)
-
 
