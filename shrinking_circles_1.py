@@ -3,6 +3,7 @@
 from psychopy import visual, core, event, monitors, prefs, gui, data  # import some basic libraries from PsychoPy
 from psychopy.sound import Sound # methods for handling audio
 from random import choice # for randomness in the display of stimuli
+from psychopy.hardware import keyboard
 import numpy as np
 
 session_timeout_time = 60
@@ -75,12 +76,14 @@ def not_equal(pos1, pos2):
         return True
     else:
         return False
-
+kb = keyboard.Keyboard()
+keys = kb.getKeys()
 circle.draw()
 mywin.update()
 lastPos = touch_tracker.getPos()
-while globalClock.getTime() < session_timeout_time:
+while globalClock.getTime() < session_timeout_time and 'escape' not in keys: # Reorder so timing makes sense
     event.clearEvents()
+    keys = kb.getKeys()
     if not_equal(touch_tracker.getPos(), lastPos): #and click_sound.status != 'STARTED' and neg_reinforce_sound.status != 'STARTED'
         lastPos = touch_tracker.getPos()
         click_sound.stop()
