@@ -10,14 +10,22 @@ touch_delay = 0.25
 
 mon = monitors.Monitor('macbook')
 print(prefs.general['winType'])
+print(mon.getSizePix())
 #[500, 500]
 #create a window
-mywin = visual.Window(size=[1440, 900], fullscr=False, color="black", monitor=mon, units="height")
+mywin = visual.Window(size=mon.getSizePix(), fullscr=True, color="black", monitor=mon, units="height")
 #mywin.monitor.setCurrent('macbook.json')
 upper_bound = 0.9
 lower_bound = 0
 start = 0.8
 increment = 0.05
+if mywin.useRetina == False: # Not a retina screen
+    upper_bound *= 0.5
+    lower_bound *= 0.5
+    start *= 0.5
+    increment *= 0.5
+    
+print(mywin.size)
 
 #create a mouse event class to track touch input
 touch_tracker = event.Mouse(visible=True, win=mywin)
@@ -33,8 +41,6 @@ circle = visual.ShapeStim(
     lineWidth=0.0,     colorSpace='rgb', fillColor='white',
     opacity=None, depth=0.0, interpolate=True)
     
-txt = 'click the shape to quit\nscroll to adjust circle'
-instr = visual.TextStim(mywin, text=txt, pos=(-1.0, -.7), opacity=0.5)
 
 globalClock = core.Clock()
 starttime = globalClock.getTime()
@@ -44,7 +50,7 @@ hit_count = 0
 miss_count = 0
 
 
-def shrink(shape):
+def shrink(shape): # Modify so no arguements are needed
     width = shape.size[0]
     if width > lower_bound:
         new_size = width - increment
@@ -52,7 +58,7 @@ def shrink(shape):
     #hit_count = 0
 
 def grow(shape):
-    width= shape.size[0]
+    width = shape.size[0]
     if width < upper_bound:
         new_size = width + increment
         shape.size = (new_size, new_size)
@@ -60,7 +66,6 @@ def grow(shape):
     
 def my_contains(polygon, x, y):
     radius_sqrd = (polygon.size[0])**2
-    print(x, y, polygon.size[0])
     if x**2 + y**2 <= radius_sqrd:
         return True
     else:
@@ -70,6 +75,7 @@ def not_equal(pos1, pos2):
         return True
     else:
         return False
+
 circle.draw()
 mywin.update()
 lastPos = touch_tracker.getPos()
@@ -100,4 +106,3 @@ while globalClock.getTime() < session_timeout_time:
             circle.draw()
             mywin.update()
         core.wait(touch_delay)
-
