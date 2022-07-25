@@ -21,21 +21,23 @@ lower_bound = 0
 start = 0.8
 increment = 0.05
 print(mywin.useRetina)
+# With a retina screen, the vertical dimmensions are from -1 to 1
+# but with a normal display, they are from -0.5 to 0.5
+# (retina displays scale the normal paramters by 2)
 if mywin.useRetina == False: # Not a retina screen
-    upper_bound *= 0.5
-    lower_bound *= 0.5
-    #start *= 0.5
-    increment *= 0.5
-    
+    scale = 0.5
+else:
+    scale = 1
 print(mywin.size)
 
-#create a mouse event class to track touch input
+# Create a mouse event class to track touch input
 touch_tracker = event.Mouse(visible=True, win=mywin)
 
+# For this mode we need only two sounds
 click_sound = Sound('assets/clickSound.wav', name='clicksound')
 neg_reinforce_sound = Sound('assets/negativeReinforcement.wav', name='negsound')
 
-#create circle stimuli
+# Create circle stimuli object
 circle = visual.ShapeStim(
     win=mywin, name='go_circle',
     size=start, vertices='circle',
@@ -53,21 +55,22 @@ miss_count = 0
 
 
 def shrink(shape): # Modify so no arguements are needed
-    width = shape.size[0]
-    if width > lower_bound:
-        new_size = width - increment
-        shape.size = (new_size, new_size)
+    radius = shape.size[0]
+    if radius > lower_bound:
+        new_radius = radius - increment
+        shape.size = (new_radius, new_radius)
     #hit_count = 0
 
 def grow(shape):
-    width = shape.size[0]
-    if width < upper_bound:
-        new_size = width + increment
-        shape.size = (new_size, new_size)
+    radius = shape.size[0]
+    if radius < upper_bound:
+        new_radius = radius + increment
+        shape.size = (new_radius, new_radius)
     #miss_count = 0
     
 def my_contains(polygon, x, y):
-    radius_sqrd = (polygon.size[0])**2
+    radius_sqrd = (scale*polygon.size[0])**2
+    print(x, y, polygon.size[0])
     if x**2 + y**2 <= radius_sqrd:
         return True
     else:
@@ -82,6 +85,11 @@ keys = kb.getKeys()
 circle.draw()
 mywin.update()
 lastPos = touch_tracker.getPos()
+
+globalClock = core.Clock()
+starttime = globalClock.getTime()
+trialClock = core.Clock()
+
 while globalClock.getTime() < session_timeout_time and 'escape' not in keys: # Reorder so timing makes sense
     event.clearEvents()
     keys = kb.getKeys()
