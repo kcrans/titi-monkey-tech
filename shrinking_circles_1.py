@@ -9,7 +9,7 @@ import numpy as np
 session_timeout_time = 60
 touch_delay = 0.25
 
-mon = monitors.Monitor('macbook')
+mon = monitors.Monitor('kalebs_desktop')
 print(prefs.general['winType'])
 print(mon.getSizePix())
 #[500, 500]
@@ -20,10 +20,11 @@ upper_bound = 0.9
 lower_bound = 0
 start = 0.8
 increment = 0.05
+print(mywin.useRetina)
 if mywin.useRetina == False: # Not a retina screen
     upper_bound *= 0.5
     lower_bound *= 0.5
-    start *= 0.5
+    #start *= 0.5
     increment *= 0.5
     
 print(mywin.size)
@@ -31,8 +32,8 @@ print(mywin.size)
 #create a mouse event class to track touch input
 touch_tracker = event.Mouse(visible=True, win=mywin)
 
-click_sound = Sound('clickSound.wav', name='clicksound')
-neg_reinforce_sound = Sound('negativeReinforcement.wav', name='negsound')
+click_sound = Sound('assets/clickSound.wav', name='clicksound')
+neg_reinforce_sound = Sound('assets/negativeReinforcement.wav', name='negsound')
 
 #create circle stimuli
 circle = visual.ShapeStim(
