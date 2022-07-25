@@ -21,9 +21,9 @@ mywin = visual.Window(size=[1440, 900], fullscr=False, color="black", monitor=mo
 #create a mouse event class to track touch input
 touch_tracker = event.Mouse(visible=True, win=mywin)
 
-trial_start_sound = Sound('trialStartSoundStereo.wav', name='startsound', stereo = True)
-click_sound = Sound('clickSound.wav', name='clicksound')
-neg_reinforce_sound = Sound('negativeReinforcement.wav', name='negsound')
+trial_start_sound = Sound('assets/trialStartSoundStereo.wav', name='startsound', stereo = True)
+click_sound = Sound('assets/clickSound.wav', name='clicksound')
+neg_reinforce_sound = Sound('assets/negativeReinforcement.wav', name='negsound')
 
 
 phases = {'Go Signal':0, 'Wait Screen':1, 'Alternating Stop Signal':2, 'Random Stop Signal':3, 'Experiment':4}
