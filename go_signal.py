@@ -5,6 +5,14 @@ from psychopy.sound import Sound # methods for handling audio
 from random import choice # for randomness in the display of stimuli
 import numpy as np
 
+info = {'Subject ID':'charles', 'Subject Condition':'good', 'Phase': 'Alternating Stop Signal' }
+info['dateStr'] = data.getDateStr()
+infoDlg = gui.DlgFromDict(dictionary=info, title= 'test', fixed=['ExpVersion'])
+if infoDlg.OK:
+    print(info)
+else:
+    print('no')
+
 # Parameters
 negative_reinforcement_delay = 3.0
 positive_reinforcement_delay = 1.0
@@ -15,7 +23,7 @@ mon = monitors.Monitor('macbook')
 print(prefs.general['winType'])
 #[500, 500]
 #create a window
-mywin = visual.Window(size=[1440, 900], fullscr=False, color="black", monitor=mon, units="height")
+mywin = visual.Window(size=[1440, 900], fullscr=True, color="black", monitor=mon, units="height")
 #mywin.monitor.setCurrent('macbook.json')
 
 #create a mouse event class to track touch input
@@ -28,13 +36,7 @@ neg_reinforce_sound = Sound('assets/negativeReinforcement.wav', name='negsound')
 
 phases = {'Go Signal':0, 'Wait Screen':1, 'Alternating Stop Signal':2, 'Random Stop Signal':3, 'Experiment':4}
 
-info = {'Subject ID':'charles', 'Subject Condition':'good', 'Phase': 'Alternating Stop Signal' }
-info['dateStr'] = data.getDateStr()
-infoDlg = gui.DlgFromDict(dictionary=info, title= 'test', fixed=['ExpVersion'])
-if infoDlg.OK:
-    print(info)
-else:
-    print('no')
+
 
 fileName = info['Subject ID'] + info['dateStr']
 dataFile = open(fileName+'.csv', 'w')  # a simple text file with 'comma-separated-values'
@@ -60,7 +62,7 @@ triangle = visual.Polygon(
     )
 print(circle.units)
 #circle2 = visual.Circle(win = mywin, name='g', size)
-#draw the stimuli and update the window
+#draw the stimuli and update the window 
 
 globalClock = core.Clock()
 starttime = globalClock.getTime()
