@@ -4,7 +4,7 @@ from psychopy import visual, core, event, monitors, prefs, gui, data  # import s
 from psychopy.sound import Sound # methods for handling audio
 from psychopy.hardware import keyboard
 import numpy as np
-from init import mywin, scale, touch_tracker, click_sound, neg_reinforce_sound, kb, touch_tracker, is_touched
+from init import mywin, scale, touch_tracker, click_sound, neg_reinforce_sound, kb, is_touched
 
 
 # Go signal training parameters
