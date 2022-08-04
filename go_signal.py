@@ -10,7 +10,7 @@ from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinf
 # Parameters
 negative_reinforcement_delay = 3.0
 positive_reinforcement_delay = 1.0
-hold_phase_delay = 0.5 
+hold_phase_delay = 2
 session_timeout_time = 30 # Normallly 480.0 seconds
 circle_diam = 0.8
 neg_response_time = 2.0 # How long to wait when negative stimuli is presented
@@ -44,11 +44,17 @@ def normal_training(record_data, new_shape):
         side = choice((-1, 1))
         dis_shape.pos = (side*(0.4 - index*0.1), index*-.125)
         trial_start_sound.play()
-        trialClock.reset()
+        touch_down = False
         touch_count = 0
+        trialClock.reset()
         while trialClock.getTime() < hold_phase_delay:
             if is_touched():
-                touch_count += 1
+                if not touch_down:
+                    touch_count += 1
+                    touch_down = True
+            else:
+                touch_down = False
+            
         trialClock.reset()
         if index == 0:
             touched = False
@@ -57,7 +63,6 @@ def normal_training(record_data, new_shape):
                 dis_shape.draw()
                 mywin.update()
                 touch_tracker.clickReset() #Maybe run once outside the loop?
-
                 if is_touched():
                     touched = True
                     if dis_shape.contains(touch_tracker) and index == 0:
