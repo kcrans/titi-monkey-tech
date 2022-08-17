@@ -4,7 +4,7 @@ from psychopy import visual, core, event, monitors, prefs, gui  # import some ba
 from psychopy.sound import Sound # methods for handling audio
 from random import choice # for randomness in the display of stimuli
 import numpy as np
-from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, kb, is_touched
+from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, kb, input_tracker, hor_scale
 
 
 # Parameters
@@ -32,8 +32,10 @@ triangle = visual.Polygon(
     )
 
 def normal_training(record_data, new_shape):
+    device = input_tracker()
     shapes = [circle, triangle] # 
     i = 0 # Tracks trial number
+    hor_pos = (hor_scale/2) - 0.4 # How far to go horizontally on the left and right
     globalClock = core.Clock()
     #starttime = globalClock.getTime() # depreciated
     trialClock = core.Clock()
@@ -42,13 +44,13 @@ def normal_training(record_data, new_shape):
         dis_shape = shapes[index]
         mywin.flip()
         side = choice((-1, 1))
-        dis_shape.pos = (side*(0.4 - index*0.1), index*-.125)
+        dis_shape.pos = (side*(hor_pos - index*0.1), index*-.125)
         trial_start_sound.play()
         touch_down = False
         touch_count = 0
         trialClock.reset()
         while trialClock.getTime() < hold_phase_delay:
-            if is_touched():
+            if device.is_touched():
                 if not touch_down:
                     touch_count += 1
                     touch_down = True
@@ -63,7 +65,7 @@ def normal_training(record_data, new_shape):
                 dis_shape.draw()
                 mywin.update()
                 touch_tracker.clickReset() #Maybe run once outside the loop?
-                if is_touched():
+                if device.is_touched():
                     touched = True
                     if dis_shape.contains(touch_tracker) and index == 0:
                         record_data(i + 1, 'FALSE', 'TRUE', trialClock.getTime(), touch_count, 'TRUE', circle_diam)
@@ -90,7 +92,7 @@ def normal_training(record_data, new_shape):
                 dis_shape.draw()
                 mywin.update()
                 touch_tracker.clickReset()
-                if is_touched():
+                if device.is_touched():
                     record_data(i + 1, 'TRUE', 'TRUE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
                     neg_reinforce_sound.play()
                     mywin.flip()

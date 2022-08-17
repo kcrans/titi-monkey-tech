@@ -15,8 +15,11 @@ mywin = visual.Window(size=window_size, fullscr=True, color="black", monitor=mon
     # With a retina screen, the vertical dimmensions are from -1 to 1
     # but with a normal display, they are from -0.5 to 0.5
     # (retina displays scale the normal paramters by 2)
+    
+hor_scale = window_size[0]/window_size[1]
 
 if mywin.useRetina == False: # Not a retina screen
+    print('using retina display')
     scale = 0.5
 else:
     scale = 1
@@ -32,12 +35,22 @@ kb = keyboard.Keyboard() # Used for tracking escape key presses
 
 # Create a mouse event class to track touch input
 if touch_screen == False:
-        touch_tracker = event.Mouse(visible=True, win=mywin)
-        def is_touched():
+    touch_tracker = event.Mouse(visible=True, win=mywin)
+        
+    class input_tracker:
+        def is_touched(self):
             return touch_tracker.getPressed()[0] == 1 # getTime?
         
 else:
-        touch_tracker = event.Mouse(visible=True, win=mywin)
-        def is_touched():
-            return touch_tracker.mouseMoved()
-
+    touch_tracker = event.Mouse(visible=False, win=mywin)
+    lastPos = touch_tracker.getPos()
+    class input_tracker:
+        def __init__(self):
+            self.lastPos = touch_tracker.getPos()
+        def is_touched(self):
+            currentPos = touch_tracker.getPos()
+            if currentPos[0] != self.lastPos[0] or currentPos[1] != self.lastPos[1]:
+                self.lastPos = currentPos
+                return True
+            else:
+                return False

@@ -4,7 +4,7 @@ from psychopy import visual, core, event, monitors, prefs, gui, data  # import s
 from psychopy.sound import Sound # methods for handling audio
 from psychopy.hardware import keyboard
 import numpy as np
-from init import mywin, scale, touch_tracker, click_sound, neg_reinforce_sound, kb, is_touched
+from init import mywin, scale, touch_tracker, click_sound, neg_reinforce_sound, kb, input_tracker
 
 
 # Go signal training parameters
@@ -55,6 +55,8 @@ def not_equal(pos1, pos2):
 def circle_run(record_data):
     hit_count = 0
     miss_count = 0
+    
+    device = input_tracker()
 
     keys = kb.getKeys()
     circle.draw()
@@ -68,7 +70,7 @@ def circle_run(record_data):
     while globalClock.getTime() < session_timeout_time and 'escape' not in keys: # Reorder so timing makes sense
         event.clearEvents()
         keys = kb.getKeys()
-        if is_touched():
+        if device.is_touched():
             lastPos = touch_tracker.getPos() # Get the position of the touch
             trial_time = trialClock.getTime() # Record the time since last touch
             trialClock.reset()
