@@ -1,7 +1,7 @@
 # ** Universal Parameters **
 monitor_name = 'macbook'
 window_size = [1440, 900]
-touch_screen = False
+touch_screen = True
 
 # ** Go Signal Training ** 
 
