@@ -19,7 +19,6 @@ mywin = visual.Window(size=window_size, fullscr=True, color="black", monitor=mon
 hor_scale = window_size[0]/window_size[1]
 
 if mywin.useRetina == False: # Not a retina screen
-    print('using retina display')
     scale = 0.5
 else:
     scale = 1
