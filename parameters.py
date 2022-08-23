@@ -1,5 +1,5 @@
 # ** Universal Parameters **
-monitor_name = 'macbook'
+monitor_name = 'kalebs_desktop'
 window_size = [1440, 900]
 touch_screen = True
 
