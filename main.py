@@ -18,12 +18,14 @@ def main():
     info = {'Subject ID':'TEST SUBJECT 1', 'Subject Condition':'unconditional', 'Phase': phase_names }
     info['dateStr'] = data.getDateStr()
     infoDlg = gui.DlgFromDict(dictionary=info, title= 'TITI Beta Version 0.2', fixed=['ExpVersion'])
-    #if infoDlg.OK:
-    #    print(info)
+    if infoDlg.OK:
+        print('gui working')
+    else:
+        return # End program then and there
     
     phases = {'Go Signal':0, 'Wait Screen':1, 'Alternating Stop Signal':2, 'Random Stop Signal':3, 'Experiment':4}
 
-    fileName = info['Subject ID'] + info['dateStr']
+    fileName = f"{info['Subject ID']}_{info['dateStr']}"
     dataFile = open(fileName+'.csv', 'w')  # a simple text file with 'comma-separated-values'
     dataFile.write("subject id,subject condition,session timestamp,phase,trial number,stop stimulus,screen touched,response time,hold phase touches,direct touch,diameter\n")
     def write_data(trial_num, stop_stim, screen_touched, response_time, direct_touch, hold_touches, diameter):
