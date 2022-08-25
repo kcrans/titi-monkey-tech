@@ -12,12 +12,15 @@ from psychopy import visual, core, event, monitors, prefs, gui, data  # import s
 from psychopy.sound import Sound # methods for handling audio
 from random import choice # for randomness in the display of stimuli
 import numpy as np
+import json
 
 def main():
     phase_names = ['Go Signal', 'Wait Screen', 'Alternating Stop Signal', 'Random Stop Signal', 'Experiment' ]
-    info = {'Subject ID':'TEST SUBJECT 1', 'Subject Condition':'unconditional', 'Phase': phase_names }
+    with open('subinfo.json') as f:
+        subjects = json.load(f)
+    info = {'Subject ID':subjects['strings'], 'Subject Condition':'unconditional', 'Phase': phase_names }
     info['dateStr'] = data.getDateStr()
-    infoDlg = gui.DlgFromDict(dictionary=info, title= 'TITI Beta Version 0.2', fixed=['ExpVersion'])
+    infoDlg = gui.DlgFromDict(dictionary=info, title= f'TITI Beta Version {__version__}', fixed=['ExpVersion'])
     if infoDlg.OK:
         print('gui working')
     else:
