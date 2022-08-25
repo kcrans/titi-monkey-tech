@@ -54,7 +54,8 @@ def main():
             return choice((0, 1))
         normal_training(write_data, new_shape)
     elif chosen_phase == "Experiment":
-        print(chosen_phase) # TODO !!!
+        from experiment import run_experiment
+        run_experiment(write_data)
     
 if __name__ == "__main__":
     main()
