@@ -58,16 +58,15 @@ def normal_training(record_data, new_shape):
                 touch_down = False
             
         trialClock.reset()
-        if index == 0:
+        if index == 0: # If a go circle is being displayed
             touched = False
             while trialClock.getTime() < 30.0 and globalClock.getTime() < session_timeout_time:
                 event.clearEvents()
                 dis_shape.draw()
                 mywin.update()
-                touch_tracker.clickReset() #Maybe run once outside the loop?
                 if device.is_touched():
                     touched = True
-                    if dis_shape.contains(touch_tracker) and index == 0:
+                    if dis_shape.contains(touch_tracker):
                         record_data(i + 1, 'FALSE', 'TRUE', trialClock.getTime(), touch_count, 'TRUE', circle_diam)
                         click_sound.play()
                         mywin.flip()
@@ -80,7 +79,7 @@ def normal_training(record_data, new_shape):
                     break # Break out of inner loop if anywhere on screen is touched
             if not touched:
                 record_data(i + 1, 'FALSE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
-        else:
+        else: # If a no-go triangle is being displayed
             while globalClock.getTime() < session_timeout_time:
                 if trialClock.getTime() >= neg_response_time:
                     record_data(i + 1, 'TRUE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
@@ -91,7 +90,6 @@ def normal_training(record_data, new_shape):
                 event.clearEvents()
                 dis_shape.draw()
                 mywin.update()
-                touch_tracker.clickReset()
                 if device.is_touched():
                     record_data(i + 1, 'TRUE', 'TRUE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
                     neg_reinforce_sound.play()
