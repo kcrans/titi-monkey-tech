@@ -1,1 +1,58 @@
-{"strings":["Bob","Carl","Darwin","Dave","Frank","Jerry","John","Kevin","Ken","Lance","Larry","Mark","Mike","Norbert","Paul","Phil","Steve","Stuart","Tim","Tom","Chris","Mel","Jorge","Donny"]}
+{
+  "Gru": {
+    "condition": "paired",
+    "current phase": "2",
+    "session timeout time": "30",
+    "phase 0 params": {
+      "touch_delay": "0.25",
+      "start": "0.8",
+      "upper_bound": "0.9",
+      "lower_bound": "0",
+      "increment": "0.05"
+    },
+    "phase 1-3 params": {
+      "negative_reinforcement_delay": "3.0",
+      "positive_reinforcement_delay": "1.0",
+      "hold_phase_delay": "2",
+      "circle_diam": "0.8",
+      "neg_response_time": "2.0"
+    },
+    "phase 4 params": {
+      "negative_reinforcement_delay": "3.0",
+      "positive_reinforcement_delay": "1.0",
+      "hold_phase_delay": "2",
+      "circle_diam": "0.8",
+      "neg_response_time": "2.0",
+      "num_pos": "2",
+      "num_neg": "4"
+    }
+  },
+  "Bob": {
+    "condition": "paired",
+    "current phase": "2",
+    "session timeout time": "30",
+    "phase 0 params": {
+      "touch_delay": "0.25",
+      "start": "0.8",
+      "upper_bound": "0.9",
+      "lower_bound": "0",
+      "increment": "0.05"
+    },
+    "phase 1-3 params": {
+      "negative_reinforcement_delay": "3.0",
+      "positive_reinforcement_delay": "1.0",
+      "hold_phase_delay": "2",
+      "circle_diam": "0.8",
+      "neg_response_time": "2.0"
+    },
+    "phase 4 params": {
+      "negative_reinforcement_delay": "3.0",
+      "positive_reinforcement_delay": "1.0",
+      "hold_phase_delay": "2",
+      "circle_diam": "0.8",
+      "neg_response_time": "2.0",
+      "num_pos": "2",
+      "num_neg": "4"
+    }
+  }
+}

@@ -7,35 +7,34 @@ import numpy as np
 from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, input_tracker, hor_scale
 
 
-# Parameters
-negative_reinforcement_delay = 3.0
-positive_reinforcement_delay = 1.0
-hold_phase_delay = 2
-session_timeout_time = 30 # Normallly 480.0 seconds
-circle_diam = 0.8
-neg_response_time = 2.0 # How long to wait when negative stimuli is presented
+def run_experiment(record_data, session_timeout_time, parameters):
 
-num_pos = 2 # Number of go signal trials
-num_neg = 4 # Number of no-go signal trials
+    # Parameters
+    negative_reinforcement_delay = float(parameters["negative_reinforcement_delay"])
+    positive_reinforcement_delay = float(parameters["positive_reinforcement_delay"])
+    hold_phase_delay = float(parameters["hold_phase_delay"])
+    circle_diam = float(parameters["circle_diam"])
+    neg_response_time = float(parameters["neg_response_time"]) # How long to wait when negative stimuli is presented
 
-
-#create circle stimuli
-circle = visual.ShapeStim(
-    win=mywin, name='go_circle',
-    size=(circle_diam, circle_diam), vertices='circle',
-    ori=0.0, pos=(0, 0), anchor='center',
-    lineWidth=0.0,     colorSpace='rgb', fillColor='white',
-    opacity=None, depth=0.0, interpolate=True)
+    num_pos = int(parameters["num_pos"]) # Number of go signal trials
+    num_neg = int(parameters["num_neg"]) # Number of no-go signal trials
     
-#create triangle stimuli
+        #create circle stimuli
+    circle = visual.ShapeStim(
+        win=mywin, name='go_circle',
+        size=(circle_diam, circle_diam), vertices='circle',
+        ori=0.0, pos=(0, 0), anchor='center',
+        lineWidth=0.0,     colorSpace='rgb', fillColor='white',
+        opacity=None, depth=0.0, interpolate=True)
+        
+    #create triangle stimuli
+        
+    triangle = visual.Polygon(
+        win=mywin, edges=3, size=(1, 1),
+        anchor='center', pos=(0.3, 0),
+        fillColor='grey', name='stop_triangle'
+        )
     
-triangle = visual.Polygon(
-    win=mywin, edges=3, size=(1, 1),
-    anchor='center', pos=(0.3, 0),
-    fillColor='grey', name='stop_triangle'
-    )
-
-def run_experiment(record_data):
     # An array of strings representing different stimuli shapes
     stimStringList = ['circle']*num_pos + ['triangle']*num_neg
     shuffle(stimStringList) # Shuffle to make the order random
