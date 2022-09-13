@@ -13,7 +13,8 @@ def normal_training(record_data, new_shape, session_timeout_time, parameters):
     positive_reinforcement_delay = float(parameters["positive_reinforcement_delay"])
     hold_phase_delay = float(parameters["hold_phase_delay"])
     circle_diam = float(parameters["circle_diam"])
-    neg_response_time = float(parameters["neg_response_time"])# How long to wait when negative stimuli is presented
+    pos_duration = float(parameters["pos_duration"]) # How long to wait when positive stimuli is presented
+    neg_duration = float(parameters["neg_duration"]) # Ditto for negative stimuli
     
         #create circle stimuli
     circle = visual.ShapeStim(
@@ -59,7 +60,7 @@ def normal_training(record_data, new_shape, session_timeout_time, parameters):
         trialClock.reset()
         if index == 0: # If a go circle is being displayed
             touched = False
-            while trialClock.getTime() < 30.0 and globalClock.getTime() < session_timeout_time:
+            while trialClock.getTime() < pos_duration and globalClock.getTime() < session_timeout_time:
                 event.clearEvents()
                 dis_shape.draw()
                 mywin.update()
@@ -80,7 +81,7 @@ def normal_training(record_data, new_shape, session_timeout_time, parameters):
                 record_data(i + 1, 'FALSE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
         else: # If a no-go triangle is being displayed
             while globalClock.getTime() < session_timeout_time:
-                if trialClock.getTime() >= neg_response_time:
+                if trialClock.getTime() >= neg_duration:
                     record_data(i + 1, 'TRUE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
                     click_sound.play()
                     mywin.flip()

@@ -7,17 +7,17 @@ import numpy as np
 from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, input_tracker, hor_scale
 
 
-def run_experiment(record_data, session_timeout_time, parameters):
+def run_experiment(record_data, session_timeout_time, parameters, experiment_parameters):
 
     # Parameters
     negative_reinforcement_delay = float(parameters["negative_reinforcement_delay"])
     positive_reinforcement_delay = float(parameters["positive_reinforcement_delay"])
     hold_phase_delay = float(parameters["hold_phase_delay"])
     circle_diam = float(parameters["circle_diam"])
-    neg_response_time = float(parameters["neg_response_time"]) # How long to wait when negative stimuli is presented
-
-    num_pos = int(parameters["num_pos"]) # Number of go signal trials
-    num_neg = int(parameters["num_neg"]) # Number of no-go signal trials
+    pos_duration = float(parameters["pos_duration"]) # How long to wait when positive stimuli is presented
+    neg_duration = float(parameters["neg_duration"]) # Ditto for negative stimuli
+    num_pos = int(experiment_parameters["num_pos"]) # Number of go signal trials
+    num_neg = int(experiment_parameters["num_neg"]) # Number of no-go signal trials
     
         #create circle stimuli
     circle = visual.ShapeStim(
@@ -72,7 +72,7 @@ def run_experiment(record_data, session_timeout_time, parameters):
         trialClock.reset()
         if shape_str == 'circle': # If it is displaying a go stimulus
             touched = False
-            while trialClock.getTime() < 30.0 and globalClock.getTime() < session_timeout_time:
+            while trialClock.getTime() < pos_duration and globalClock.getTime() < session_timeout_time:
                 event.clearEvents()
                 dis_shape.draw()
                 mywin.update()
@@ -93,7 +93,7 @@ def run_experiment(record_data, session_timeout_time, parameters):
                 record_data(i + 1, 'FALSE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
         else: # If a negative stimulus is displayed
             while globalClock.getTime() < session_timeout_time:
-                if trialClock.getTime() >= neg_response_time:
+                if trialClock.getTime() >= neg_duration:
                     record_data(i + 1, 'TRUE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
                     click_sound.play()
                     mywin.flip()

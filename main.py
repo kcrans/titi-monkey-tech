@@ -5,7 +5,7 @@ Main fucntion used to run any of the trainings/experiments
 """
 
 __author__ = "Kaleb Crans"
-__version__ = "0.9"
+__version__ = "0.91"
 __license__ = "MIT"
 
 from psychopy import visual, core, event, monitors, prefs, gui, data  # import some basic libraries from PsychoPy
@@ -40,6 +40,8 @@ def main():
     
     sub_cond, chosen_phase, session_timeout_time = confirDlg.show()
     session_timeout_time = float(session_timeout_time)
+    temp_params = current_sub["phase 1-3 params"]
+    param_string = f'{temp_params["pos_duration"]},{temp_params["neg_duration"]},{temp_params["negative_reinforcement_delay"]},{temp_params["positive_reinforcement_delay"]},{temp_params["hold_phase_delay"]}'
     
     if confirDlg.OK:
         print('Selection made, starting now')
@@ -47,18 +49,20 @@ def main():
         return # End before it starts
     timestamp = data.getDateStr()
     
-    #metastring = "go stim duration,stop stim duration,negative reinforcement delay,positive reinforcement delay,hold phase delay"
-    #paramstring = current_sub[]
-    
     fileName = f"titi_monkey_data.csv"
     if os.path.exists(fileName):
         dataFile = open(fileName, 'a')  # a simple text file with 'comma-separated-values'
     else:
         dataFile = open(fileName, 'w+')
-        dataFile.write("subject id,subject condition,session timestamp,phase,trial number,stop stimulus,screen touched,response time,hold phase touches,direct touch,diameter, session time\n")
+        heading = "subject id,subject condition,session timestamp,phase,"
+        heading += "trial number,stop stimulus,screen touched,response time,"
+        heading += "hold phase touches,direct touch,diameter,session time,"
+        heading += "go stim duration,stop stim duration,negative reinforcement delay"
+        heading += ",positive reinforcement delay,hold phase delay\n"
+        dataFile.write(heading)
 
     def write_data(trial_num, stop_stim, screen_touched, response_time, direct_touch, hold_touches, diameter):
-        dataFile.write(f"{subject_choice},{sub_cond},{timestamp},{chosen_phase},{trial_num},{stop_stim},{screen_touched},{response_time},{hold_touches},{direct_touch},{diameter},{session_timeout_time}\n")
+        dataFile.write(f"{subject_choice},{sub_cond},{timestamp},{chosen_phase},{trial_num},{stop_stim},{screen_touched},{response_time},{hold_touches},{direct_touch},{diameter},{session_timeout_time},{param_string}\n")
         return
         
     if chosen_phase == '0: Go Signal':
@@ -82,7 +86,13 @@ def main():
         normal_training(write_data, new_shape, session_timeout_time, current_sub["phase 1-3 params"])
     elif chosen_phase == "4: Experiment":
         from experiment import run_experiment
-        run_experiment(write_data, session_timeout_time, current_sub["phase 4 params"])
+        run_experiment(write_data, session_timeout_time, current_sub["phase 1-3 params"], current_sub["phase 4 params"])
     
+    # Record any changes to subject parameters
+    current_sub['condition'] = sub_cond
+    current_sub['current phase'] = chosen_phase
+    current_sub['session timeout time'] = session_timeout_time
+    with open('subinfo.json', "w") as f:
+        json.dump(subjects, f)
 if __name__ == "__main__":
     main()

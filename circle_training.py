@@ -100,4 +100,5 @@ def circle_run(record_data, session_timeout_time, parameters):
     if 'escape' in keys:
         return False
     else:
+        parameters["start"] = circle.size[0]
         return True
