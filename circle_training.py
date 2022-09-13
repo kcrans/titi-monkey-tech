@@ -6,53 +6,51 @@ from psychopy.hardware import keyboard
 import numpy as np
 from init import mywin, scale, touch_tracker, click_sound, neg_reinforce_sound, kb, input_tracker
 
+def circle_run(record_data, session_timeout_time, parameters):
+    # Go signal training parameters
+    touch_delay = float(parameters["touch_delay"]) # How long until new touches can be registered after a touch
+    start = float(parameters["start"]) # Start with a specified diameter
+    upper_bound = float(parameters["upper_bound"])
+    lower_bound = float(parameters["lower_bound"])
+    increment = float(parameters["increment"])
+    
+        # Create circle stimuli object
+    circle = visual.ShapeStim(
+        win=mywin, name='go_circle',
+        size=start, vertices='circle',
+        ori=0.0, pos=(0, 0), anchor='center',
+        lineWidth=0.0,     colorSpace='rgb', fillColor='white',
+        opacity=None, depth=0.0, interpolate=True)
 
-# Go signal training parameters
-session_timeout_time = 60
-touch_delay = 0.25 # How long untill new touches can be regestired registered
-start = 0.8 # Start with a diameter that is 80% of screen height
-upper_bound = 0.9
-lower_bound = 0
-increment = 0.05
+    def shrink(shape): # Modify so no arguements are needed
+        radius = shape.size[0]
+        if radius > lower_bound:
+            new_radius = radius - increment
+            shape.size = (new_radius, new_radius)
+            #hit_count = 0
 
-# Create circle stimuli object
-circle = visual.ShapeStim(
-    win=mywin, name='go_circle',
-    size=start, vertices='circle',
-    ori=0.0, pos=(0, 0), anchor='center',
-    lineWidth=0.0,     colorSpace='rgb', fillColor='white',
-    opacity=None, depth=0.0, interpolate=True)
+    def grow(shape):
+        radius = shape.size[0]
+        if radius < upper_bound:
+            new_radius = radius + increment
+            shape.size = (new_radius, new_radius)
+            #miss_count = 0
 
-def shrink(shape): # Modify so no arguements are needed
-    radius = shape.size[0]
-    if radius > lower_bound:
-        new_radius = radius - increment
-        shape.size = (new_radius, new_radius)
-        #hit_count = 0
-
-def grow(shape):
-    radius = shape.size[0]
-    if radius < upper_bound:
-        new_radius = radius + increment
-        shape.size = (new_radius, new_radius)
-        #miss_count = 0
-
-    # Function to see if touches are in the circle.
-    # Uses the fact that circles are the only shape in this program
-def quick_contains(polygon, x, y): 
-    radius_sqrd = (scale*polygon.size[0])**2
-    if x**2 + y**2 <= radius_sqrd:
-        return True
-    else:
-        return False
-            
-def not_equal(pos1, pos2):
-    if pos1[0] != pos2[0] or pos1[1] != pos2[1]:
-        return True
-    else:
-        return False
-
-def circle_run(record_data):
+        # Function to see if touches are in the circle.
+        # Uses the fact that circles are the only shape in this program
+    def quick_contains(polygon, x, y): 
+        radius_sqrd = (scale*polygon.size[0])**2
+        if x**2 + y**2 <= radius_sqrd:
+            return True
+        else:
+            return False
+                
+    def not_equal(pos1, pos2):
+        if pos1[0] != pos2[0] or pos1[1] != pos2[1]:
+            return True
+        else:
+            return False
+    
     hit_count = 0
     miss_count = 0
     
@@ -102,4 +100,5 @@ def circle_run(record_data):
     if 'escape' in keys:
         return False
     else:
+        parameters["start"] = circle.size[0]
         return True

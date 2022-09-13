@@ -7,35 +7,34 @@ import numpy as np
 from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, input_tracker, hor_scale
 
 
-# Parameters
-negative_reinforcement_delay = 3.0
-positive_reinforcement_delay = 1.0
-hold_phase_delay = 2
-session_timeout_time = 30 # Normallly 480.0 seconds
-circle_diam = 0.8
-neg_response_time = 2.0 # How long to wait when negative stimuli is presented
+def run_experiment(record_data, session_timeout_time, parameters, experiment_parameters):
 
-num_pos = 2 # Number of go signal trials
-num_neg = 4 # Number of no-go signal trials
-
-
-#create circle stimuli
-circle = visual.ShapeStim(
-    win=mywin, name='go_circle',
-    size=(circle_diam, circle_diam), vertices='circle',
-    ori=0.0, pos=(0, 0), anchor='center',
-    lineWidth=0.0,     colorSpace='rgb', fillColor='white',
-    opacity=None, depth=0.0, interpolate=True)
+    # Parameters
+    negative_reinforcement_delay = float(parameters["negative_reinforcement_delay"])
+    positive_reinforcement_delay = float(parameters["positive_reinforcement_delay"])
+    hold_phase_delay = float(parameters["hold_phase_delay"])
+    circle_diam = float(parameters["circle_diam"])
+    pos_duration = float(parameters["pos_duration"]) # How long to wait when positive stimuli is presented
+    neg_duration = float(parameters["neg_duration"]) # Ditto for negative stimuli
+    num_pos = int(experiment_parameters["num_pos"]) # Number of go signal trials
+    num_neg = int(experiment_parameters["num_neg"]) # Number of no-go signal trials
     
-#create triangle stimuli
+        #create circle stimuli
+    circle = visual.ShapeStim(
+        win=mywin, name='go_circle',
+        size=(circle_diam, circle_diam), vertices='circle',
+        ori=0.0, pos=(0, 0), anchor='center',
+        lineWidth=0.0,     colorSpace='rgb', fillColor='white',
+        opacity=None, depth=0.0, interpolate=True)
+        
+    #create triangle stimuli
+        
+    triangle = visual.Polygon(
+        win=mywin, edges=3, size=(1, 1),
+        anchor='center', pos=(0.3, 0),
+        fillColor='grey', name='stop_triangle'
+        )
     
-triangle = visual.Polygon(
-    win=mywin, edges=3, size=(1, 1),
-    anchor='center', pos=(0.3, 0),
-    fillColor='grey', name='stop_triangle'
-    )
-
-def run_experiment(record_data):
     # An array of strings representing different stimuli shapes
     stimStringList = ['circle']*num_pos + ['triangle']*num_neg
     shuffle(stimStringList) # Shuffle to make the order random
@@ -73,7 +72,7 @@ def run_experiment(record_data):
         trialClock.reset()
         if shape_str == 'circle': # If it is displaying a go stimulus
             touched = False
-            while trialClock.getTime() < 30.0 and globalClock.getTime() < session_timeout_time:
+            while trialClock.getTime() < pos_duration and globalClock.getTime() < session_timeout_time:
                 event.clearEvents()
                 dis_shape.draw()
                 mywin.update()
@@ -94,7 +93,7 @@ def run_experiment(record_data):
                 record_data(i + 1, 'FALSE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
         else: # If a negative stimulus is displayed
             while globalClock.getTime() < session_timeout_time:
-                if trialClock.getTime() >= neg_response_time:
+                if trialClock.getTime() >= neg_duration:
                     record_data(i + 1, 'TRUE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
                     click_sound.play()
                     mywin.flip()

@@ -7,31 +7,31 @@ import numpy as np
 from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, kb, input_tracker, hor_scale
 
 
-# Parameters
-negative_reinforcement_delay = 3.0
-positive_reinforcement_delay = 1.0
-hold_phase_delay = 2
-session_timeout_time = 30 # Normallly 480.0 seconds
-circle_diam = 0.8
-neg_response_time = 2.0 # How long to wait when negative stimuli is presented
-
-#create circle stimuli
-circle = visual.ShapeStim(
-    win=mywin, name='go_circle',
-    size=(circle_diam, circle_diam), vertices='circle',
-    ori=0.0, pos=(0, 0), anchor='center',
-    lineWidth=0.0,     colorSpace='rgb', fillColor='white',
-    opacity=None, depth=0.0, interpolate=True)
+def normal_training(record_data, new_shape, session_timeout_time, parameters):
+    # Parameters
+    negative_reinforcement_delay = float(parameters["negative_reinforcement_delay"])
+    positive_reinforcement_delay = float(parameters["positive_reinforcement_delay"])
+    hold_phase_delay = float(parameters["hold_phase_delay"])
+    circle_diam = float(parameters["circle_diam"])
+    pos_duration = float(parameters["pos_duration"]) # How long to wait when positive stimuli is presented
+    neg_duration = float(parameters["neg_duration"]) # Ditto for negative stimuli
     
-#create triangle stimuli
+        #create circle stimuli
+    circle = visual.ShapeStim(
+        win=mywin, name='go_circle',
+        size=(circle_diam, circle_diam), vertices='circle',
+        ori=0.0, pos=(0, 0), anchor='center',
+        lineWidth=0.0,     colorSpace='rgb', fillColor='white',
+        opacity=None, depth=0.0, interpolate=True)
+        
+    #create triangle stimuli
+        
+    triangle = visual.Polygon(
+        win=mywin, edges=3, size=(1, 1),
+        anchor='center', pos=(0.3, 0),
+        fillColor='grey', name='stop_triangle'
+        )
     
-triangle = visual.Polygon(
-    win=mywin, edges=3, size=(1, 1),
-    anchor='center', pos=(0.3, 0),
-    fillColor='grey', name='stop_triangle'
-    )
-
-def normal_training(record_data, new_shape):
     device = input_tracker()
     shapes = [circle, triangle] # 
     i = 0 # Tracks trial number
@@ -60,7 +60,7 @@ def normal_training(record_data, new_shape):
         trialClock.reset()
         if index == 0: # If a go circle is being displayed
             touched = False
-            while trialClock.getTime() < 30.0 and globalClock.getTime() < session_timeout_time:
+            while trialClock.getTime() < pos_duration and globalClock.getTime() < session_timeout_time:
                 event.clearEvents()
                 dis_shape.draw()
                 mywin.update()
@@ -81,7 +81,7 @@ def normal_training(record_data, new_shape):
                 record_data(i + 1, 'FALSE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
         else: # If a no-go triangle is being displayed
             while globalClock.getTime() < session_timeout_time:
-                if trialClock.getTime() >= neg_response_time:
+                if trialClock.getTime() >= neg_duration:
                     record_data(i + 1, 'TRUE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
                     click_sound.play()
                     mywin.flip()
