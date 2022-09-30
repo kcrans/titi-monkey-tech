@@ -40,8 +40,8 @@ def main():
     
     sub_cond, chosen_phase, session_timeout_time = confirDlg.show()
     session_timeout_time = float(session_timeout_time)
-    temp_params = current_sub["phase 1-3 params"]
-    param_string = f'{temp_params["pos_duration"]},{temp_params["neg_duration"]},{temp_params["negative_reinforcement_delay"]},{temp_params["positive_reinforcement_delay"]},{temp_params["hold_phase_delay"]}'
+    common_params = current_sub["phase 1-3 params"]
+    param_string = f'{common_params["pos_duration"]},{common_params["neg_duration"]},{common_params["negative_reinforcement_delay"]},{common_params["positive_reinforcement_delay"]},{common_params["hold_phase_delay"]}'
     
     if confirDlg.OK:
         print('Selection made, starting now')
@@ -73,20 +73,20 @@ def main():
         from go_signal import normal_training
         def new_shape(x):
             return 0
-        normal_training(write_data, new_shape, session_timeout_time, current_sub["phase 1-3 params"])
+        normal_training(write_data, new_shape, session_timeout_time, common_params)
     elif chosen_phase == "2: Alternating Stop Signal":
         from go_signal import normal_training
         def new_shape(x):
             return x % 2
-        normal_training(write_data, new_shape, session_timeout_time, current_sub["phase 1-3 params"])
+        normal_training(write_data, new_shape, session_timeout_time, common_params)
     elif chosen_phase == "3: Random Stop Signal":
         from go_signal import normal_training
         def new_shape(x): 
             return choice((0, 1))
-        normal_training(write_data, new_shape, session_timeout_time, current_sub["phase 1-3 params"])
+        normal_training(write_data, new_shape, session_timeout_time, common_params)
     elif chosen_phase == "4: Experiment":
         from experiment import run_experiment
-        run_experiment(write_data, session_timeout_time, current_sub["phase 1-3 params"], current_sub["phase 4 params"])
+        run_experiment(write_data, session_timeout_time, common_params, current_sub["phase 4 params"])
     
     # Record any changes to subject parameters
     current_sub['condition'] = sub_cond
