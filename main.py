@@ -61,7 +61,7 @@ def main():
         heading += ",positive reinforcement delay,hold phase delay\n"
         dataFile.write(heading)
 
-    def write_data(trial_num, stop_stim, screen_touched, response_time, direct_touch, hold_touches, diameter):
+    def write_data(trial_num, stop_stim, screen_touched, response_time, hold_touches, direct_touch, diameter):
         dataFile.write(f"{subject_choice},{sub_cond},{timestamp},{chosen_phase},{trial_num},{stop_stim},{screen_touched},{response_time},{hold_touches},{direct_touch},{diameter},{session_timeout_time},{param_string}\n")
         return
         
@@ -90,7 +90,7 @@ def main():
     
     # Record any changes to subject parameters
     current_sub['condition'] = sub_cond
-    current_sub['current phase'] = chosen_phase
+    current_sub['current phase'] = chosen_phase[0]
     current_sub['session timeout time'] = session_timeout_time
     with open('subinfo.json', "w") as f:
         json.dump(subjects, f)

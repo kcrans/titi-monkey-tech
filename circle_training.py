@@ -79,13 +79,13 @@ def circle_run(record_data, session_timeout_time, parameters):
                 hit_count += 1
                 miss_count = 0
                 trial += 1
-                record_data(trial, 'FALSE', 'TRUE', trial_time, 'TRUE', 0, circle.size[0])
+                record_data(trial, 'FALSE', 'TRUE', trial_time, 0, 'TRUE', circle.size[0])
             else:
                 neg_reinforce_sound.play()
                 miss_count += 1
                 hit_count = 0
                 trial += 1
-                record_data(trial, 'FALSE', 'TRUE', trial_time, 'FALSE', 0, circle.size[0])
+                record_data(trial, 'FALSE', 'TRUE', trial_time, 0, 'FALSE', circle.size[0])
             if hit_count == 3:
                 shrink(circle)
                 hit_count = 0
