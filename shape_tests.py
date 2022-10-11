@@ -76,10 +76,10 @@ def get_shape(mywin, shape_name):
             opacity=None, interpolate=True)
         
         return star
-    elif shape_name == 'strike_circle':
+    elif shape_name == 'no_sign':
         # Add an invisible circle in order to track touches
         strike_mask = visual.ShapeStim(
-            win=mywin, name='go_circle',
+            win=mywin, name='mask',
             size=(circle_diam, circle_diam), vertices='circle',
             ori=0.0, pos=(0, 0), anchor='center',
             lineWidth=0.0, opacity=0.0, interpolate=True)

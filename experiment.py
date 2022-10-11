@@ -10,14 +10,14 @@ from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinf
 def run_experiment(record_data, session_timeout_time, parameters, experiment_parameters):
 
     # Parameters
-    negative_reinforcement_delay = float(parameters["negative_reinforcement_delay"])
-    positive_reinforcement_delay = float(parameters["positive_reinforcement_delay"])
-    hold_phase_delay = float(parameters["hold_phase_delay"])
-    circle_diam = float(parameters["circle_diam"])
-    pos_duration = float(parameters["pos_duration"]) # How long to wait when positive stimuli is presented
-    neg_duration = float(parameters["neg_duration"]) # Ditto for negative stimuli
-    num_pos = int(experiment_parameters["num_pos"]) # Number of go signal trials
-    num_neg = int(experiment_parameters["num_neg"]) # Number of no-go signal trials
+    negative_reinforcement_delay = parameters["negative_reinforcement_delay"]
+    positive_reinforcement_delay = parameters["positive_reinforcement_delay"]
+    hold_phase_delay = parameters["hold_phase_delay"]
+    circle_diam = parameters["circle_diam"]
+    pos_duration = parameters["pos_duration"] # How long to wait when positive stimuli is presented
+    neg_duration = parameters["neg_duration"] # Ditto for negative stimuli
+    num_pos = experiment_parameters["num_pos"] # Number of go signal trials
+    num_neg = experiment_parameters["num_neg"] # Number of no-go signal trials
     
         #create circle stimuli
     circle = visual.ShapeStim(

@@ -8,11 +8,11 @@ from init import mywin, scale, touch_tracker, click_sound, neg_reinforce_sound, 
 
 def circle_run(record_data, session_timeout_time, parameters):
     # Go signal training parameters
-    touch_delay = float(parameters["touch_delay"]) # How long until new touches can be registered after a touch
-    start = float(parameters["start"]) # Start with a specified diameter
-    upper_bound = float(parameters["upper_bound"])
-    lower_bound = float(parameters["lower_bound"])
-    increment = float(parameters["increment"])
+    touch_delay = parameters["touch_delay"] # How long until new touches can be registered after a touch
+    start = parameters["start"] # Start with a specified diameter
+    upper_bound = parameters["upper_bound"]
+    lower_bound = parameters["lower_bound"]
+    increment = parameters["increment"]
     
         # Create circle stimuli object
     circle = visual.ShapeStim(
