@@ -1,7 +1,7 @@
 from psychopy import visual, core, event, monitors, prefs, gui, data  # import some basic libraries from PsychoPy
 from psychopy.sound import Sound # methods for handling audio
 from psychopy.hardware import keyboard
-from parameters import *
+from program_specs import *
 
 mon = monitors.Monitor(monitor_name)
     #print(prefs.general['winType'])
