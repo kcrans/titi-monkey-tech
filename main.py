@@ -5,7 +5,7 @@ Main fucntion used to run any of the trainings/experiments
 """
 
 __author__ = "Kaleb Crans"
-__version__ = "0.91"
+__version__ = "0.92"
 __license__ = "MIT"
 
 from psychopy import visual, core, event, monitors, prefs, gui, data  # import some basic libraries from PsychoPy
@@ -61,8 +61,8 @@ def main():
         heading += ",positive reinforcement delay,hold phase delay\n"
         dataFile.write(heading)
 
-    def write_data(trial_num, stop_stim, screen_touched, response_time, hold_touches, direct_touch, diameter):
-        dataFile.write(f"{subject_choice},{sub_cond},{timestamp},{chosen_phase},{trial_num},{stop_stim},{screen_touched},{response_time},{hold_touches},{direct_touch},{diameter},{session_timeout_time},{param_string}\n")
+    def write_data(trial_num, stop_stim, screen_touched, response_time, hold_touches, direct_touch, scale):
+        dataFile.write(f"{subject_choice},{sub_cond},{timestamp},{chosen_phase},{trial_num},{stop_stim},{screen_touched},{response_time},{hold_touches},{direct_touch},{scale},{session_timeout_time},{param_string}\n")
         return
         
     if chosen_phase == '0: Go Signal':

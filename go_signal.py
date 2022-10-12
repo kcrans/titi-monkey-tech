@@ -4,7 +4,7 @@ from psychopy import visual, core, event, monitors, prefs, gui  # import some ba
 from psychopy.sound import Sound # methods for handling audio
 from random import choice # for randomness in the display of stimuli
 import numpy as np
-from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, kb, input_tracker, hor_scale
+from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, kb, input_tracker, hor_scale, get_shape
 
 
 def normal_training(record_data, new_shape, session_timeout_time, parameters):
@@ -12,25 +12,16 @@ def normal_training(record_data, new_shape, session_timeout_time, parameters):
     negative_reinforcement_delay = parameters["negative_reinforcement_delay"]
     positive_reinforcement_delay = parameters["positive_reinforcement_delay"]
     hold_phase_delay = parameters["hold_phase_delay"]
-    circle_diam = parameters["circle_diam"]
+    shape_scale = parameters["shape_scale"]
     pos_duration = parameters["pos_duration"] # How long to wait when positive stimuli is presented
     neg_duration = parameters["neg_duration"] # Ditto for negative stimuli
     
         #create circle stimuli
-    circle = visual.ShapeStim(
-        win=mywin, name='go_circle',
-        size=(circle_diam, circle_diam), vertices='circle',
-        ori=0.0, pos=(0, 0), anchor='center',
-        lineWidth=0.0,     colorSpace='rgb', fillColor='white',
-        opacity=None, depth=0.0, interpolate=True)
+    circle = get_shape('circle')
         
     #create triangle stimuli
         
-    triangle = visual.Polygon(
-        win=mywin, edges=3, size=(1, 1),
-        anchor='center', pos=(0.3, 0),
-        fillColor='grey', name='stop_triangle'
-        )
+    triangle = get_shape('triangle')
     
     device = input_tracker()
     shapes = [circle, triangle] # 
@@ -67,22 +58,22 @@ def normal_training(record_data, new_shape, session_timeout_time, parameters):
                 if device.is_touched():
                     touched = True
                     if dis_shape.contains(touch_tracker):
-                        record_data(i + 1, 'FALSE', 'TRUE', trialClock.getTime(), touch_count, 'TRUE', circle_diam)
+                        record_data(i + 1, 'FALSE', 'TRUE', trialClock.getTime(), touch_count, 'TRUE', shape_scale)
                         click_sound.play()
                         mywin.flip()
                         core.wait(positive_reinforcement_delay)
                     else:
-                        record_data(i + 1, 'FALSE', 'TRUE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
+                        record_data(i + 1, 'FALSE', 'TRUE', trialClock.getTime(), touch_count, 'FALSE', shape_scale)
                         neg_reinforce_sound.play()
                         mywin.flip()
                         core.wait(negative_reinforcement_delay)
                     break # Break out of inner loop if anywhere on screen is touched
             if not touched:
-                record_data(i + 1, 'FALSE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
+                record_data(i + 1, 'FALSE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', shape_scale)
         else: # If a no-go triangle is being displayed
             while globalClock.getTime() < session_timeout_time:
                 if trialClock.getTime() >= neg_duration:
-                    record_data(i + 1, 'TRUE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
+                    record_data(i + 1, 'TRUE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', shape_scale)
                     click_sound.play()
                     mywin.flip()
                     core.wait(positive_reinforcement_delay)
@@ -91,7 +82,7 @@ def normal_training(record_data, new_shape, session_timeout_time, parameters):
                 dis_shape.draw()
                 mywin.update()
                 if device.is_touched():
-                    record_data(i + 1, 'TRUE', 'TRUE', trialClock.getTime(), touch_count, 'FALSE', circle_diam)
+                    record_data(i + 1, 'TRUE', 'TRUE', trialClock.getTime(), touch_count, 'FALSE', shape_scale)
                     neg_reinforce_sound.play()
                     mywin.flip()
                     core.wait(negative_reinforcement_delay)
