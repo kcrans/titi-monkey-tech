@@ -39,8 +39,8 @@ def circle_run(record_data, session_timeout_time, parameters):
         # Function to see if touches are in the circle.
         # Uses the fact that circles are the only shape in this program
     def quick_contains(polygon, x, y): 
-        radius_sqrd = (scale*polygon.size[0])**2
-        if x**2 + y**2 <= radius_sqrd:
+        radius_sqrd = (0.5*polygon.size[0])**2
+        if (scale*x)**2 + (scale*y)**2 <= radius_sqrd:
             return True
         else:
             return False

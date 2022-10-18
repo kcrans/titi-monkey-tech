@@ -18,17 +18,17 @@ mywin = visual.Window(size=window_size, fullscr=True, color="black", monitor=mon
     
 hor_scale = window_size[0]/window_size[1]
 
-if mywin.useRetina == False: # Not a retina screen
+if mywin.useRetina == True: # Not a retina screen
     scale = 0.5
 else:
     scale = 1
-print('Is using retina:', mywin.useRetina)    
+print('Is using retina:', mywin.useRetina)   
 def get_shape(shape_name):
     #create circle stimuli
     if shape_name == 'circle':
         circle = visual.ShapeStim(
             win=mywin, name='go_circle',
-            size=(shape_scale, shape_scale), vertices='circle',
+            size=(shape_size, shape_size), vertices='circle',
             ori=0.0, pos=(0, 0), anchor='center',
             lineWidth=0.0,     colorSpace='rgb', fillColor='white',
             opacity=None, interpolate=True)
@@ -36,14 +36,14 @@ def get_shape(shape_name):
     #create triangle stimuli
     elif shape_name == 'triangle':    
         triangle = visual.Polygon(
-            win=mywin, edges=3, size=(shape_scale, shape_scale),
+            win=mywin, edges=3, size=(shape_size, shape_size),
              pos=(0, -0.1),
             fillColor='grey', name='stop_triangle'
             )
         return triangle
     elif shape_name == 'square':
         square = visual.rect.Rect(
-            win=mywin, size = (shape_scale- 0.1, shape_scale - 0.1), pos=(0,0),
+            win=mywin, size = (shape_size- 0.1, shape_size - 0.1), pos=(0,0),
             fillColor='white', name = "stop_square"
             )
         return square
@@ -65,7 +65,7 @@ def get_shape(shape_name):
 
         cross = visual.ShapeStim(
             win=mywin, name='go_cross',
-            size=(shape_scale, shape_scale), vertices=cross_vertices,
+            size=(shape_size, shape_size), vertices=cross_vertices,
             ori=0.0, pos=(0, 0), anchor='center',
             lineWidth=0.0,     colorSpace='rgb', fillColor='grey',
             opacity=None, interpolate=True)
@@ -87,7 +87,7 @@ def get_shape(shape_name):
         # Maybe shift so it doesn't look like there is more space on the bottom
         star = visual.ShapeStim(
             win=mywin, name='go_cross',
-            size=(shape_scale, shape_scale), vertices=star_points,
+            size=(shape_size, shape_size), vertices=star_points,
             ori=0.0, pos=(0, 0), anchor='center',
             lineWidth=0.0,     colorSpace='rgb', fillColor='grey',
             opacity=None, interpolate=True)
@@ -97,11 +97,11 @@ def get_shape(shape_name):
         # Add an invisible circle in order to track touches
         strike_mask = visual.ShapeStim(
             win=mywin, name='go_circle',
-            size=(shape_scale, shape_scale), vertices='circle',
+            size=(shape_size, shape_size), vertices='circle',
             ori=0.0, pos=(0, 0), anchor='center',
             lineWidth=0.0, opacity=0.0, interpolate=True)
             
-        strike_circle = visual.ImageStim(win=mywin, image='assets/goSignal_strike.png', size = (shape_scale, shape_scale))
+        strike_circle = visual.ImageStim(win=mywin, image='assets/goSignal_strike.png', size = (shape_size, shape_size))
         visible_draw = strike_circle.draw
         def new_draw():
             visible_draw()

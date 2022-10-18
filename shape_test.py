@@ -2,7 +2,7 @@ from psychopy import visual, core, event, monitors, prefs, gui  # import some ba
 from psychopy.sound import Sound # methods for handling audio
 from random import choice # for randomness in the display of stimuli
 import numpy as np
-from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, kb, input_tracker, hor_scale
+from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, kb, input_tracker, scale, hor_scale
 
 circle_diam = 0.8
 
@@ -109,14 +109,17 @@ def change_size(new_size):
     for shape in shapes:
         shape.size = (new_size, new_size)
 
-hor_pos = (hor_scale/2) - 0.4 # How far to go horizontally on the left and right
+hor_pos = 0.5*(hor_scale/2) # How far to go horizontally on the left and right
+print(hor_scale, hor_pos)
+
 
 keys = kb.getKeys()
 side = -1
 
 msg = visual.TextStim(mywin, text=' ', pos=(0.0, 0.0), color = (1.0, 0.0, 0.0), height= 0.05)
+controls = visual.TextStim(mywin, text='w, s: cycle through shapes\na, d: change size                ', pos=(-1*hor_pos, -0.4), color = (1.0, 0.0, 0.0), height= 0.05)
 mywin.flip()
-#dis_shape.pos = (side*(hor_pos), 0) 
+device = input_tracker()
 while 'escape' not in keys:
     dis_shape = shapes[shape_index]
     event.clearEvents()
@@ -136,4 +139,5 @@ while 'escape' not in keys:
     msg.text = f'Size: {shape_scale:0.2f}'
     dis_shape.draw()
     msg.draw()
+    controls.draw()
     mywin.update()    
