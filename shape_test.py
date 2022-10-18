@@ -71,7 +71,7 @@ def get_shape(mywin, shape_name):
         ]
         # Maybe shift so it doesn't look like there is more space on the bottom
         star = visual.ShapeStim(
-            win=mywin, name='go_cross',
+            win=mywin, name='star',
             size=(shape_scale, shape_scale), vertices=star_points,
             ori=0.0, pos=(0, 0), anchor='center',
             lineWidth=0.0,     colorSpace='rgb', fillColor='grey',
@@ -96,39 +96,44 @@ def get_shape(mywin, shape_name):
     else:
         return None
 
-shapes = [get_shape(mywin, 'star'), get_shape(mywin, 'strike_circle')] # 
-i = 0 # Tracks trial number
+shapes = [get_shape(mywin, shape_str) for shape_str in ['circle', 'triangle', 'square', 'cross', 'star', 'strike_circle' ]] # 
+shape_index = 0
+def move_index(index):
+    if index > 5:
+        index = 0
+    if index < 0:
+        index = 5
+    return index
+
+def change_size(new_size):
+    for shape in shapes:
+        shape.size = (new_size, new_size)
+
 hor_pos = (hor_scale/2) - 0.4 # How far to go horizontally on the left and right
 
 keys = kb.getKeys()
 side = -1
 
-tiny_circle1 = visual.ShapeStim(
-            win=mywin, name='go_circle',
-            size=(0.05, 0.05), vertices='circle',
-            ori=0.0, pos=(0, 0), anchor='center',
-            lineWidth=0.0,     colorSpace='rgb', fillColor='white',
-            opacity=None, interpolate=True)
-tiny_circle2 = visual.ShapeStim(
-            win=mywin, name='go_circle',
-            size=(0.05, 0.05), vertices='circle',
-            ori=0.0, pos=(0, 0), anchor='center',
-            lineWidth=0.0,     colorSpace='rgb', fillColor='white',
-            opacity=None, interpolate=True)
-tiny_circle3 = visual.ShapeStim(
-            win=mywin, name='go_circle',
-            size=(0.05, 0.05), vertices='circle',
-            ori=0.0, pos=(0, 0), anchor='center',
-            lineWidth=0.0,     colorSpace='rgb', fillColor='white',
-            opacity=None, interpolate=True)
+msg = visual.TextStim(mywin, text=' ', pos=(0.0, 0.0), color = (1.0, 0.0, 0.0), height= 0.05)
+mywin.flip()
+#dis_shape.pos = (side*(hor_pos), 0) 
 while 'escape' not in keys:
+    dis_shape = shapes[shape_index]
     event.clearEvents()
     keys = kb.getKeys()
-    dis_shape = get_shape(mywin, 'triangle')
-    mywin.flip()
-    side = -1*side
-    dis_shape.pos = (side*(hor_pos), 0) 
+    if keys:
+        for k in keys:
+            if k == 'w':
+                shape_index = move_index(shape_index + 1)
+            elif k == 's':
+                shape_index = move_index(shape_index - 1)
+            elif k == 'd':
+                shape_scale += 0.05
+                change_size(shape_scale)
+            elif k == 'a':
+                shape_scale -= 0.05
+                change_size(shape_scale)
+    msg.text = f'Size: {shape_scale:0.2f}'
     dis_shape.draw()
-    mywin.update()
-    core.wait(3.0)
-    
+    msg.draw()
+    mywin.update()    

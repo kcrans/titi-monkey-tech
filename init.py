@@ -22,8 +22,7 @@ if mywin.useRetina == False: # Not a retina screen
     scale = 0.5
 else:
     scale = 1
-    #print(mywin.size)
-    
+print('Is using retina:', mywin.useRetina)    
 def get_shape(shape_name):
     #create circle stimuli
     if shape_name == 'circle':
@@ -108,6 +107,7 @@ def get_shape(shape_name):
             visible_draw()
             strike_mask.draw()
         strike_circle.draw = new_draw
+        strike_circle.contains = strike_mask.contains
         return strike_circle
     else:
         return None
