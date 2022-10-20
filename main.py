@@ -5,7 +5,7 @@ Main fucntion used to run any of the trainings/experiments
 """
 
 __author__ = "Kaleb Crans"
-__version__ = "0.92"
+__version__ = "0.93"
 __license__ = "MIT"
 
 from psychopy import visual, core, event, monitors, prefs, gui, data  # import some basic libraries from PsychoPy
@@ -17,7 +17,7 @@ import os
 
 def main():
     phase_names = ['0: Go Signal', '1: Wait Screen', '2: Alternating Stop Signal', '3: Random Stop Signal', '4: Experiment' ]
-    # Load all the metadata about prior subjec
+    # Load all the metadata about prior subject
     with open('subinfo.json') as f:
         subjects = json.load(f)
     subDlg = gui.Dlg(title= f'TITI Beta Version {__version__}')
@@ -74,17 +74,17 @@ def main():
         circle_run(write_data, session_timeout_time, current_sub["phase 0 params"])
         
     elif chosen_phase == "1: Wait Screen":
-        from go_signal import normal_training
+        from regular_training import normal_training
         def new_shape(x):
             return 0
         normal_training(write_data, new_shape, session_timeout_time, pos_shape_name, neg_shape_name, common_params)
     elif chosen_phase == "2: Alternating Stop Signal":
-        from go_signal import normal_training
+        from regular_training import normal_training
         def new_shape(x):
             return x % 2
         normal_training(write_data, new_shape, session_timeout_time, pos_shape_name, neg_shape_name, common_params)
     elif chosen_phase == "3: Random Stop Signal":
-        from go_signal import normal_training
+        from regular_training import normal_training
         def new_shape(x): 
             return choice((0, 1))
         normal_training(write_data, new_shape, session_timeout_time, pos_shape_name, neg_shape_name, common_params)

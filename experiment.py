@@ -8,7 +8,17 @@ from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinf
 
 
 def run_experiment(record_data, session_timeout_time, shape_name_1, shape_name_2, parameters, experiment_parameters):
-
+    """
+    Start an experiment phase.
+    
+    Keyword arguments:
+    record_data -- function that writes data to file
+    session_timeout_time -- max length of experiment in seconds
+    shape_name_1 -- name of positive stimuli shape
+    shape_name_2 -- name of negative stimuli shape
+    parameters -- dict of common parameters
+    experiment_parameters -- parameters exclusive to experiment phase
+    """
     # Parameters
     negative_reinforcement_delay = parameters["negative_reinforcement_delay"]
     positive_reinforcement_delay = parameters["positive_reinforcement_delay"]
