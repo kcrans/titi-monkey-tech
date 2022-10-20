@@ -25,6 +25,10 @@ Now you will be presented with the parameter customization screen. You will firs
 
 6. Results will be stored in a single csv file titled **titi_monkey_data.csv**. After each run of a training session or experiment, results will be appended to this file.
 
+## Tips and Things to Note
+
+- Press escape at anytime during a phase 0 (circle training) run to exit the program. During any of the other training types, press escape once the stimulus has been displayed after the hold phase delay.
+
 
 ## Architecture Overview
 
