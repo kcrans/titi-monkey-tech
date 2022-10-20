@@ -5,7 +5,7 @@ Main fucntion used to run any of the trainings/experiments
 """
 
 __author__ = "Kaleb Crans"
-__version__ = "0.93"
+__version__ = "0.94"
 __license__ = "MIT"
 
 from psychopy import visual, core, event, monitors, prefs, gui, data  # import some basic libraries from PsychoPy
@@ -74,23 +74,23 @@ def main():
         circle_run(write_data, session_timeout_time, current_sub["phase 0 params"])
         
     elif chosen_phase == "1: Wait Screen":
-        from regular_training import normal_training
+        from varied_training import normal_training
         def new_shape(x):
             return 0
         normal_training(write_data, new_shape, session_timeout_time, pos_shape_name, neg_shape_name, common_params)
     elif chosen_phase == "2: Alternating Stop Signal":
-        from regular_training import normal_training
+        from varied_training import normal_training
         def new_shape(x):
             return x % 2
         normal_training(write_data, new_shape, session_timeout_time, pos_shape_name, neg_shape_name, common_params)
     elif chosen_phase == "3: Random Stop Signal":
-        from regular_training import normal_training
+        from varied_training import normal_training
         def new_shape(x): 
             return choice((0, 1))
         normal_training(write_data, new_shape, session_timeout_time, pos_shape_name, neg_shape_name, common_params)
     elif chosen_phase == "4: Experiment":
         from experiment import run_experiment
-        run_experiment(write_data, session_timeout_time, pos_shape_name, neg_shape_name, common_params, current_sub["phase 4 params"])
+        run_experiment(write_data, pos_shape_name, neg_shape_name, common_params, current_sub["phase 4 params"])
     
     # Record any changes to subject parameters
     current_sub['condition'] = sub_cond
