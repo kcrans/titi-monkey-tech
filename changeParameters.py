@@ -1,10 +1,14 @@
 from psychopy import gui
 import json
 
+def bring_to_front(shapes, last_selection):
+    new_shapes = [shape for shape in shapes if shape != last_selection]
+    new_shapes.insert(0, last_selection)
+    return new_shapes
 def new_dictionary(list_values):
     new_dict = {}
     new_dict["condition"] = next(list_values)
-    new_dict["current phase"] = next(list_values)
+    new_dict["current phase"] = int(next(list_values)[0])
     new_dict["session timeout time"] = next(list_values)
     new_dict["positive stimuli"] = next(list_values)
     new_dict["negative stimuli"] = next(list_values)
@@ -32,6 +36,7 @@ def new_dictionary(list_values):
 
 
 phase_names = ['0: Go Signal', '1: Wait Screen', '2: Alternating Stop Signal', '3: Random Stop Signal', '4: Experiment' ]
+shape_names = ['circle', 'triangle', 'square', 'cross', 'star', 'strike_circle']
 # Load all the metadata about prior subjects
 with open('subinfo.json') as f:
     subjects = json.load(f)
@@ -49,10 +54,10 @@ if subDlg.OK:
         parDlg.addField("Name", "", color="Blue")
         parDlg.addText("Global Parameters", color="Blue")
         parDlg.addField("Condition:", "paired")
-        parDlg.addField("Current phase:", 2)
+        parDlg.addField("Current phase:", choices = phase_names)
         parDlg.addField("Session timeout time:", 30)
-        parDlg.addField("Positive stimuli:", "circle")
-        parDlg.addField("Negative stimuli:", "triangle")
+        parDlg.addField("Positive stimuli:", choices = shape_names)
+        parDlg.addField("Negative stimuli:", choices = bring_to_front(shape_names, "triangle"))
         parDlg.addText("Parameters for phase 0:", color="Blue")
         parDlg.addField("Touch delay:", 0.25)
         parDlg.addField("Start:", 0.8)
@@ -82,10 +87,10 @@ if subDlg.OK:
         parDlg = gui.Dlg(title= f"Modify {subject_choice}'s parameters")
         parDlg.addText("Global Parameters", color="Blue")
         parDlg.addField("Condition:", current_sub["condition"])
-        parDlg.addField("Current phase:", current_sub["current phase"])
+        parDlg.addField("Current phase:", choices = bring_to_front(phase_names, phase_names[current_sub["current phase"]]))
         parDlg.addField("Session timeout time:", current_sub["session timeout time"])
-        parDlg.addField("Positive stimuli:", "circle")
-        parDlg.addField("Negative stimuli:", "triangle")        
+        parDlg.addField("Positive stimuli:", choices = bring_to_front(shape_names, current_sub["positive stimuli"]))
+        parDlg.addField("Negative stimuli:", choices = bring_to_front(shape_names, current_sub["negative stimuli"]))        
         parDlg.addText("Parameters for phase 0:", color="Blue")
         current_phase_a = current_sub["phase 0 params"]
         parDlg.addField("Touch delay:", current_phase_a["touch_delay"])

@@ -94,7 +94,7 @@ def main():
     
     # Record any changes to subject parameters
     current_sub['condition'] = sub_cond
-    current_sub['current phase'] = chosen_phase[0]
+    current_sub['current phase'] = int(chosen_phase[0])
     current_sub['session timeout time'] = session_timeout_time
     with open('subinfo.json', "w") as f:
         json.dump(subjects, f)
