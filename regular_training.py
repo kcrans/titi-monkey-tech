@@ -1,22 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from psychopy import visual, core, event, monitors, prefs, gui, data  # import some basic libraries from PsychoPy
+from psychopy import visual, core, event, monitors, prefs, gui  # import some basic libraries from PsychoPy
 from psychopy.sound import Sound # methods for handling audio
-from random import choice, shuffle # for randomness in the display of stimuli
+from random import choice # for randomness in the display of stimuli
 import numpy as np
-from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, input_tracker, hor_scale, scale, get_shape
+from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, kb, input_tracker, hor_scale, scale, get_shape
 
 
-def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experiment_parameters):
+def normal_training(record_data, new_shape, session_timeout_time, shape_name_1, shape_name_2, parameters):
     """
-    Start an experiment phase.
+    Start a training phase.
     
     Keyword arguments:
     record_data -- function that writes data to file
+    session_timeout_time -- max length of experiment in seconds
     shape_name_1 -- name of positive stimuli shape
     shape_name_2 -- name of negative stimuli shape
-    parameters -- dict of common parameters
-    experiment_parameters -- parameters exclusive to experiment phase
+    parameters -- dict of common parameters for phases 1-3
     """
     # Parameters
     negative_reinforcement_delay = parameters["negative_reinforcement_delay"]
@@ -25,8 +25,6 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
     shape_size = parameters["shape_size"]
     pos_duration = parameters["pos_duration"] # How long to wait when positive stimuli is presented
     neg_duration = parameters["neg_duration"] # Ditto for negative stimuli
-    num_pos = experiment_parameters["num_pos"] # Number of go signal trials
-    num_neg = experiment_parameters["num_neg"] # Number of no-go signal trials
     
     #create positive stimuli
     pos_stim = get_shape(shape_name_1)
@@ -35,22 +33,19 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
         
     neg_stim = get_shape(shape_name_2)
     
-    # An array of strings representing different stimuli shapes
-    stimStringList = [shape_name_1]*num_pos + [shape_name_2]*num_neg
-    shuffle(stimStringList) # Shuffle to make the order random
-    # Turn it into an array of dicts, which is the proper format for
-    # TrialHandler
-    stimList = [{'shape': string} for string in stimStringList]
-    trials = data.TrialHandler(stimList, nReps = 1)
     device = input_tracker()
-    shapes = {shape_name_1: pos_stim, shape_name_2: neg_stim} # 
+    shapes = [pos_stim, neg_stim] # 
     i = 0 # Tracks trial number
     hor_pos = 0.5*(hor_scale/2) # How far to go horizontally on the left and right
+    
+    keys = kb.getKeys()
+    time_needed = hold_phase_delay + max(pos_duration, neg_duration)
+    time_needed = 4
     globalClock = core.Clock()
     trialClock = core.Clock()
-    for this_trial in trials:
-        shape_str = this_trial['shape']
-        dis_shape = shapes[shape_str]
+    while globalClock.getTime() < session_timeout_time - time_needed:
+        index = new_shape(i)
+        dis_shape = shapes[index]
         mywin.flip()
         side = choice((-1, 1))
         dis_shape.pos = (side*hor_pos, 0)
@@ -67,9 +62,12 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
                 touch_down = False
             
         trialClock.reset()
-        if shape_str == shape_name_1: # If it is displaying a go stimulus
+        if index == 0: # If a go stimuli is being displayed
             touched = False
             while trialClock.getTime() < pos_duration:
+                keys = kb.getKeys()
+                if 'escape' in keys:
+                    return
                 event.clearEvents()
                 dis_shape.draw()
                 mywin.update()
@@ -88,8 +86,11 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
                     break # Break out of inner loop if anywhere on screen is touched
             if not touched:
                 record_data(i + 1, 'FALSE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', shape_size)
-        else: # If a negative stimulus is displayed
+        else: # If a no-go stimuli is being displayed
             while True:
+                keys = kb.getKeys()
+                if 'escape' in keys:
+                    return
                 if trialClock.getTime() >= neg_duration:
                     record_data(i + 1, 'TRUE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', shape_size)
                     click_sound.play()
@@ -106,4 +107,3 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
                     core.wait(negative_reinforcement_delay)
                     break # Break out of inner loop if anywhere on screen is touched
         i += 1
-    return
