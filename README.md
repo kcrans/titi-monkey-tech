@@ -1,7 +1,7 @@
 
 # Titi Monkey Technology 
 
-A cross-platform python application 
+A cross-platform python application for running reaction-based expirements with non-human primates.
 
 ## Getting Started
 
