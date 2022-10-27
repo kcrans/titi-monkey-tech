@@ -2,10 +2,18 @@ from psychopy import gui
 import json
 
 def bring_to_front(shapes, last_selection):
+    """
+    Used to put the current selection at the front of the list.
+    This makes it the default in the dropdown menu.
+    """
     new_shapes = [shape for shape in shapes if shape != last_selection]
     new_shapes.insert(0, last_selection)
     return new_shapes
 def new_dictionary(list_values):
+    """
+    Takes in a list of parameters and converts it into the correct
+    dictionary used for JSON storage.
+    """
     new_dict = {}
     new_dict["condition"] = next(list_values)
     new_dict["current phase"] = int(next(list_values)[0])
@@ -33,19 +41,24 @@ def new_dictionary(list_values):
     new_dict["phase 4 params"] = new_dict_c
     return new_dict
 
-
-
+# Default lists
 phase_names = ['0: Go Signal', '1: Wait Screen', '2: Alternating Stop Signal', '3: Random Stop Signal', '4: Experiment' ]
 shape_names = ['circle', 'triangle', 'square', 'cross', 'star', 'strike_circle']
+
 # Load all the metadata about prior subjects
 with open('subinfo.json') as f:
     subjects = json.load(f)
+
+# Get all the subject names
 subStrings = list(subjects.keys())
+# Add an option for new subject
 subStrings.append("NEW Subject")
+
 subDlg = gui.Dlg(title= "Choose or add subject")
 subDlg.addText('Subject Info')
 subDlg.addField("Name:", choices = subStrings)
 gui_results = subDlg.show()
+
 if subDlg.OK:
     subject_choice = gui_results[0]
     print('Subject chosen')
@@ -119,6 +132,7 @@ if subDlg.OK:
             print('Exited early')
 else:
     print('Exited early')
+    
 with open('subinfo.json', "w") as f:
     json.dump(subjects, f)
 

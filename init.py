@@ -1,30 +1,28 @@
 from psychopy import visual, core, event, monitors, prefs, gui, data  # import some basic libraries from PsychoPy
 from psychopy.sound import Sound # methods for handling audio
-from psychopy.hardware import keyboard
+from psychopy.hardware import keyboard # for tracking keystokes
 from program_specs import *
 
 mon = monitors.Monitor(monitor_name)
-    #print(prefs.general['winType'])
-    #print(mon.getSizePix())
-    #[500, 500]
-    #create a window
 
 mywin = visual.Window(size=window_size, fullscr=True, color="black", monitor=mon, units="height")
 
-    #print(mywin.useRetina)
-    # With a retina screen, the vertical dimmensions are from -1 to 1
-    # but with a normal display, they are from -0.5 to 0.5
-    # (retina displays scale the normal paramters by 2)
-    
+# Find the ratio of screen width to height.
+# This gives us our horizontal dimmensions
+   
 hor_scale = window_size[0]/window_size[1]
 
-if mywin.useRetina == True: # Not a retina screen
+# With a retina screen, the vertical dimmensions are from -1 to 1
+# but with a normal display, they are from -0.5 to 0.5
+# (retina displays scale the normal paramters by 2)
+ 
+if mywin.useRetina == True: # If it's a retina screen
     scale = 0.5
 else:
     scale = 1
-print('Is using retina:', mywin.useRetina)   
+
 def get_shape(shape_name):
-    #create circle stimuli
+    # create circle stimuli
     if shape_name == 'circle':
         circle = visual.ShapeStim(
             win=mywin, name='go_circle',
@@ -33,7 +31,8 @@ def get_shape(shape_name):
             lineWidth=0.0,     colorSpace='rgb', fillColor='white',
             opacity=None, interpolate=True)
         return circle
-    #create triangle stimuli
+
+    # create triangle stimuli
     elif shape_name == 'triangle':    
         triangle = visual.Polygon(
             win=mywin, edges=3, size=(shape_size, shape_size),
@@ -41,12 +40,15 @@ def get_shape(shape_name):
             fillColor='grey', name='stop_triangle'
             )
         return triangle
+
+    # create square stimuli
     elif shape_name == 'square':
         square = visual.rect.Rect(
             win=mywin, size = (shape_size- 0.1, shape_size - 0.1), pos=(0,0),
             fillColor='white', name = "stop_square"
             )
         return square
+    # create cross stimuli
     elif shape_name == 'cross':
         cross_vertices = [
             (-0.1, +0.4),  # up
@@ -71,6 +73,8 @@ def get_shape(shape_name):
             opacity=None, interpolate=True)
             
         return cross
+
+    # Create star stimuli
     elif shape_name == 'star':
         star_points = [
             (0.0, 0.5),
@@ -93,6 +97,7 @@ def get_shape(shape_name):
             opacity=None, interpolate=True)
         
         return star
+    # create a circle with a cross in the center
     elif shape_name == 'strike_circle':
         # Add an invisible circle in order to track touches
         strike_mask = visual.ShapeStim(
@@ -100,9 +105,11 @@ def get_shape(shape_name):
             size=(shape_size, shape_size), vertices='circle',
             ori=0.0, pos=(0, 0), anchor='center',
             lineWidth=0.0, opacity=0.0, interpolate=True)
-            
+        
+        # Use an image instead of an animation
         strike_circle = visual.ImageStim(win=mywin, image='assets/goSignal_strike.png', size = (shape_size, shape_size))
         visible_draw = strike_circle.draw
+        # Redefine the draw method to draw both visuals
         def new_draw():
             visible_draw()
             strike_mask.draw()
@@ -121,16 +128,15 @@ neg_reinforce_sound = Sound('assets/negativeReinforcement.wav', name='negsound')
 kb = keyboard.Keyboard() # Used for tracking escape key presses
 
 # Create a mouse event class to track touch input
-if touch_screen == False:
+if touch_screen == False: # When usinga regular mouse
     touch_tracker = event.Mouse(visible=True, win=mywin)
         
     class input_tracker:
         def is_touched(self):
-            return touch_tracker.getPressed()[0] == 1 # getTime?
+            return touch_tracker.getPressed()[0] == 1
         
-else:
+else: # When using a touch screen
     touch_tracker = event.Mouse(visible=False, win=mywin)
-    lastPos = touch_tracker.getPos()
     class input_tracker:
         def __init__(self):
             self.lastPos = touch_tracker.getPos()

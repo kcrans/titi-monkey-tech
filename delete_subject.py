@@ -2,10 +2,11 @@ from psychopy import gui
 import json
 
 
-# Load all the metadata about prior subjects
+# Load all the metadata about subjects
 with open('subinfo.json') as f:
     subjects = json.load(f)
     
+# Get an unsorted list of all subject names
 subStrings = list(subjects.keys())
 
 subDlg = gui.Dlg(title= "Choose subject to remove")
@@ -27,5 +28,6 @@ if subDlg.OK:
 else:
     print("Exited early")
 
+# Store the (potentially) updated json data
 with open('subinfo.json', "w") as f:
     json.dump(subjects, f)

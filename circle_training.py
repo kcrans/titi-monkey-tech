@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from psychopy import visual, core, event, monitors, prefs, gui, data  # import some basic libraries from PsychoPy
-from psychopy.sound import Sound # methods for handling audio
-from psychopy.hardware import keyboard
-import numpy as np
+from psychopy import visual, core, event  # import some basic libraries from PsychoPy
 from init import mywin, scale, touch_tracker, click_sound, neg_reinforce_sound, kb, input_tracker
 
 def circle_run(record_data, session_timeout_time, parameters):

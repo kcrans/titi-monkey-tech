@@ -4,7 +4,7 @@ from psychopy import visual, core, event, monitors, prefs, gui, data  # import s
 from psychopy.sound import Sound # methods for handling audio
 from random import choice, shuffle # for randomness in the display of stimuli
 import numpy as np
-from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, input_tracker, hor_scale, scale, get_shape
+from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, kb, input_tracker, hor_scale, scale, get_shape
 
 
 def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experiment_parameters):
@@ -45,10 +45,12 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
     device = input_tracker()
     shapes = {shape_name_1: pos_stim, shape_name_2: neg_stim} # 
     i = 0 # Tracks trial number
+    keys = kb.getKeys()
     hor_pos = 0.5*(hor_scale/2) # How far to go horizontally on the left and right
     globalClock = core.Clock()
     trialClock = core.Clock()
     for this_trial in trials:
+        keys = kb.getKeys()
         shape_str = this_trial['shape']
         dis_shape = shapes[shape_str]
         mywin.flip()
@@ -70,6 +72,10 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
         if shape_str == shape_name_1: # If it is displaying a go stimulus
             touched = False
             while trialClock.getTime() < pos_duration:
+                keys = kb.getKeys()
+                if 'escape' in keys:
+                    trials.finished = True
+                    return
                 event.clearEvents()
                 dis_shape.draw()
                 mywin.update()
@@ -90,6 +96,10 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
                 record_data(i + 1, 'FALSE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', shape_size)
         else: # If a negative stimulus is displayed
             while True:
+                keys = kb.getKeys()
+                if 'escape' in keys:
+                    trials.finished = True
+                    return
                 if trialClock.getTime() >= neg_duration:
                     record_data(i + 1, 'TRUE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', shape_size)
                     click_sound.play()
