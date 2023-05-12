@@ -128,7 +128,7 @@ neg_reinforce_sound = Sound('assets/negativeReinforcement.wav', name='negsound')
 kb = keyboard.Keyboard() # Used for tracking escape key presses
 
 # Create a mouse event class to track touch input
-if touch_screen == False: # When usinga regular mouse
+if touch_screen == False: # When using regular mouse
     touch_tracker = event.Mouse(visible=True, win=mywin)
         
     class input_tracker:

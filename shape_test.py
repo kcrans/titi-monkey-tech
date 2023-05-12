@@ -4,11 +4,15 @@ from random import choice # for randomness in the display of stimuli
 import numpy as np
 from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, kb, input_tracker, scale, hor_scale
 
-circle_diam = 0.8
+shape_scale = 0.6 # Starting value
 
-shape_scale = 0.6
+scale_unit = 0.05 # How much to increment or decrement
 
 def get_shape(mywin, shape_name):
+    """
+    Input: Window object, name of shape (string)
+    Output: Requested shape object
+    """
     #create circle stimuli
     if shape_name == 'circle':
         circle = visual.ShapeStim(
@@ -96,7 +100,8 @@ def get_shape(mywin, shape_name):
     else:
         return None
 
-shapes = [get_shape(mywin, shape_str) for shape_str in ['circle', 'triangle', 'square', 'cross', 'star', 'strike_circle' ]] # 
+# Create a list of shape objects to cycle through
+shapes = [get_shape(mywin, shape_str) for shape_str in ['circle', 'triangle', 'square', 'cross', 'star', 'strike_circle' ]]  
 shape_index = 0
 def move_index(index):
     if index > 5:
@@ -112,14 +117,18 @@ def change_size(new_size):
 hor_pos = 0.5*(hor_scale/2) # How far to go horizontally on the left and right
 print(hor_scale, hor_pos)
 
-
+#dis_shape.pos = (side*hor_pos, 0)
 keys = kb.getKeys()
 side = -1
 
-msg = visual.TextStim(mywin, text=' ', pos=(0.0, 0.0), color = (1.0, 0.0, 0.0), height= 0.05)
-controls = visual.TextStim(mywin, text='w, s: cycle through shapes\na, d: change size                ', pos=(-1*hor_pos, -0.4), color = (1.0, 0.0, 0.0), height= 0.05)
+size_msg = visual.TextStim(mywin, text=' ', pos=(0.0, 0.0), color = (1.0, 0.0, 0.0), height= 0.05)
+pos_msg = visual.TextStim(mywin, text=' ', pos=(hor_pos, 0.4), color = (1.0, 0.0, 0.0), height= 0.05)
+size_controls = visual.TextStim(mywin, text='w, s: cycle through shapes\na, d: change size                ', pos=(-1*hor_pos, -0.4), color = (1.0, 0.0, 0.0), height= 0.05)
+pos_controls = visual.TextStim(mywin, text='j, k: move left or right', pos=(hor_pos, -0.4), color = (1.0, 0.0, 0.0), height= 0.05)
 mywin.flip()
 device = input_tracker()
+
+hor_pos = 0
 while 'escape' not in keys:
     dis_shape = shapes[shape_index]
     event.clearEvents()
@@ -130,14 +139,22 @@ while 'escape' not in keys:
                 shape_index = move_index(shape_index + 1)
             elif k == 's':
                 shape_index = move_index(shape_index - 1)
-            elif k == 'd':
-                shape_scale += 0.05
+            elif k == 'd' and shape_scale <= 1.5:
+                shape_scale += scale_unit
                 change_size(shape_scale)
-            elif k == 'a':
-                shape_scale -= 0.05
+            elif k == 'a' and shape_scale > scale_unit:
+                shape_scale -= scale_unit
                 change_size(shape_scale)
-    msg.text = f'Size: {shape_scale:0.2f}'
+            elif k == "j":
+                hor_pos -= scale_unit
+            elif k == "k":
+                hor_pos += scale_unit
+    dis_shape.pos = (hor_pos, 0)         
+    size_msg.text = f'Size: {shape_scale:0.2f}'
+    pos_msg.text = f'Position: {hor_pos:0.2f}'
     dis_shape.draw()
-    msg.draw()
-    controls.draw()
+    size_msg.draw()
+    pos_msg.draw()
+    size_controls.draw()
+    pos_controls.draw()
     mywin.update()    
