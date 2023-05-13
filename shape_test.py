@@ -117,7 +117,6 @@ def change_size(new_size):
 hor_pos = 0.5*(hor_scale/2) # How far to go horizontally on the left and right
 print(hor_scale, hor_pos)
 
-#dis_shape.pos = (side*hor_pos, 0)
 keys = kb.getKeys()
 side = -1
 
@@ -129,6 +128,16 @@ mywin.flip()
 device = input_tracker()
 
 hor_pos = 0
+dis_shape = shapes[shape_index]
+dis_shape.pos = (0, 0)         
+size_msg.text = f'Size: {shape_scale:0.2f}'
+pos_msg.text = f'Position: {hor_pos:0.2f}'
+dis_shape.draw()
+size_msg.draw()
+pos_msg.draw()
+size_controls.draw()
+pos_controls.draw()
+mywin.flip()   
 while 'escape' not in keys:
     dis_shape = shapes[shape_index]
     event.clearEvents()
@@ -149,12 +158,12 @@ while 'escape' not in keys:
                 hor_pos -= scale_unit
             elif k == "k":
                 hor_pos += scale_unit
-    dis_shape.pos = (hor_pos, 0)         
-    size_msg.text = f'Size: {shape_scale:0.2f}'
-    pos_msg.text = f'Position: {hor_pos:0.2f}'
-    dis_shape.draw()
-    size_msg.draw()
-    pos_msg.draw()
-    size_controls.draw()
-    pos_controls.draw()
-    mywin.update()    
+        dis_shape.pos = (hor_pos, 0)         
+        size_msg.text = f'Size: {shape_scale:0.2f}'
+        pos_msg.text = f'Position: {hor_pos:0.2f}'
+        dis_shape.draw()
+        size_msg.draw()
+        pos_msg.draw()
+        size_controls.draw()
+        pos_controls.draw()
+        mywin.flip()    

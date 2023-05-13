@@ -38,6 +38,7 @@ def circle_run(record_data, session_timeout_time, parameters):
     def quick_contains(polygon, x, y): 
         radius_sqrd = (0.5*polygon.size[0])**2
         if (scale*x)**2 + (scale*y)**2 <= radius_sqrd:
+            print(polygon.size[0])
             return True
         else:
             return False
@@ -55,7 +56,7 @@ def circle_run(record_data, session_timeout_time, parameters):
 
     keys = kb.getKeys()
     circle.draw()
-    mywin.update()
+    mywin.flip()
     lastPos = touch_tracker.getPos()
 
     globalClock = core.Clock() # Time elapsed since experiment began
@@ -87,12 +88,12 @@ def circle_run(record_data, session_timeout_time, parameters):
                 shrink(circle)
                 hit_count = 0
                 circle.draw()
-                mywin.update()
+                mywin.flip()
             elif miss_count == 3:
                 grow(circle)
                 miss_count = 0
                 circle.draw()
-                mywin.update()
+                mywin.flip()
             core.wait(touch_delay)
     if 'escape' in keys:
         return False
