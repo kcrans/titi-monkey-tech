@@ -62,6 +62,7 @@ def circle_run(record_data, session_timeout_time, parameters):
     globalClock = core.Clock() # Time elapsed since experiment began
     trialClock = core.Clock()  # Trial time, resets each trial
     
+    trial_results = []
     trial = 0
     while globalClock.getTime() < session_timeout_time and 'escape' not in keys: # Reorder so timing makes sense
         event.clearEvents()
@@ -77,13 +78,13 @@ def circle_run(record_data, session_timeout_time, parameters):
                 hit_count += 1
                 miss_count = 0
                 trial += 1
-                record_data(trial, 'FALSE', 'TRUE', trial_time, 0, 'TRUE', circle.size[0])
+                trial_results.append([trial, False, True, trial_time, 0, True, circle.size[0]])
             else:
                 neg_reinforce_sound.play()
                 miss_count += 1
                 hit_count = 0
                 trial += 1
-                record_data(trial, 'FALSE', 'TRUE', trial_time, 0, 'FALSE', circle.size[0])
+                trial_results.append([trial, False, True, trial_time, 0, False, circle.size[0]])
             if hit_count == 3:
                 shrink(circle)
                 hit_count = 0
@@ -96,7 +97,7 @@ def circle_run(record_data, session_timeout_time, parameters):
                 mywin.flip()
             core.wait(touch_delay)
     if 'escape' in keys:
-        return False
+        return []
     else:
         parameters["start"] = circle.size[0]
-        return True
+        return trial_results

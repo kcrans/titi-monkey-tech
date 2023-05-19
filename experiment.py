@@ -78,22 +78,22 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
                     return
                 event.clearEvents()
                 dis_shape.draw()
-                mywin.update()
+                mywin.flip()
                 if device.is_touched():
                     touched = True
                     if dis_shape.contains(scale*touch_tracker.getPos()):
-                        record_data(i + 1, 'FALSE', 'TRUE', trialClock.getTime(), touch_count, 'TRUE', shape_size)
+                        record_data(i + 1, False, True, trialClock.getTime(), touch_count, True, shape_size)
                         click_sound.play()
                         mywin.flip()
                         core.wait(positive_reinforcement_delay)
                     else:
-                        record_data(i + 1, 'FALSE', 'TRUE', trialClock.getTime(), touch_count, 'FALSE', shape_size)
+                        record_data(i + 1, False, True, trialClock.getTime(), touch_count, False, shape_size)
                         neg_reinforce_sound.play()
                         mywin.flip()
                         core.wait(negative_reinforcement_delay)
                     break # Break out of inner loop if anywhere on screen is touched
             if not touched:
-                record_data(i + 1, 'FALSE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', shape_size)
+                record_data(i + 1, False, False, trialClock.getTime(), touch_count, False, shape_size)
         else: # If a negative stimulus is displayed
             while True:
                 keys = kb.getKeys()
@@ -101,16 +101,16 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
                     trials.finished = True
                     return
                 if trialClock.getTime() >= neg_duration:
-                    record_data(i + 1, 'TRUE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', shape_size)
+                    record_data(i + 1, True, False, trialClock.getTime(), touch_count, False, shape_size)
                     click_sound.play()
                     mywin.flip()
                     core.wait(positive_reinforcement_delay)
                     break
                 event.clearEvents()
                 dis_shape.draw()
-                mywin.update()
+                mywin.flip()
                 if device.is_touched():
-                    record_data(i + 1, 'TRUE', 'TRUE', trialClock.getTime(), touch_count, 'FALSE', shape_size)
+                    record_data(i + 1, True, True, trialClock.getTime(), touch_count, False, shape_size)
                     neg_reinforce_sound.play()
                     mywin.flip()
                     core.wait(negative_reinforcement_delay)
