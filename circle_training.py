@@ -97,7 +97,9 @@ def circle_run(record_data, session_timeout_time, parameters):
                 mywin.flip()
             core.wait(touch_delay)
     if 'escape' in keys:
-        return []
+        return False
     else:
         parameters["start"] = circle.size[0]
-        return trial_results
+        for trial in trial_results:
+            record_data(*trial)
+        return True

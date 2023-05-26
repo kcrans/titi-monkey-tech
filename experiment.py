@@ -47,6 +47,9 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
     i = 0 # Tracks trial number
     keys = kb.getKeys()
     hor_pos = 0.5*(hor_scale/2) # How far to go horizontally on the left and right
+    
+    trial_results = []
+    
     globalClock = core.Clock()
     trialClock = core.Clock()
     for this_trial in trials:
@@ -75,33 +78,33 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
                 keys = kb.getKeys()
                 if 'escape' in keys:
                     trials.finished = True
-                    return
+                    return False
                 event.clearEvents()
                 dis_shape.draw()
                 mywin.flip()
                 if device.is_touched():
                     touched = True
                     if dis_shape.contains(scale*touch_tracker.getPos()):
-                        record_data(i + 1, False, True, trialClock.getTime(), touch_count, True, shape_size)
+                        trial_results.append([i + 1, False, True, trialClock.getTime(), touch_count, True, shape_size])
                         click_sound.play()
                         mywin.flip()
                         core.wait(positive_reinforcement_delay)
                     else:
-                        record_data(i + 1, False, True, trialClock.getTime(), touch_count, False, shape_size)
+                        trial_results.append([i + 1, False, True, trialClock.getTime(), touch_count, False, shape_size])
                         neg_reinforce_sound.play()
                         mywin.flip()
                         core.wait(negative_reinforcement_delay)
                     break # Break out of inner loop if anywhere on screen is touched
             if not touched:
-                record_data(i + 1, False, False, trialClock.getTime(), touch_count, False, shape_size)
+                trial_results.append([i + 1, False, False, trialClock.getTime(), touch_count, False, shape_size])
         else: # If a negative stimulus is displayed
             while True:
                 keys = kb.getKeys()
                 if 'escape' in keys:
                     trials.finished = True
-                    return
+                    return False
                 if trialClock.getTime() >= neg_duration:
-                    record_data(i + 1, True, False, trialClock.getTime(), touch_count, False, shape_size)
+                    trial_results.append([i + 1, True, False, trialClock.getTime(), touch_count, False, shape_size])
                     click_sound.play()
                     mywin.flip()
                     core.wait(positive_reinforcement_delay)
@@ -110,10 +113,12 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
                 dis_shape.draw()
                 mywin.flip()
                 if device.is_touched():
-                    record_data(i + 1, True, True, trialClock.getTime(), touch_count, False, shape_size)
+                    trial_results.append([i + 1, True, True, trialClock.getTime(), touch_count, False, shape_size])
                     neg_reinforce_sound.play()
                     mywin.flip()
                     core.wait(negative_reinforcement_delay)
                     break # Break out of inner loop if anywhere on screen is touched
         i += 1
-    return
+    for trial in trial_results:
+        record_data(*trial)    
+    return True

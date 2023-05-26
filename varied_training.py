@@ -59,7 +59,7 @@ def normal_training(record_data, new_shape, session_timeout_time, shape_name_1, 
         trialClock.reset()
         while trialClock.getTime() < hold_phase_delay:
             if 'escape' in kb.getKeys():
-                return []
+                return False
             if device.is_touched():
                 if not touch_down:
                     touch_count += 1
@@ -73,7 +73,7 @@ def normal_training(record_data, new_shape, session_timeout_time, shape_name_1, 
             while trialClock.getTime() < pos_duration:
                 keys = kb.getKeys()
                 if 'escape' in keys:
-                    return []
+                    return False
                 event.clearEvents()
                 dis_shape.draw()
                 mywin.flip()
@@ -96,7 +96,7 @@ def normal_training(record_data, new_shape, session_timeout_time, shape_name_1, 
             while True:
                 keys = kb.getKeys()
                 if 'escape' in keys:
-                    return []
+                    return False
                 if trialClock.getTime() >= neg_duration:
                     trial_results.append([trial, 'TRUE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', shape_size])
                     click_sound.play()
@@ -113,4 +113,6 @@ def normal_training(record_data, new_shape, session_timeout_time, shape_name_1, 
                     core.wait(negative_reinforcement_delay)
                     break # Break out of inner loop if anywhere on screen is touched
         trial += 1
-    return trial_results
+    for trial in trial_results:
+        record_data(*trial)
+    return True

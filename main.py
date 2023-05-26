@@ -16,7 +16,7 @@ import json
 import os
 import csv
 
-def main():
+def main(debug = False):
     phase_names = ['0: Go Signal', '1: Wait Screen', '2: Alternating Stop Signal', '3: Random Stop Signal', '4: Experiment' ]
     # Load all the metadata about prior subject
     with open('subinfo.json') as f:
@@ -55,8 +55,8 @@ def main():
         return # End before it starts
     timestamp = data.getDateStr()
     
-    fileName = f"titi_monkey_data.csv"
-    # a simple text file with 'comma-separated-values'
+    fileName = "titi_monkey_data.csv"
+    # If the csv file doesn't exist, create it and add the column headings:
     if not os.path.exists(fileName):
         with open(fileName, 'w+', newline='') as dataFile:
             csv_writer = csv.writer(dataFile, delimiter=',')
@@ -65,46 +65,39 @@ def main():
             "hold phase touches", "direct touch", "diameter", "session time",
             "positive shape", "negative shape", "go stim duration", "stop stim duration",
             "negative reinforcement delay", "positive reinforcement delay", "hold phase delay"])
-           # heading = "subject id,subject condition,session timestamp,phase,"
-           # heading += "trial number,stop stimulus,screen touched,response time,"
-            #heading += "hold phase touches,direct touch,diameter,session time,"
-            #heading += "positive shape, negative shape,"
-           # heading += "go stim duration,stop stim duration,negative reinforcement delay"
-            #heading += ",positive reinforcement delay,hold phase delay\n"
-           # dataFile.write(heading)
         
     with open(fileName, 'a', newline='') as dataFile:
         csv_writer = csv.writer(dataFile, delimiter=',')
         def write_data(trial_num, stop_stim, screen_touched, response_time, hold_touches, direct_touch, scale):
             csv_writer.writerow([subject_choice, sub_cond, timestamp, chosen_phase, trial_num, stop_stim, screen_touched, response_time, hold_touches, direct_touch, scale, session_timeout_time, pos_shape_name, neg_shape_name, *param_list])
-            #return f"{subject_choice},{sub_cond},{timestamp},{chosen_phase},{trial_num},{stop_stim},{screen_touched},{response_time},{hold_touches},{direct_touch},{scale},{session_timeout_time},{pos_shape_name},{neg_shape_name},{param_string}\n"
             
         if chosen_phase == '0: Go Signal':
             from circle_training import circle_run
-            for trial in circle_run(write_data, session_timeout_time, current_sub["phase 0 params"]):
-                write_data(*trial)
+            completed = circle_run(write_data, session_timeout_time, current_sub["phase 0 params"])
+            
         elif chosen_phase == "1: Wait Screen":
             from varied_training import normal_training
             def new_shape(x):
                 return 0
-            for trial in normal_training(write_data, new_shape, session_timeout_time, pos_shape_name, neg_shape_name, common_params):
-                write_data(*trial)
+            completed = normal_training(write_data, new_shape, session_timeout_time, pos_shape_name, neg_shape_name, common_params)
+                
         elif chosen_phase == "2: Alternating Stop Signal":
             from varied_training import normal_training
             def new_shape(x):
                 return x % 2
-            for trial in normal_training(write_data, new_shape, session_timeout_time, pos_shape_name, neg_shape_name, common_params):
-                write_data(*trial)
+            completed = normal_training(write_data, new_shape, session_timeout_time, pos_shape_name, neg_shape_name, common_params)
+                
         elif chosen_phase == "3: Random Stop Signal":
             from varied_training import normal_training
             def new_shape(x): 
                 return choice((0, 1))
-            for trial in normal_training(write_data, new_shape, session_timeout_time, pos_shape_name, neg_shape_name, common_params):
-                write_data(*trial)
+            completed = normal_training(write_data, new_shape, session_timeout_time, pos_shape_name, neg_shape_name, common_params)
+                
         elif chosen_phase == "4: Experiment":
             from experiment import run_experiment
-            run_experiment(write_data, pos_shape_name, neg_shape_name, common_params, current_sub["phase 4 params"])
-    
+            completed = run_experiment(write_data, pos_shape_name, neg_shape_name, common_params, current_sub["phase 4 params"])
+    if debug == True:
+        print(f'Experiment completed: {completed}')
     # Record any changes to subject parameters
     current_sub['condition'] = sub_cond
     current_sub['current phase'] = int(chosen_phase[0])
@@ -112,4 +105,4 @@ def main():
     with open('subinfo.json', "w") as f:
         json.dump(subjects, f)
 if __name__ == "__main__":
-    main()
+    main(True)

@@ -6,3 +6,11 @@ Gru,paired,2023-05-19_00h21.19.047,2: Alternating Stop Signal,4,False,True,0.863
 Gru,paired,2023-05-19_00h21.19.047,2: Alternating Stop Signal,5,TRUE,TRUE,0.4972977500001434,0,FALSE,0.8,30.0,circle,circle,30,2,3,1,2
 Gru,paired,2023-05-19_00h21.19.047,2: Alternating Stop Signal,6,False,True,0.5647233339986997,0,True,0.8,30.0,circle,circle,30,2,3,1,2
 Gru,paired,2023-05-19_00h21.19.047,2: Alternating Stop Signal,7,TRUE,FALSE,2.0140697909955634,0,FALSE,0.8,30.0,circle,circle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,1,False,True,0.7025152920105029,0,False,0.8,15.0,triangle,triangle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,2,False,True,0.25118041699170135,0,False,0.8,15.0,triangle,triangle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,3,False,True,2.915567500022007,0,False,0.8,15.0,triangle,triangle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,4,False,True,0.31640291700023226,0,False,0.8500000000000001,15.0,triangle,triangle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,5,False,True,0.266652874997817,0,False,0.8500000000000001,15.0,triangle,triangle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,6,False,True,1.6336080830078572,0,True,0.8500000000000001,15.0,triangle,triangle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,7,False,True,1.2170099999930244,0,True,0.8500000000000001,15.0,triangle,triangle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,8,False,True,1.2163665830157697,0,True,0.8500000000000001,15.0,triangle,triangle,30,2,3,1,2
