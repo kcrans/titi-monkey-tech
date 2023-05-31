@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""
+Module for run phases 2 - 4 of training:
+    
+"""
 from random import choice # for randomness in the display of stimuli
 
-from psychopy import visual, core, event 
+from psychopy import visual, core, event
 
-from init import mywin, trial_start_sound, click_sound, neg_reinforce_sound, kb, input_tracker, hor_scale, scale, get_shape
+from init import mywin, trial_start_sound, click_sound, neg_reinforce_sound, kb, InputTracker, hor_scale, scale, get_shape
 
 def normal_training(record_data, new_shape, session_timeout_time, shape_name_1, shape_name_2, parameters):
     """
@@ -13,6 +17,8 @@ def normal_training(record_data, new_shape, session_timeout_time, shape_name_1, 
     Keyword arguments:
     record_data -- function that writes data to file
     session_timeout_time -- max length of experiment in seconds
+    new_shape -- function that returns the index of the shape array to use
+    in a trial. This differentiates the stages. I.e. 
     shape_name_1 -- name of positive stimuli shape
     shape_name_2 -- name of negative stimuli shape
     parameters -- dict of common parameters for phases 1-3
@@ -31,7 +37,7 @@ def normal_training(record_data, new_shape, session_timeout_time, shape_name_1, 
     #create negative stimuli
     neg_stim = get_shape(shape_name_2)
     
-    device = input_tracker()
+    device = InputTracker()
     shapes = [pos_stim, neg_stim] # List of stimuli 1 and 2
     trial = 1 # Tracks trial number
     hor_pos = 0.5*(hor_scale/2) # How far to go horizontally on the left and right
@@ -47,9 +53,9 @@ def normal_training(record_data, new_shape, session_timeout_time, shape_name_1, 
     
     trial_results = []
     
-    globalClock = core.Clock() # Time during whole run
-    trialClock = core.Clock() # Time during trial
-    while globalClock.getTime() < session_timeout_time - time_needed:
+    global_clock = core.Clock() # Time during whole run
+    trial_clock = core.Clock() # Time during trial
+    while global_clock.getTime() < session_timeout_time - time_needed:
         index = new_shape(trial) # index = 0 or 1
         dis_shape = shapes[index] # get the shape based off new_shape()
         mywin.flip() # Clear framebuffer
@@ -58,8 +64,8 @@ def normal_training(record_data, new_shape, session_timeout_time, shape_name_1, 
         trial_start_sound.play()
         touch_down = False
         touch_count = 0
-        trialClock.reset()
-        while trialClock.getTime() < hold_phase_delay:
+        trial_clock.reset()
+        while trial_clock.getTime() < hold_phase_delay:
             if 'escape' in kb.getKeys():
                 return False
             if device.is_touched():
@@ -69,10 +75,10 @@ def normal_training(record_data, new_shape, session_timeout_time, shape_name_1, 
             else:
                 touch_down = False
             
-        trialClock.reset()
+        trial_clock.reset()
         if index == 0: # If a go stimuli is being displayed
             touched = False
-            while trialClock.getTime() < pos_duration:
+            while trial_clock.getTime() < pos_duration:
                 keys = kb.getKeys()
                 if 'escape' in keys:
                     return False
@@ -82,25 +88,25 @@ def normal_training(record_data, new_shape, session_timeout_time, shape_name_1, 
                 if device.is_touched():
                     touched = True
                     if dis_shape.contains(scale*touch_tracker.getPos()):
-                        trial_results.append([trial, False, True, trialClock.getTime(), touch_count, True, shape_size])
+                        trial_results.append([trial, False, True, trial_clock.getTime(), touch_count, True, shape_size])
                         click_sound.play()
                         mywin.flip()
                         core.wait(positive_reinforcement_delay)
                     else:
-                        trial_results.append([trial, False, True, trialClock.getTime(), touch_count, False, shape_size])
+                        trial_results.append([trial, False, True, trial_clock.getTime(), touch_count, False, shape_size])
                         neg_reinforce_sound.play()
                         mywin.flip()
                         core.wait(negative_reinforcement_delay)
                     break # Break out of inner loop if anywhere on screen is touched
             if not touched:
-                trial_results.append([trial, 'FALSE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', shape_size])
+                trial_results.append([trial, 'FALSE', 'FALSE', trial_clock.getTime(), touch_count, 'FALSE', shape_size])
         else: # If a no-go stimuli is being displayed
             while True:
                 keys = kb.getKeys()
                 if 'escape' in keys:
                     return False
-                if trialClock.getTime() >= neg_duration:
-                    trial_results.append([trial, 'TRUE', 'FALSE', trialClock.getTime(), touch_count, 'FALSE', shape_size])
+                if trial_clock.getTime() >= neg_duration:
+                    trial_results.append([trial, 'TRUE', 'FALSE', trial_clock.getTime(), touch_count, 'FALSE', shape_size])
                     click_sound.play()
                     mywin.flip()
                     core.wait(positive_reinforcement_delay)
@@ -109,7 +115,7 @@ def normal_training(record_data, new_shape, session_timeout_time, shape_name_1, 
                 dis_shape.draw()
                 mywin.flip()
                 if device.is_touched():
-                    trial_results.append([trial, 'TRUE', 'TRUE', trialClock.getTime(), touch_count, 'FALSE', shape_size])
+                    trial_results.append([trial, 'TRUE', 'TRUE', trial_clock.getTime(), touch_count, 'FALSE', shape_size])
                     neg_reinforce_sound.play()
                     mywin.flip()
                     core.wait(negative_reinforcement_delay)

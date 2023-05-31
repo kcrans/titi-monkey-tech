@@ -149,6 +149,8 @@ if touch_screen is False: # When using regular mouse
         def is_touched(self):
             """ Is mouse right click currently pressed down? """
             return self.tracker.getPressed()[0] == 1
+        def get_pos(self):
+            return self.tracker.getPos()
 
 else: # When using a touch screen
     #touch_tracker = event.Mouse(visible=False, win=mywin)

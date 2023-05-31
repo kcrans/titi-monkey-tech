@@ -6,7 +6,7 @@ import numpy as np
 from psychopy import visual, core, event, monitors, prefs, gui, data  # import some basic libraries from PsychoPy
 from psychopy.sound import Sound # methods for handling audio
 
-from init import mywin, trial_start_sound, click_sound, neg_reinforce_sound, kb, input_tracker, hor_scale, scale, get_shape
+from init import mywin, trial_start_sound, click_sound, neg_reinforce_sound, kb, InputTracker, hor_scale, scale, get_shape
 
 
 def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experiment_parameters):
@@ -44,7 +44,7 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
     # TrialHandler
     stimList = [{'shape': string} for string in stimStringList]
     trials = data.TrialHandler(stimList, nReps = 1)
-    device = input_tracker()
+    device = InputTracker()
     shapes = {shape_name_1: pos_stim, shape_name_2: neg_stim} # 
     i = 0 # Tracks trial number
     keys = kb.getKeys()
