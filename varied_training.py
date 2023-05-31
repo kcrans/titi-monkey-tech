@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from psychopy import visual, core, event 
 from random import choice # for randomness in the display of stimuli
-from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, kb, input_tracker, hor_scale, scale, get_shape
+
+from psychopy import visual, core, event 
+
+from init import mywin, trial_start_sound, click_sound, neg_reinforce_sound, kb, input_tracker, hor_scale, scale, get_shape
 
 def normal_training(record_data, new_shape, session_timeout_time, shape_name_1, shape_name_2, parameters):
     """

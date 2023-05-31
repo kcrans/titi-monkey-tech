@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from psychopy import visual, core, event, monitors, prefs, gui, data  # import some basic libraries from PsychoPy
-from psychopy.sound import Sound # methods for handling audio
 from random import choice, shuffle # for randomness in the display of stimuli
 import numpy as np
-from init import mywin, touch_tracker, trial_start_sound, click_sound, neg_reinforce_sound, kb, input_tracker, hor_scale, scale, get_shape
+
+from psychopy import visual, core, event, monitors, prefs, gui, data  # import some basic libraries from PsychoPy
+from psychopy.sound import Sound # methods for handling audio
+
+from init import mywin, trial_start_sound, click_sound, neg_reinforce_sound, kb, input_tracker, hor_scale, scale, get_shape
 
 
 def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experiment_parameters):

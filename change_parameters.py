@@ -1,5 +1,9 @@
-from psychopy import gui
+'''
+Graphical program used to modify the JSON configuration file.
+'''
 import json
+
+from psychopy import gui
 
 def bring_to_front(shapes, last_selection):
     """
@@ -42,11 +46,12 @@ def new_dictionary(list_values):
     return new_dict
 
 # Default lists
-phase_names = ['0: Go Signal', '1: Wait Screen', '2: Alternating Stop Signal', '3: Random Stop Signal', '4: Experiment' ]
+phase_names = ['0: Go Signal', '1: Wait Screen', '2: Alternating Stop Signal'
+, '3: Random Stop Signal', '4: Experiment' ]
 shape_names = ['circle', 'triangle', 'square', 'cross', 'star', 'strike_circle']
 
 # Load all the metadata about prior subjects
-with open('subinfo.json') as f:
+with open('subinfo.json', 'r', encoding = 'utf-8') as f:
     subjects = json.load(f)
 
 # Get all the subject names
@@ -84,7 +89,7 @@ if subDlg.OK:
         parDlg.addField("Shape size:", 0.6)
         parDlg.addField("Positive stimuli duration:", 30)
         parDlg.addField("Negative stimuli duration:", 2.0)
-        parDlg.addText("Parameters for phase 4,  in addition to above:", color="Blue")    
+        parDlg.addText("Parameters for phase 4,  in addition to above:", color="Blue")
         parDlg.addField("Number of positive stimuli:", 2)
         parDlg.addField("Number of negative stimuli:", 4)
         values = parDlg.show()
@@ -100,10 +105,13 @@ if subDlg.OK:
         parDlg = gui.Dlg(title= f"Modify {subject_choice}'s parameters")
         parDlg.addText("Global Parameters", color="Blue")
         parDlg.addField("Condition:", current_sub["condition"])
-        parDlg.addField("Current phase:", choices = bring_to_front(phase_names, phase_names[current_sub["current phase"]]))
+        parDlg.addField("Current phase:",
+        choices = bring_to_front(phase_names, phase_names[current_sub["current phase"]]))
         parDlg.addField("Session timeout time:", current_sub["session timeout time"])
-        parDlg.addField("Positive stimuli:", choices = bring_to_front(shape_names, current_sub["positive stimuli"]))
-        parDlg.addField("Negative stimuli:", choices = bring_to_front(shape_names, current_sub["negative stimuli"]))        
+        parDlg.addField("Positive stimuli:",
+        choices = bring_to_front(shape_names, current_sub["positive stimuli"]))
+        parDlg.addField("Negative stimuli:",
+        choices = bring_to_front(shape_names, current_sub["negative stimuli"]))
         parDlg.addText("Parameters for phase 0:", color="Blue")
         current_phase_a = current_sub["phase 0 params"]
         parDlg.addField("Touch delay:", current_phase_a["touch_delay"])
@@ -113,13 +121,15 @@ if subDlg.OK:
         parDlg.addField("Increment:", current_phase_a["increment"])
         parDlg.addText("Parameters for phases 1-3:", color="Blue")
         current_phase_b = current_sub["phase 1-3 params"]
-        parDlg.addField("Negative reinforcement delay:", current_phase_b["negative_reinforcement_delay"])
-        parDlg.addField("Positive reinforcement delay:", current_phase_b["positive_reinforcement_delay"])
+        parDlg.addField("Negative reinforcement delay:",
+        current_phase_b["negative_reinforcement_delay"])
+        parDlg.addField("Positive reinforcement delay:",
+        current_phase_b["positive_reinforcement_delay"])
         parDlg.addField("Hold phase delay:", current_phase_b["hold_phase_delay"])
         parDlg.addField("Shape size:", current_phase_b["shape_size"])
         parDlg.addField("Positive stimuli duration:", current_phase_b["pos_duration"])
         parDlg.addField("Negative stimuli duration:", current_phase_b["neg_duration"])
-        parDlg.addText("Parameters for phase 4,  in addition to above:", color="Blue")    
+        parDlg.addText("Parameters for phase 4,  in addition to above:", color="Blue")
         current_phase_c = current_sub["phase 4 params"]
         parDlg.addField("Number of positive stimuli:", current_phase_c["num_pos"])
         parDlg.addField("Number of negative stimuli:", current_phase_c["num_neg"])
@@ -132,7 +142,6 @@ if subDlg.OK:
             print('Exited early')
 else:
     print('Exited early')
-    
-with open('subinfo.json', "w") as f:
-    json.dump(subjects, f)
 
+with open('subinfo.json', "w", encoding = 'utf-8') as f:
+    json.dump(subjects, f)

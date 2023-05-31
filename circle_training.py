@@ -1,16 +1,29 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""
+Module to run the first experiment: circle stimuli training. Used to teach
+the monkeys how to click on stimuli shown on the display.
+"""
+
 from psychopy import visual, core, event  # import some basic libraries from PsychoPy
-from init import mywin, scale, touch_tracker, click_sound, neg_reinforce_sound, kb, input_tracker
+
+from init import mywin, scale, click_sound, neg_reinforce_sound, kb, InputTracker
 
 def circle_run(record_data, session_timeout_time, parameters):
+    """
+    Input: function to record data, time limit, and session parameters
+    
+    Output: 
+        True if experiment succesfully run
+        False if ended early by hitting the escape key
+    """
     # Go signal training parameters
     touch_delay = parameters["touch_delay"] # How long until new touches can be registered after a touch
     start = parameters["start"] # Start with a specified diameter
     upper_bound = parameters["upper_bound"]
     lower_bound = parameters["lower_bound"]
     increment = parameters["increment"]
-    
+
         # Create circle stimuli object
     circle = visual.ShapeStim(
         win=mywin, name='go_circle',
@@ -19,7 +32,7 @@ def circle_run(record_data, session_timeout_time, parameters):
         lineWidth=0.0,     colorSpace='rgb', fillColor='white',
         opacity=None, depth=0.0, interpolate=True)
 
-    def shrink(shape): # Modify so no arguements are needed
+    def shrink(shape):
         radius = shape.size[0]
         if radius > lower_bound:
             new_radius = radius - increment
@@ -33,47 +46,48 @@ def circle_run(record_data, session_timeout_time, parameters):
             shape.size = (new_radius, new_radius)
             #miss_count = 0
 
-        # Function to see if touches are in the circle.
-        # Uses the fact that circles are the only shape in this program
-    def quick_contains(polygon, x, y): 
+    # Function to see if touches are in the circle.
+    # Uses the fact that circles are the only shape in this program
+    def quick_contains(polygon, x, y):
         radius_sqrd = (0.5*polygon.size[0])**2
         if (scale*x)**2 + (scale*y)**2 <= radius_sqrd:
             print(polygon.size[0])
             return True
-        else:
-            return False
-                
+        # Else if located outside circle radius
+        return False
+
     def not_equal(pos1, pos2):
         if pos1[0] != pos2[0] or pos1[1] != pos2[1]:
             return True
-        else:
-            return False
-    
+        # Else if (x1, y1) == (x2, y2)
+        return False
+
     hit_count = 0
     miss_count = 0
-    
-    device = input_tracker()
+
+    device = InputTracker()
+    touch_tracker = device.tracker
 
     keys = kb.getKeys()
     circle.draw()
     mywin.flip()
-    lastPos = touch_tracker.getPos()
+    last_pos = touch_tracker.getPos()
 
-    globalClock = core.Clock() # Time elapsed since experiment began
-    trialClock = core.Clock()  # Trial time, resets each trial
-    
+    global_clock = core.Clock() # Time elapsed since experiment began
+    trial_clock = core.Clock()  # Trial time, resets each trial
+
     trial_results = []
     trial = 0
-    while globalClock.getTime() < session_timeout_time and 'escape' not in keys: # Reorder so timing makes sense
+    while global_clock.getTime() < session_timeout_time and 'escape' not in keys:
         event.clearEvents()
         keys = kb.getKeys()
         if device.is_touched():
-            lastPos = touch_tracker.getPos() # Get the position of the touch
-            trial_time = trialClock.getTime() # Record the time since last touch
-            trialClock.reset()
+            last_pos = touch_tracker.getPos() # Get the position of the touch
+            trial_time = trial_clock.getTime() # Record the time since last touch
+            trial_clock.reset()
             click_sound.stop() # Stop the sounds if they are still playing
             neg_reinforce_sound.stop()
-            if quick_contains(circle, *lastPos):
+            if quick_contains(circle, *last_pos):
                 click_sound.play()
                 hit_count += 1
                 miss_count = 0
@@ -98,8 +112,8 @@ def circle_run(record_data, session_timeout_time, parameters):
             core.wait(touch_delay)
     if 'escape' in keys:
         return False
-    else:
-        parameters["start"] = circle.size[0]
-        for trial in trial_results:
-            record_data(*trial)
-        return True
+    # Else store the circle size and trial results
+    parameters["start"] = circle.size[0]
+    for trial in trial_results:
+        record_data(*trial)
+    return True

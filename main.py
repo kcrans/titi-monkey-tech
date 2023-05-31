@@ -8,13 +8,16 @@ __author__ = "Kaleb Crans"
 __version__ = "0.95"
 __license__ = "MIT"
 
+import os
+import json
+import csv
+from random import choice # for randomness in the display of stimuli
+
+import numpy as np
+
 from psychopy import visual, core, event, monitors, prefs, gui, data  # import some basic libraries from PsychoPy
 from psychopy.sound import Sound # methods for handling audio
-from random import choice # for randomness in the display of stimuli
-import numpy as np
-import json
-import os
-import csv
+
 
 def main(debug = False):
     phase_names = ['0: Go Signal', '1: Wait Screen', '2: Alternating Stop Signal', '3: Random Stop Signal', '4: Experiment' ]
