@@ -1,11 +1,16 @@
-from psychopy import gui
+""" Module to remove a subject and associated parameters """
 import json
 
+from psychopy import gui
 
-# Load all the metadata about prior subjects
-with open('subinfo.json') as f:
+# Get parameters for gui interface
+from program_specs import touch_screen, font_size
+
+# Load all the metadata about subjects
+with open('subinfo.json', 'r', encoding = 'utf-8') as f:
     subjects = json.load(f)
-    
+
+# Get an unsorted list of all subject names
 subStrings = list(subjects.keys())
 
 subDlg = gui.Dlg(title= "Choose subject to remove")
@@ -27,5 +32,6 @@ if subDlg.OK:
 else:
     print("Exited early")
 
-with open('subinfo.json', "w") as f:
+# Store the (potentially) updated json data
+with open('subinfo.json', "w", encoding = 'utf-8') as f:
     json.dump(subjects, f)

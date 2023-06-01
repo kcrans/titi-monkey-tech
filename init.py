@@ -1,30 +1,40 @@
-from psychopy import visual, core, event, monitors, prefs, gui, data  # import some basic libraries from PsychoPy
+"""
+This module intitializes the visual environment, defines the various shapes,
+loads the audio files, and sets up methods for touch input.
+"""
+
+from psychopy import visual, event, monitors
+# ^ import some basic libraries from PsychoPy
 from psychopy.sound import Sound # methods for handling audio
-from psychopy.hardware import keyboard
-from program_specs import *
+from psychopy.hardware import keyboard # for tracking keystokes
+
+from program_specs import monitor_name, window_size, touch_screen, shape_size, font_size
 
 mon = monitors.Monitor(monitor_name)
-    #print(prefs.general['winType'])
-    #print(mon.getSizePix())
-    #[500, 500]
-    #create a window
 
 mywin = visual.Window(size=window_size, fullscr=True, color="black", monitor=mon, units="height")
 
-    #print(mywin.useRetina)
-    # With a retina screen, the vertical dimmensions are from -1 to 1
-    # but with a normal display, they are from -0.5 to 0.5
-    # (retina displays scale the normal paramters by 2)
-    
+# Find the ratio of screen width to height.
+# This gives us our horizontal dimmensions
+
 hor_scale = window_size[0]/window_size[1]
 
-if mywin.useRetina == True: # Not a retina screen
+# With a retina screen, the vertical dimmensions are from -1 to 1
+# but with a normal display, they are from -0.5 to 0.5
+# (retina displays scale the normal paramters by 2)
+
+if mywin.useRetina is True: # If it's a retina screen
     scale = 0.5
 else:
     scale = 1
-print('Is using retina:', mywin.useRetina)   
+
 def get_shape(shape_name):
-    #create circle stimuli
+    """
+    input: string with name of shape
+    
+    output: ShapeStim object or None if no shape corresponds to input string
+    """
+    # create circle stimuli
     if shape_name == 'circle':
         circle = visual.ShapeStim(
             win=mywin, name='go_circle',
@@ -33,21 +43,26 @@ def get_shape(shape_name):
             lineWidth=0.0,     colorSpace='rgb', fillColor='white',
             opacity=None, interpolate=True)
         return circle
-    #create triangle stimuli
-    elif shape_name == 'triangle':    
+
+    # create triangle stimuli
+    if shape_name == 'triangle':
         triangle = visual.Polygon(
             win=mywin, edges=3, size=(shape_size, shape_size),
              pos=(0, -0.1),
             fillColor='grey', name='stop_triangle'
             )
         return triangle
-    elif shape_name == 'square':
+
+    # create square stimuli
+    if shape_name == 'square':
         square = visual.rect.Rect(
             win=mywin, size = (shape_size- 0.1, shape_size - 0.1), pos=(0,0),
             fillColor='white', name = "stop_square"
             )
         return square
-    elif shape_name == 'cross':
+
+    # create cross stimuli
+    if shape_name == 'cross':
         cross_vertices = [
             (-0.1, +0.4),  # up
             (+0.1, +0.4),
@@ -61,17 +76,17 @@ def get_shape(shape_name):
             (-0.4, -0.1),  # left
             (-0.4, +0.1),
             (-0.1, +0.1),
-        ]
-
+            ]
         cross = visual.ShapeStim(
             win=mywin, name='go_cross',
             size=(shape_size, shape_size), vertices=cross_vertices,
             ori=0.0, pos=(0, 0), anchor='center',
             lineWidth=0.0,     colorSpace='rgb', fillColor='grey',
             opacity=None, interpolate=True)
-            
         return cross
-    elif shape_name == 'star':
+
+    # Create star stimuli
+    if shape_name == 'star':
         star_points = [
             (0.0, 0.5),
             (0.1123, 0.1545),
@@ -91,53 +106,63 @@ def get_shape(shape_name):
             ori=0.0, pos=(0, 0), anchor='center',
             lineWidth=0.0,     colorSpace='rgb', fillColor='grey',
             opacity=None, interpolate=True)
-        
         return star
-    elif shape_name == 'strike_circle':
+
+    # create a circle with a cross in the center
+    if shape_name == 'strike_circle':
         # Add an invisible circle in order to track touches
         strike_mask = visual.ShapeStim(
             win=mywin, name='go_circle',
             size=(shape_size, shape_size), vertices='circle',
             ori=0.0, pos=(0, 0), anchor='center',
             lineWidth=0.0, opacity=0.0, interpolate=True)
-            
-        strike_circle = visual.ImageStim(win=mywin, image='assets/goSignal_strike.png', size = (shape_size, shape_size))
+
+        # Use an image instead of an animation
+        strike_circle = visual.ImageStim(win=mywin,
+        image='assets/goSignal_strike.png', size = (shape_size, shape_size))
         visible_draw = strike_circle.draw
+        # Redefine the draw method to draw both visuals
         def new_draw():
             visible_draw()
             strike_mask.draw()
         strike_circle.draw = new_draw
         strike_circle.contains = strike_mask.contains
         return strike_circle
-    else:
-        return None
+    # Else if input string doesn't match any of the cases
+    return None
 
 
 # Initialize all the sound objects located in the folder 'assets'
 trial_start_sound = Sound('assets/trialStartSoundStereo.wav', name='startsound', stereo = True)
 click_sound = Sound('assets/clickSound.wav', name='clicksound')
 neg_reinforce_sound = Sound('assets/negativeReinforcement.wav', name='negsound')
-    
+
 kb = keyboard.Keyboard() # Used for tracking escape key presses
 
 # Create a mouse event class to track touch input
-if touch_screen == False:
-    touch_tracker = event.Mouse(visible=True, win=mywin)
-        
-    class input_tracker:
-        def is_touched(self):
-            return touch_tracker.getPressed()[0] == 1 # getTime?
-        
-else:
-    touch_tracker = event.Mouse(visible=False, win=mywin)
-    lastPos = touch_tracker.getPos()
-    class input_tracker:
+if touch_screen is False: # When using regular mouse
+    #touch_tracker = event.Mouse(visible=True, win=mywin)
+    class InputTracker(event.Mouse):
+        """ Tracks input with a mouse """
         def __init__(self):
-            self.lastPos = touch_tracker.getPos()
+            event.Mouse.__init__(self, visible = True, win = mywin)
         def is_touched(self):
-            currentPos = touch_tracker.getPos()
-            if currentPos[0] != self.lastPos[0] or currentPos[1] != self.lastPos[1]:
-                self.lastPos = currentPos
+            """ Is mouse right click currently pressed down? """
+            return self.getPressed()[0] == 1
+
+else: # When using a touch screen
+    #touch_tracker = event.Mouse(visible=False, win=mywin)
+    class InputTracker(event.Mouse):
+        """ Tracks input with a touchscreen """
+        def __init__(self):
+            event.Mouse.__init__(self, visible=False, win=mywin)
+            self.last_pos = self.getPos()
+        def is_touched(self):
+            """ Has the touchsreen mouse pointer moved? """
+            current_pos = self.getPos()
+            # If pointer moved at all:
+            if current_pos[0] != self.last_pos[0] or current_pos[1] != self.last_pos[1]:
+                self.last_pos = current_pos
                 return True
-            else:
-                return False
+            # Else if position of pointer hasn't changed:
+            return False

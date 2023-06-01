@@ -1,0 +1,95 @@
+subject id,subject condition,session timestamp,phase,trial number,stop stimulus,screen touched,response time,hold phase touches,direct touch,diameter,session time,positive shape,negative shape,go stim duration,stop stim duration,negative reinforcement delay,positive reinforcement delay,hold phase delay
+Gru,paired,2023-05-19_00h21.19.047,2: Alternating Stop Signal,1,TRUE,TRUE,1.0653341249999357,0,FALSE,0.8,30.0,circle,circle,30,2,3,1,2
+Gru,paired,2023-05-19_00h21.19.047,2: Alternating Stop Signal,2,False,True,0.9653567499917699,0,True,0.8,30.0,circle,circle,30,2,3,1,2
+Gru,paired,2023-05-19_00h21.19.047,2: Alternating Stop Signal,3,TRUE,TRUE,0.49670120899099857,0,FALSE,0.8,30.0,circle,circle,30,2,3,1,2
+Gru,paired,2023-05-19_00h21.19.047,2: Alternating Stop Signal,4,False,True,0.8635609170014504,0,True,0.8,30.0,circle,circle,30,2,3,1,2
+Gru,paired,2023-05-19_00h21.19.047,2: Alternating Stop Signal,5,TRUE,TRUE,0.4972977500001434,0,FALSE,0.8,30.0,circle,circle,30,2,3,1,2
+Gru,paired,2023-05-19_00h21.19.047,2: Alternating Stop Signal,6,False,True,0.5647233339986997,0,True,0.8,30.0,circle,circle,30,2,3,1,2
+Gru,paired,2023-05-19_00h21.19.047,2: Alternating Stop Signal,7,TRUE,FALSE,2.0140697909955634,0,FALSE,0.8,30.0,circle,circle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,1,False,True,0.7025152920105029,0,False,0.8,15.0,triangle,triangle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,2,False,True,0.25118041699170135,0,False,0.8,15.0,triangle,triangle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,3,False,True,2.915567500022007,0,False,0.8,15.0,triangle,triangle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,4,False,True,0.31640291700023226,0,False,0.8500000000000001,15.0,triangle,triangle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,5,False,True,0.266652874997817,0,False,0.8500000000000001,15.0,triangle,triangle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,6,False,True,1.6336080830078572,0,True,0.8500000000000001,15.0,triangle,triangle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,7,False,True,1.2170099999930244,0,True,0.8500000000000001,15.0,triangle,triangle,30,2,3,1,2
+Diddy,paired,2023-05-19_12h03.36.849,0: Go Signal,8,False,True,1.2163665830157697,0,True,0.8500000000000001,15.0,triangle,triangle,30,2,3,1,2
+Gru,paired,2023-05-27_14h13.24.039,4: Experiment,1,True,True,0.736905624999963,0,False,0.8,30.0,circle,triangle,30,2,3,1,2
+Gru,paired,2023-05-27_14h13.24.039,4: Experiment,2,True,False,2.012864332999925,0,False,0.8,30.0,circle,triangle,30,2,3,1,2
+Gru,paired,2023-05-27_14h13.24.039,4: Experiment,3,True,True,0.82959824999989,0,False,0.8,30.0,circle,triangle,30,2,3,1,2
+Gru,paired,2023-05-27_14h13.24.039,4: Experiment,4,False,True,0.664847749999808,0,True,0.8,30.0,circle,triangle,30,2,3,1,2
+Gru,paired,2023-05-27_14h13.24.039,4: Experiment,5,True,True,0.6469362920001913,0,False,0.8,30.0,circle,triangle,30,2,3,1,2
+Gru,paired,2023-05-27_14h13.24.039,4: Experiment,6,False,True,0.6119204999999965,0,True,0.8,30.0,circle,triangle,30,2,3,1,2
+Gru,paired,2023-05-27_14h14.26.841,4: Experiment,1,False,True,0.753737208000075,0,True,0.8,30.0,circle,triangle,30,2,3,1,2
+Gru,paired,2023-05-27_14h14.26.841,4: Experiment,2,True,True,1.1288463750001938,0,False,0.8,30.0,circle,triangle,30,2,3,1,2
+Gru,paired,2023-05-27_14h14.26.841,4: Experiment,3,True,False,2.0132510419998653,0,False,0.8,30.0,circle,triangle,30,2,3,1,2
+Gru,paired,2023-05-27_14h14.26.841,4: Experiment,4,False,True,1.112768958000288,0,True,0.8,30.0,circle,triangle,30,2,3,1,2
+Gru,paired,2023-05-27_14h14.26.841,4: Experiment,5,True,True,1.0809240830003546,0,False,0.8,30.0,circle,triangle,30,2,3,1,2
+Gru,paired,2023-05-27_14h14.26.841,4: Experiment,6,True,True,0.8962149580002006,0,False,0.8,30.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,1,False,True,0.46266387501964346,0,False,0.5000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,2,False,True,0.3663303750217892,0,False,0.5000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,3,False,True,0.4831918330164626,0,False,0.5000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,4,False,True,0.9502395000017714,0,False,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,5,False,True,0.50005016598152,0,False,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,6,False,True,0.5998339169891551,0,False,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,7,False,True,0.7668852920178324,0,True,0.7000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,8,False,True,0.4165123749990016,0,True,0.7000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,9,False,True,0.3665847090014722,0,True,0.7000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,10,False,True,0.583751416997984,0,False,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,11,False,True,0.5164671250095125,0,False,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,12,False,True,0.5334551249979995,0,False,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,13,False,True,0.8334183339902665,0,True,0.7000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,14,False,True,0.4169895419909153,0,True,0.7000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,15,False,True,0.4497554159897845,0,True,0.7000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,16,False,True,1.0166847499785945,0,False,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,17,False,True,0.8671152079768945,0,False,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,18,False,True,0.7493952499935403,0,False,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,19,False,True,1.3834323339979164,0,True,0.7000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,20,False,True,0.44984041701536626,0,True,0.7000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,21,False,True,0.4167116669996176,0,True,0.7000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,22,False,True,1.5169822919997387,0,True,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,23,False,True,0.31647958399844356,0,True,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,24,False,True,0.31665399999474175,0,True,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,25,False,True,0.5666889160056598,0,False,0.5000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,26,False,True,0.30003137499443255,0,False,0.5000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,27,False,True,0.25618912497884594,0,False,0.5000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,28,False,True,1.1771392500086222,0,False,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,29,False,True,0.45005320801283233,0,False,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,30,False,True,0.6000475840119179,0,False,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,31,False,True,3.783495709009003,0,True,0.7000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,32,False,True,0.2514394159952644,0,True,0.7000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,33,False,True,0.2554754159937147,0,True,0.7000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,34,False,True,0.7931324579985812,0,True,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,35,False,True,0.2555218340130523,0,True,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,36,False,True,0.25585908399079926,0,True,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_12h17.07.960,0: Go Signal,37,False,True,0.5219252499809954,0,True,0.5000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_15h49.05.705,1: Wait Screen,1,False,True,2.0912825420091394,0,True,0.6,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_15h49.05.705,1: Wait Screen,2,False,True,0.6307288749958389,0,True,0.6,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_15h49.05.705,1: Wait Screen,3,False,True,0.430103708000388,0,True,0.6,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_15h49.05.705,1: Wait Screen,4,False,True,1.1143911249819212,0,True,0.6,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_15h49.05.705,1: Wait Screen,5,False,True,0.48161225000512786,0,False,0.6,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_15h49.05.705,1: Wait Screen,6,False,True,0.8135772499954328,0,True,0.6,25.0,circle,triangle,30,2,3,1,2
+Gru,paired,2023-06-01_00h26.39.260,2: Alternating Stop Signal,1,TRUE,FALSE,2.0093521249946207,0,FALSE,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_00h26.39.260,2: Alternating Stop Signal,2,False,True,0.9139464590116404,0,True,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_00h26.39.260,2: Alternating Stop Signal,3,TRUE,FALSE,2.015620417019818,0,FALSE,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_00h26.39.260,2: Alternating Stop Signal,4,False,True,0.5963183339918032,0,True,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_00h26.39.260,2: Alternating Stop Signal,5,TRUE,FALSE,2.014012207975611,0,FALSE,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,1,False,True,0.545600415993249,0,True,0.8500000000000004,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,2,False,True,0.2827745840186253,0,True,0.8500000000000004,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,3,False,True,0.2565105409885291,0,True,0.8500000000000004,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,4,False,True,0.3265617500001099,0,True,0.8000000000000004,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,5,False,True,0.2999787919980008,0,True,0.8000000000000004,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,6,False,True,0.3000337080156896,0,True,0.8000000000000004,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,7,False,True,0.25883433400304057,0,True,0.7500000000000003,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,8,False,True,0.3241476249822881,0,True,0.7500000000000003,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,9,False,True,0.35039916599635035,0,True,0.7500000000000003,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,10,False,True,3.2167935829784255,0,False,0.7000000000000003,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,11,False,True,4.23356970801251,0,False,0.7000000000000003,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,12,False,True,4.283396790997358,0,False,0.7000000000000003,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,13,False,True,3.950006665982073,0,False,0.7500000000000003,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h55.46.679,4: Experiment,1,True,False,2.016143415996339,0,False,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h55.46.679,4: Experiment,2,False,True,0.713883500022348,0,True,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h55.46.679,4: Experiment,3,True,False,2.0142915839969646,0,False,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h55.46.679,4: Experiment,4,True,False,2.0139804999926127,0,False,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h55.46.679,4: Experiment,5,True,False,2.010672833013814,0,False,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h55.46.679,4: Experiment,6,False,True,1.0682223750045523,0,False,0.8,22.03,cross,strike_circle,30,2,3,1,2
