@@ -142,26 +142,24 @@ kb = keyboard.Keyboard() # Used for tracking escape key presses
 # Create a mouse event class to track touch input
 if touch_screen is False: # When using regular mouse
     #touch_tracker = event.Mouse(visible=True, win=mywin)
-    class InputTracker:
+    class InputTracker(event.Mouse):
         """ Tracks input with a mouse """
         def __init__(self):
-            self.tracker = event.Mouse(visible=True, win=mywin)
+            event.Mouse.__init__(self, visible = True, win = mywin)
         def is_touched(self):
             """ Is mouse right click currently pressed down? """
-            return self.tracker.getPressed()[0] == 1
-        def get_pos(self):
-            return self.tracker.getPos()
+            return self.getPressed()[0] == 1
 
 else: # When using a touch screen
     #touch_tracker = event.Mouse(visible=False, win=mywin)
-    class InputTracker:
+    class InputTracker(event.Mouse):
         """ Tracks input with a touchscreen """
         def __init__(self):
-            self.tracker = event.Mouse(visible=False, win=mywin)
-            self.last_pos = self.tracker.getPos()
+            event.Mouse.__init__(self, visible=False, win=mywin)
+            self.last_pos = self.getPos()
         def is_touched(self):
             """ Has the touchsreen mouse pointer moved? """
-            current_pos = self.tracker.getPos()
+            current_pos = self.getPos()
             # If pointer moved at all:
             if current_pos[0] != self.last_pos[0] or current_pos[1] != self.last_pos[1]:
                 self.last_pos = current_pos

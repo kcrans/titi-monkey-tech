@@ -66,12 +66,11 @@ def circle_run(record_data, session_timeout_time, parameters):
     miss_count = 0
 
     device = InputTracker()
-    touch_tracker = device.tracker
-
+    
     keys = kb.getKeys()
     circle.draw()
     mywin.flip()
-    last_pos = touch_tracker.getPos()
+    last_pos = device.getPos()
 
     global_clock = core.Clock() # Time elapsed since experiment began
     trial_clock = core.Clock()  # Trial time, resets each trial
@@ -82,7 +81,7 @@ def circle_run(record_data, session_timeout_time, parameters):
         event.clearEvents()
         keys = kb.getKeys()
         if device.is_touched():
-            last_pos = touch_tracker.getPos() # Get the position of the touch
+            last_pos = device.getPos() # Get the position of the touch
             trial_time = trial_clock.getTime() # Record the time since last touch
             trial_clock.reset()
             click_sound.stop() # Stop the sounds if they are still playing

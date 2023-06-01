@@ -5,6 +5,9 @@ import json
 
 from psychopy import gui
 
+# Get parameters for gui interface
+from program_specs import touch_screen, font_size
+
 def bring_to_front(shapes, last_selection):
     """
     Used to put the current selection at the front of the list.

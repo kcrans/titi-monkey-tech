@@ -3,6 +3,9 @@ import json
 
 from psychopy import gui
 
+# Get parameters for gui interface
+from program_specs import touch_screen, font_size
+
 # Load all the metadata about subjects
 with open('subinfo.json', 'r', encoding = 'utf-8') as f:
     subjects = json.load(f)

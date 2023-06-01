@@ -63,3 +63,33 @@ test4,paired,2023-05-31_12h17.07.960,0: Go Signal,34,False,True,0.79313245799858
 test4,paired,2023-05-31_12h17.07.960,0: Go Signal,35,False,True,0.2555218340130523,0,True,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
 test4,paired,2023-05-31_12h17.07.960,0: Go Signal,36,False,True,0.25585908399079926,0,True,0.6000000000000002,25.0,circle,triangle,30,2,3,1,2
 test4,paired,2023-05-31_12h17.07.960,0: Go Signal,37,False,True,0.5219252499809954,0,True,0.5000000000000002,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_15h49.05.705,1: Wait Screen,1,False,True,2.0912825420091394,0,True,0.6,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_15h49.05.705,1: Wait Screen,2,False,True,0.6307288749958389,0,True,0.6,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_15h49.05.705,1: Wait Screen,3,False,True,0.430103708000388,0,True,0.6,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_15h49.05.705,1: Wait Screen,4,False,True,1.1143911249819212,0,True,0.6,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_15h49.05.705,1: Wait Screen,5,False,True,0.48161225000512786,0,False,0.6,25.0,circle,triangle,30,2,3,1,2
+test4,paired,2023-05-31_15h49.05.705,1: Wait Screen,6,False,True,0.8135772499954328,0,True,0.6,25.0,circle,triangle,30,2,3,1,2
+Gru,paired,2023-06-01_00h26.39.260,2: Alternating Stop Signal,1,TRUE,FALSE,2.0093521249946207,0,FALSE,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_00h26.39.260,2: Alternating Stop Signal,2,False,True,0.9139464590116404,0,True,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_00h26.39.260,2: Alternating Stop Signal,3,TRUE,FALSE,2.015620417019818,0,FALSE,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_00h26.39.260,2: Alternating Stop Signal,4,False,True,0.5963183339918032,0,True,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_00h26.39.260,2: Alternating Stop Signal,5,TRUE,FALSE,2.014012207975611,0,FALSE,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,1,False,True,0.545600415993249,0,True,0.8500000000000004,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,2,False,True,0.2827745840186253,0,True,0.8500000000000004,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,3,False,True,0.2565105409885291,0,True,0.8500000000000004,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,4,False,True,0.3265617500001099,0,True,0.8000000000000004,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,5,False,True,0.2999787919980008,0,True,0.8000000000000004,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,6,False,True,0.3000337080156896,0,True,0.8000000000000004,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,7,False,True,0.25883433400304057,0,True,0.7500000000000003,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,8,False,True,0.3241476249822881,0,True,0.7500000000000003,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,9,False,True,0.35039916599635035,0,True,0.7500000000000003,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,10,False,True,3.2167935829784255,0,False,0.7000000000000003,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,11,False,True,4.23356970801251,0,False,0.7000000000000003,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,12,False,True,4.283396790997358,0,False,0.7000000000000003,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h53.59.426,0: Go Signal,13,False,True,3.950006665982073,0,False,0.7500000000000003,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h55.46.679,4: Experiment,1,True,False,2.016143415996339,0,False,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h55.46.679,4: Experiment,2,False,True,0.713883500022348,0,True,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h55.46.679,4: Experiment,3,True,False,2.0142915839969646,0,False,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h55.46.679,4: Experiment,4,True,False,2.0139804999926127,0,False,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h55.46.679,4: Experiment,5,True,False,2.010672833013814,0,False,0.8,22.03,cross,strike_circle,30,2,3,1,2
+Gru,paired,2023-06-01_13h55.46.679,4: Experiment,6,False,True,1.0682223750045523,0,False,0.8,22.03,cross,strike_circle,30,2,3,1,2
