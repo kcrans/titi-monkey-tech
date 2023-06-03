@@ -9,7 +9,7 @@ from psychopy import visual, core, event  # import some basic libraries from Psy
 
 from init import mywin, scale, click_sound, neg_reinforce_sound, kb, InputTracker
 
-def circle_run(record_data, session_timeout_time, parameters):
+def circle_run(debug, record_data, session_timeout_time, parameters):
     """
     Input: function to record data, time limit, and session parameters
     
@@ -25,11 +25,11 @@ def circle_run(record_data, session_timeout_time, parameters):
     increment = parameters["increment"]
 
         # Create circle stimuli object
-    circle = visual.ShapeStim(
+    circle = visual.BaseShapeStim(
         win=mywin, name='go_circle',
         size=start, vertices='circle',
         ori=0.0, pos=(0, 0), anchor='center',
-        lineWidth=0.0,     colorSpace='rgb', fillColor='white',
+        lineWidth=1,     colorSpace='rgb', fillColor='white',
         opacity=None, depth=0.0, interpolate=True)
 
     def shrink(shape):
@@ -110,9 +110,13 @@ def circle_run(record_data, session_timeout_time, parameters):
                 mywin.flip()
             core.wait(touch_delay)
     if 'escape' in keys:
+        mywin.close()
+        core.quit()
         return False
     # Else store the circle size and trial results
     parameters["start"] = circle.size[0]
     for trial in trial_results:
         record_data(*trial)
+    mywin.close()
+    core.quit()
     return True

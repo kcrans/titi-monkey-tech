@@ -93,3 +93,10 @@ Gru,paired,2023-06-01_13h55.46.679,4: Experiment,3,True,False,2.0142915839969646
 Gru,paired,2023-06-01_13h55.46.679,4: Experiment,4,True,False,2.0139804999926127,0,False,0.8,22.03,cross,strike_circle,30,2,3,1,2
 Gru,paired,2023-06-01_13h55.46.679,4: Experiment,5,True,False,2.010672833013814,0,False,0.8,22.03,cross,strike_circle,30,2,3,1,2
 Gru,paired,2023-06-01_13h55.46.679,4: Experiment,6,False,True,1.0682223750045523,0,False,0.8,22.03,cross,strike_circle,30,2,3,1,2
+sssspace,paired,2023-06-01_23h50.01.550,2: Alternating Stop Signal,1,False,True,0.7880180409993045,0,True,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+sssspace,paired,2023-06-01_23h50.01.550,2: Alternating Stop Signal,2,TRUE,FALSE,2.0133658749982715,0,FALSE,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+sssspace,paired,2023-06-01_23h50.01.550,2: Alternating Stop Signal,3,False,True,0.51325108401943,0,True,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+sssspace,paired,2023-06-01_23h50.01.550,2: Alternating Stop Signal,4,TRUE,FALSE,2.0082902499998454,0,FALSE,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+sssspace,paired,2023-06-01_23h50.01.550,2: Alternating Stop Signal,5,False,True,0.7661064169951715,0,True,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+sssspace,paired,2023-06-01_23h50.01.550,2: Alternating Stop Signal,6,TRUE,FALSE,2.0149422920076177,0,FALSE,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+sssspace,paired,2023-06-01_23h50.01.550,2: Alternating Stop Signal,7,False,True,2.6801146249927115,0,True,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2

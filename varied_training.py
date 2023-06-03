@@ -10,7 +10,7 @@ from psychopy import core, event
 from init import mywin, trial_start_sound, click_sound, neg_reinforce_sound
 from init import kb, InputTracker, hor_scale, scale, get_shape
 
-def normal_training(record_data, new_shape, session_timeout_time,
+def normal_training(debug, record_data, new_shape, session_timeout_time,
 shape_name_1, shape_name_2, parameters):
     """
     Start a training phase.
@@ -68,6 +68,8 @@ shape_name_1, shape_name_2, parameters):
         trial_clock.reset()
         while trial_clock.getTime() < hold_phase_delay:
             if 'escape' in kb.getKeys():
+                mywin.close()
+                core.quit()
                 return False
             if device.is_touched():
                 if not touch_down:
@@ -82,6 +84,8 @@ shape_name_1, shape_name_2, parameters):
             while trial_clock.getTime() < pos_duration:
                 keys = kb.getKeys()
                 if 'escape' in keys:
+                    mywin.close()
+                    core.quit()
                     return False
                 event.clearEvents()
                 dis_shape.draw()
@@ -108,6 +112,8 @@ shape_name_1, shape_name_2, parameters):
             while True:
                 keys = kb.getKeys()
                 if 'escape' in keys:
+                    mywin.close()
+                    core.quit()
                     return False
                 if trial_clock.getTime() >= neg_duration:
                     trial_results.append([trial, 'TRUE', 'FALSE',
@@ -129,4 +135,6 @@ shape_name_1, shape_name_2, parameters):
         trial += 1
     for trial in trial_results:
         record_data(*trial)
+    mywin.close()
+    core.quit()
     return True
