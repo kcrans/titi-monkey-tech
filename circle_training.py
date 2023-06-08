@@ -25,7 +25,7 @@ def circle_run(debug, record_data, session_timeout_time, parameters):
     increment = parameters["increment"]
 
         # Create circle stimuli object
-    circle = visual.BaseShapeStim(
+    circle = visual.ShapeStim(
         win=mywin, name='go_circle',
         size=start, vertices='circle',
         ori=0.0, pos=(0, 0), anchor='center',

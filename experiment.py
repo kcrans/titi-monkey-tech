@@ -13,7 +13,7 @@ from init import mywin, trial_start_sound, click_sound, neg_reinforce_sound
 from init import kb, InputTracker, hor_scale, scale, get_shape
 
 
-def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experiment_parameters):
+def run_experiment(debug, record_data, shape_name_1, shape_name_2, parameters, experiment_parameters):
     """
     Start an experiment phase.
     

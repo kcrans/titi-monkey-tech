@@ -18,7 +18,7 @@ def get_shape(mywin, shape_name):
     """
     #create circle stimuli
     if shape_name == 'circle':
-        circle = visual.BaseShapeStim(
+        circle = visual.ShapeStim(
             win=mywin, name='go_circle',
             size=(shape_scale, shape_scale), vertices='circle',
             ori=0.0, pos=(0, 0), anchor='center',
@@ -55,7 +55,7 @@ def get_shape(mywin, shape_name):
             (-0.1, +0.1),
         ]
 
-        cross = visual.BaseShapeStim(
+        cross = visual.ShapeStim(
             win=mywin, name='go_cross',
             size=(shape_scale, shape_scale), vertices=cross_vertices,
             ori=0.0, pos=(0, 0), anchor='center',
@@ -77,7 +77,7 @@ def get_shape(mywin, shape_name):
             (-0.1123, 0.1545)
         ]
         # Maybe shift so it doesn't look like there is more space on the bottom
-        star = visual.BaseShapeStim(
+        star = visual.ShapeStim(
             win=mywin, name='star',
             size=(shape_scale, shape_scale), vertices=star_points,
             ori=0.0, pos=(0, 0), anchor='center',
@@ -87,7 +87,7 @@ def get_shape(mywin, shape_name):
         return star
     if shape_name == 'strike_circle':
         # Add an invisible circle in order to track touches
-        strike_mask = visual.BaseShapeStim(
+        strike_mask = visual.ShapeStim(
             win=mywin, name='go_circle',
             size=(shape_scale, shape_scale), vertices='circle',
             ori=0.0, pos=(0, 0), anchor='center',

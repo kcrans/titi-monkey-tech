@@ -62,9 +62,22 @@ subStrings = list(subjects.keys())
 # Add an option for new subject
 subStrings.append("NEW Subject")
 
+
 subDlg = gui.Dlg(title= "Choose or add subject")
+og_font = subDlg.font()
+og_font.setPointSize(30)
+#print(gui.QtWidgets.QStyleFactory)
+#print((subDlg.font()).pointSize())
+
+font = gui.QtGui.QFont()
+font.setFamily("Arial")
+font.setPointSize(30)
+subDlg.setFont(og_font)
+print(subDlg.fontInfo().pointSize())
+
 subDlg.addText('Subject Info')
 subDlg.addField("Name:", choices = subStrings)
+
 gui_results = subDlg.show()
 
 if subDlg.OK:
