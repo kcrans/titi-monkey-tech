@@ -22,7 +22,7 @@ def get_shape(mywin, shape_name):
             win=mywin, name='go_circle',
             size=(shape_scale, shape_scale), vertices='circle',
             ori=0.0, pos=(0, 0), anchor='center',
-            lineWidth=0.0,     colorSpace='rgb', fillColor='white',
+            lineWidth=1,     colorSpace='rgb', fillColor='white',
             opacity=None, interpolate=True)
         return circle
     #create triangle stimuli
@@ -59,7 +59,7 @@ def get_shape(mywin, shape_name):
             win=mywin, name='go_cross',
             size=(shape_scale, shape_scale), vertices=cross_vertices,
             ori=0.0, pos=(0, 0), anchor='center',
-            lineWidth=0.0,     colorSpace='rgb', fillColor='grey',
+            lineWidth=1,     colorSpace='rgb', fillColor='grey',
             opacity=None, interpolate=True)
 
         return cross
@@ -81,7 +81,7 @@ def get_shape(mywin, shape_name):
             win=mywin, name='star',
             size=(shape_scale, shape_scale), vertices=star_points,
             ori=0.0, pos=(0, 0), anchor='center',
-            lineWidth=0.0,     colorSpace='rgb', fillColor='grey',
+            lineWidth=1,     colorSpace='rgb', fillColor='grey',
             opacity=None, interpolate=True)
 
         return star
@@ -91,7 +91,7 @@ def get_shape(mywin, shape_name):
             win=mywin, name='go_circle',
             size=(shape_scale, shape_scale), vertices='circle',
             ori=0.0, pos=(0, 0), anchor='center',
-            lineWidth=0.0, opacity=0.0, interpolate=True)
+            lineWidth=1, opacity=0.0, interpolate=True)
 
         strike_circle = visual.ImageStim(win=mywin,
         image='assets/goSignal_strike.png', size = (shape_scale, shape_scale))
@@ -107,7 +107,7 @@ def get_shape(mywin, shape_name):
 # Create a list of shape objects to cycle through
 shapes = [get_shape(mywin, shape_str) for shape_str in
 ['circle', 'triangle', 'square', 'cross', 'star', 'strike_circle' ]]
-shape_index = 0
+shape_index = 0 # Tracks which shape is displayed
 def move_index(index):
     if index > 5:
         index = 0
@@ -149,7 +149,6 @@ size_controls.draw()
 pos_controls.draw()
 mywin.flip()
 while 'escape' not in keys:
-    dis_shape = shapes[shape_index]
     event.clearEvents()
     keys = kb.getKeys()
     if keys:
@@ -168,6 +167,7 @@ while 'escape' not in keys:
                 hor_pos -= scale_unit
             elif k == "k":
                 hor_pos += scale_unit
+        dis_shape = shapes[shape_index]
         dis_shape.pos = (hor_pos, 0)
         size_msg.text = f'Size: {shape_scale:0.2f}'
         pos_msg.text = f'Position: {hor_pos:0.2f}'
@@ -177,4 +177,5 @@ while 'escape' not in keys:
         size_controls.draw()
         pos_controls.draw()
         mywin.flip()
+mywin.close()
 print(f'Shape scale: {shape_scale:0.4f}, Offset position: {hor_pos:0.4f}')

@@ -33,6 +33,95 @@ def main(debug = False):
     with open('subinfo.json', 'r', encoding = 'utf-8') as param_file:
         subjects = json.load(param_file)
     sub_dlg = gui.Dlg(title= f'TITI Beta Version {__version__}')
+    
+    if touch_screen: # Increase size of font/buttons to make input easier
+        # Create a new, custom stylesheet
+        style_sheet = """
+QWidget      {
+        font-size: 30px;
+        }
+QComboBox {
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 1px 18px 1px 3px;
+    min-width: 6em;
+    font-size: 30px;
+}
+
+QComboBox:editable {
+    background: white;
+}
+
+QComboBox:!editable, QComboBox::drop-down:editable {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
+                                 stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
+}
+
+/* QComboBox gets the "on" state when the popup is open */
+QComboBox:!editable:on, QComboBox::drop-down:editable:on {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,
+                                stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);
+}
+
+QComboBox:on { /* shift the text when the popup opens */
+    padding-top: 3px;
+    padding-left: 4px;
+}
+
+/* Background color of popup-list.*/ 
+QComboBox QListView{
+    background-color:white;
+    border:1px solid gray;
+}
+/* Needed to complete the rule set. */
+QComboBox::item:alternate {
+    background: white;
+}
+/* Color of the selected list item. */
+QComboBox::item:selected {
+    border: 1px solid transparent;
+    background:yellow;
+}
+
+QComboBox::indicator{
+    background-color:transparent;
+    selection-background-color:transparent;
+    color:transparent;
+    selection-color:transparent;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 15px;
+
+    border-left-width: 1px;
+    border-left-color: darkgray;
+    border-left-style: solid; /* just a single line */
+    border-top-right-radius: 3px; /* same radius as the QComboBox */
+    border-bottom-right-radius: 3px;
+}
+
+QComboBox::down-arrow {
+    image: url(1downarrow.png);
+}
+
+QComboBox::down-arrow:on { /* shift the arrow when popup is open */
+    top: 1px;
+    left: 1px;
+    }
+QLineEdit {
+    border: 2px solid gray;
+    border-radius: 10px;
+    padding: 0 8px;
+    background: yellow;
+    selection-background-color: darkgray;
+}
+        """
+        sub_dlg.setStyleSheet(style_sheet)
+
     sub_dlg.addText('Subject Info')
     sub_dlg.addField("Name:", choices = list(subjects.keys()))
     subject_choice = sub_dlg.show()
@@ -47,6 +136,12 @@ def main(debug = False):
     phase_names.insert(0, phase_names.pop(int(current_sub['current phase'])))
 
     confir_dlg = gui.Dlg(title= f'TITI Beta Version {__version__}')
+    
+    if touch_screen:
+        print("changed")
+        # Change style for the second dialog also
+        confir_dlg.setStyleSheet(style_sheet)
+    
     confir_dlg.addText(f'Info for subject {subject_choice}')
     confir_dlg.addField("Condition:", current_sub['condition'])
     confir_dlg.addField("Phase:", choices = phase_names)
@@ -101,7 +196,7 @@ def main(debug = False):
 
         if chosen_phase == '0: Go Signal':
             from circle_training import circle_run
-            completed = circle_run(write_data, session_timeout_time,
+            completed = circle_run(debug, write_data, session_timeout_time,
             current_sub["phase 0 params"])
 
         elif chosen_phase == "1: Wait Screen":
@@ -112,8 +207,8 @@ def main(debug = False):
                 Always return index 0, which will be the positive stimuli
                 """
                 return 0
-            completed = normal_training(write_data, new_shape, session_timeout_time,
-            pos_shape_name, neg_shape_name, common_params)
+            completed = normal_training(debug, write_data, new_shape,
+            session_timeout_time, pos_shape_name, neg_shape_name, common_params)
 
         elif chosen_phase == "2: Alternating Stop Signal":
             from varied_training import normal_training
@@ -123,8 +218,8 @@ def main(debug = False):
                 Alternate between positive and negative (indices 0 and 1) stimuli
                 """
                 return trial_num % 2
-            completed = normal_training(write_data, new_shape, session_timeout_time,
-            pos_shape_name, neg_shape_name, common_params)
+            completed = normal_training(debug, write_data, new_shape,
+            session_timeout_time, pos_shape_name, neg_shape_name, common_params)
 
         elif chosen_phase == "3: Random Stop Signal":
             from varied_training import normal_training
@@ -134,13 +229,13 @@ def main(debug = False):
                 Choose a positive or negative stimulus randomly
                 """
                 return choice((0, 1))
-            completed = normal_training(write_data, new_shape, session_timeout_time,
-            pos_shape_name, neg_shape_name, common_params)
+            completed = normal_training(debug, write_data, new_shape, 
+            session_timeout_time, pos_shape_name, neg_shape_name, common_params)
 
         elif chosen_phase == "4: Experiment":
             from experiment import run_experiment
-            completed = run_experiment(write_data, pos_shape_name, neg_shape_name,
-            common_params, current_sub["phase 4 params"])
+            completed = run_experiment(debug, write_data, pos_shape_name,
+            neg_shape_name, common_params, current_sub["phase 4 params"])
     if debug:
         print(f'Experiment completed: {completed}')
     # Record any changes to subject parameters

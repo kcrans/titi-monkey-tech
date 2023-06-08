@@ -13,7 +13,7 @@ from init import mywin, trial_start_sound, click_sound, neg_reinforce_sound
 from init import kb, InputTracker, hor_scale, scale, get_shape
 
 
-def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experiment_parameters):
+def run_experiment(debug, record_data, shape_name_1, shape_name_2, parameters, experiment_parameters):
     """
     Start an experiment phase.
     
@@ -85,6 +85,8 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
                 keys = kb.getKeys()
                 if 'escape' in keys:
                     trials.finished = True
+                    mywin.close()
+                    core.quit()
                     return False
                 event.clearEvents()
                 dis_shape.draw()
@@ -112,6 +114,8 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
                 keys = kb.getKeys()
                 if 'escape' in keys:
                     trials.finished = True
+                    mywin.close()
+                    core.quit()
                     return False
                 if trial_clock.getTime() >= neg_duration:
                     trial_results.append([i + 1, True, False,
@@ -133,4 +137,6 @@ def run_experiment(record_data, shape_name_1, shape_name_2, parameters, experime
         i += 1
     for trial in trial_results:
         record_data(*trial)
+    mywin.close()
+    core.quit()
     return True

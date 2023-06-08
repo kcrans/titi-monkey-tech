@@ -40,7 +40,7 @@ def get_shape(shape_name):
             win=mywin, name='go_circle',
             size=(shape_size, shape_size), vertices='circle',
             ori=0.0, pos=(0, 0), anchor='center',
-            lineWidth=0.0,     colorSpace='rgb', fillColor='white',
+            lineWidth=1,     colorSpace='rgb', fillColor='white',
             opacity=None, interpolate=True)
         return circle
 
@@ -81,7 +81,7 @@ def get_shape(shape_name):
             win=mywin, name='go_cross',
             size=(shape_size, shape_size), vertices=cross_vertices,
             ori=0.0, pos=(0, 0), anchor='center',
-            lineWidth=0.0,     colorSpace='rgb', fillColor='grey',
+            lineWidth=1,     colorSpace='rgb', fillColor='grey',
             opacity=None, interpolate=True)
         return cross
 
@@ -104,7 +104,7 @@ def get_shape(shape_name):
             win=mywin, name='go_cross',
             size=(shape_size, shape_size), vertices=star_points,
             ori=0.0, pos=(0, 0), anchor='center',
-            lineWidth=0.0,     colorSpace='rgb', fillColor='grey',
+            lineWidth=1,     colorSpace='rgb', fillColor='grey',
             opacity=None, interpolate=True)
         return star
 
@@ -115,7 +115,7 @@ def get_shape(shape_name):
             win=mywin, name='go_circle',
             size=(shape_size, shape_size), vertices='circle',
             ori=0.0, pos=(0, 0), anchor='center',
-            lineWidth=0.0, opacity=0.0, interpolate=True)
+            lineWidth=1, opacity=0.0, interpolate=True)
 
         # Use an image instead of an animation
         strike_circle = visual.ImageStim(win=mywin,
