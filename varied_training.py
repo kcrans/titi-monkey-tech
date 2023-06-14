@@ -24,6 +24,8 @@ shape_name_1, shape_name_2, parameters):
     shape_name_2 -- name of negative stimuli shape
     parameters -- dict of common parameters for phases 1-3
     """
+    for param in parameters.keys():
+        print(type(parameters[param]))
     # Parameters
     negative_reinforcement_delay = parameters["negative_reinforcement_delay"]
     positive_reinforcement_delay = parameters["positive_reinforcement_delay"]
@@ -108,6 +110,9 @@ shape_name_1, shape_name_2, parameters):
             if not touched:
                 trial_results.append([trial, 'FALSE', 'FALSE',
                 trial_clock.getTime(), touch_count, 'FALSE', shape_size])
+                neg_reinforce_sound.play()
+                mywin.flip()
+                core.wait(negative_reinforcement_delay)
         else: # If a no-go stimuli is being displayed
             while True:
                 keys = kb.getKeys()

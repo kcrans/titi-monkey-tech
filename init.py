@@ -48,7 +48,7 @@ def get_shape(shape_name):
     if shape_name == 'triangle':
         triangle = visual.Polygon(
             win=mywin, edges=3, size=(shape_size, shape_size),
-             pos=(0, -0.1),
+             pos=(0, -0.2),
             fillColor='grey', name='stop_triangle'
             )
         return triangle

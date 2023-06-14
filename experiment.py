@@ -109,6 +109,9 @@ def run_experiment(debug, record_data, shape_name_1, shape_name_2, parameters, e
             if not touched:
                 trial_results.append([i + 1, False, False,
                 trial_clock.getTime(), touch_count, False, shape_size])
+                neg_reinforce_sound.play()
+                mywin.flip()
+                core.wait(negative_reinforcement_delay)
         else: # If a negative stimulus is displayed
             while True:
                 keys = kb.getKeys()

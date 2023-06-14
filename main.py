@@ -5,7 +5,7 @@ Main function used to run any of the trainings/experiments
 """
 
 __author__ = "Kaleb Crans"
-__version__ = "0.99"
+__version__ = "1.0"
 __license__ = "MIT"
 
 import os
@@ -19,7 +19,7 @@ from random import choice # for randomness in the display of stimuli
 from psychopy import gui, data
 
 # Get parameters for gui interface
-from program_specs import touch_screen, font_size
+from program_specs import touch_screen, style_sheet, file_name
 
 def main(debug = False):
     """
@@ -32,94 +32,10 @@ def main(debug = False):
     # Load all the metadata about prior subject
     with open('subinfo.json', 'r', encoding = 'utf-8') as param_file:
         subjects = json.load(param_file)
-    sub_dlg = gui.Dlg(title= f'TITI Beta Version {__version__}')
+    sub_dlg = gui.Dlg(title= f'TITI Monkey Tech Version {__version__}')
     
     if touch_screen: # Increase size of font/buttons to make input easier
         # Create a new, custom stylesheet
-        style_sheet = """
-QWidget      {
-        font-size: 30px;
-        }
-QComboBox {
-    border: 1px solid gray;
-    border-radius: 3px;
-    padding: 1px 18px 1px 3px;
-    min-width: 6em;
-    font-size: 30px;
-}
-
-QComboBox:editable {
-    background: white;
-}
-
-QComboBox:!editable, QComboBox::drop-down:editable {
-     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                 stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
-                                 stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
-}
-
-/* QComboBox gets the "on" state when the popup is open */
-QComboBox:!editable:on, QComboBox::drop-down:editable:on {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,
-                                stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);
-}
-
-QComboBox:on { /* shift the text when the popup opens */
-    padding-top: 3px;
-    padding-left: 4px;
-}
-
-/* Background color of popup-list.*/ 
-QComboBox QListView{
-    background-color:white;
-    border:1px solid gray;
-}
-/* Needed to complete the rule set. */
-QComboBox::item:alternate {
-    background: white;
-}
-/* Color of the selected list item. */
-QComboBox::item:selected {
-    border: 1px solid transparent;
-    background:yellow;
-}
-
-QComboBox::indicator{
-    background-color:transparent;
-    selection-background-color:transparent;
-    color:transparent;
-    selection-color:transparent;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 15px;
-
-    border-left-width: 1px;
-    border-left-color: darkgray;
-    border-left-style: solid; /* just a single line */
-    border-top-right-radius: 3px; /* same radius as the QComboBox */
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(1downarrow.png);
-}
-
-QComboBox::down-arrow:on { /* shift the arrow when popup is open */
-    top: 1px;
-    left: 1px;
-    }
-QLineEdit {
-    border: 2px solid gray;
-    border-radius: 10px;
-    padding: 0 8px;
-    background: yellow;
-    selection-background-color: darkgray;
-}
-        """
         sub_dlg.setStyleSheet(style_sheet)
 
     sub_dlg.addText('Subject Info')
@@ -133,22 +49,24 @@ QLineEdit {
         return # End early
 
     current_sub = subjects[subject_choice] # Object containing info about selection
+
+    pos_shape_name = current_sub['positive stimuli']
+    neg_shape_name = current_sub['negative stimuli']
+    
     phase_names.insert(0, phase_names.pop(int(current_sub['current phase'])))
 
     confir_dlg = gui.Dlg(title= f'TITI Beta Version {__version__}')
     
     if touch_screen:
-        print("changed")
+        if debug:
+            print("gui changed")
         # Change style for the second dialog also
         confir_dlg.setStyleSheet(style_sheet)
     
     confir_dlg.addText(f'Info for subject {subject_choice}')
     confir_dlg.addField("Condition:", current_sub['condition'])
     confir_dlg.addField("Phase:", choices = phase_names)
-    confir_dlg.addField("Session time:", current_sub['session timeout time'])
-
-    pos_shape_name = current_sub['positive stimuli']
-    neg_shape_name = current_sub['negative stimuli']
+    confir_dlg.addField("Session time:", str(current_sub['session timeout time']))
 
     phase_choice = confir_dlg.show()
     if confir_dlg.OK:
@@ -170,7 +88,6 @@ QLineEdit {
 
     timestamp = data.getDateStr()
 
-    file_name = "titi_monkey_data.csv"
     # If the csv file doesn't exist, create it and add the column headings:
     if not os.path.exists(file_name):
         with open(file_name, 'w+', newline = ' ', encoding = 'utf-8') as data_file:
@@ -179,7 +96,7 @@ QLineEdit {
             "subject id", "subject condition", "session timestamp",
             "phase", "trial number", "stop stimulus", "screen touched",
             "response time", "hold phase touches", "direct touch",
-            "diameter", "session time", "positive shape", "negative shape",
+            "shape size (circle diameter)", "session time", "positive shape", "negative shape",
             "go stim duration", "stop stim duration",
             "negative reinforcement delay", "positive reinforcement delay",
             "hold phase delay"])
