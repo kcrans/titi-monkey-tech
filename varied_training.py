@@ -11,7 +11,7 @@ from init import mywin, trial_start_sound, click_sound, neg_reinforce_sound
 from init import kb, InputTracker, hor_scale, scale, get_shape
 
 def normal_training(debug, record_data, new_shape, session_timeout_time,
-shape_name_1, shape_name_2, parameters):
+shape_name_1, shape_name_2, shape_size, parameters):
     """
     Start a training phase.
     
@@ -22,15 +22,14 @@ shape_name_1, shape_name_2, parameters):
     in a trial. This differentiates the stages. I.e. 
     shape_name_1 -- name of positive stimuli shape
     shape_name_2 -- name of negative stimuli shape
+    shape_size -- global value for size of shapes
     parameters -- dict of common parameters for phases 1-3
     """
-    for param in parameters.keys():
-        print(type(parameters[param]))
+
     # Parameters
     negative_reinforcement_delay = parameters["negative_reinforcement_delay"]
     positive_reinforcement_delay = parameters["positive_reinforcement_delay"]
     hold_phase_delay = parameters["hold_phase_delay"]
-    shape_size = parameters["shape_size"]
     pos_duration = parameters["pos_duration"] # How long to wait when positive stimuli is presented
     neg_duration = parameters["neg_duration"] # Ditto for negative stimuli
 

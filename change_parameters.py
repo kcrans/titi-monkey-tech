@@ -7,7 +7,6 @@ import json
 from psychopy import gui
 
 # Get parameters for gui interface
-from program_specs import shape_size
 
 def bring_to_front(shapes, last_selection):
     """
@@ -39,7 +38,6 @@ def new_dictionary(list_values):
     new_dict_b["negative_reinforcement_delay"] = float(next(list_values))
     new_dict_b["positive_reinforcement_delay"] = float(next(list_values))
     new_dict_b["hold_phase_delay"] = float(next(list_values))
-    new_dict_b["shape_size"] = float(next(list_values))
     new_dict_b["pos_duration"] = float(next(list_values))
     new_dict_b["neg_duration"] = float(next(list_values))
     new_dict["phase 1-3 params"] = new_dict_b
@@ -97,7 +95,6 @@ def main():
             parDlg.addField("Negative reinforcement delay:", "3.0")
             parDlg.addField("Positive reinforcement delay:", "1.0")
             parDlg.addField("Hold phase delay:", "2.0")
-            parDlg.addField("Shape size:", shape_size)
             parDlg.addField("Positive stimuli duration:", "30.0")
             parDlg.addField("Negative stimuli duration:", "2.0")
             parDlg.addText("Parameters for phase 4,  in addition to above (integers):", color="Blue")
@@ -141,7 +138,6 @@ def main():
             parDlg.addField("Positive reinforcement delay:",
             str(current_phase_b["positive_reinforcement_delay"]))
             parDlg.addField("Hold phase delay:", str(current_phase_b["hold_phase_delay"]))
-            parDlg.addField("Shape size:", str(current_phase_b["shape_size"]))
             parDlg.addField("Positive stimuli duration:", str(current_phase_b["pos_duration"]))
             parDlg.addField("Negative stimuli duration:", str(current_phase_b["neg_duration"]))
             parDlg.addText("Parameters for phase 4,  in addition to above (integers):", color="Blue")

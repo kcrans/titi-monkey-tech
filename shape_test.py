@@ -5,9 +5,9 @@ how far to the left and right stimuli should be displayed.
 
 from psychopy import visual, event # import some basic libraries from PsychoPy
 
-from init import mywin, kb, InputTracker, scale, hor_scale, get_shape
+from init import mywin, kb, InputTracker, scale, hor_scale, get_shape, shape_size
 
-shape_scale = scale # Starting value
+shape_scale = shape_size # Starting value
 
 scale_unit = 0.05 # How much to increment or decrement
 

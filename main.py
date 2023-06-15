@@ -19,7 +19,7 @@ from random import choice # for randomness in the display of stimuli
 from psychopy import gui, data
 
 # Get parameters for gui interface
-from program_specs import touch_screen, style_sheet, file_name
+from program_specs import touch_screen, style_sheet, file_name, shape_size
 
 def main(debug = False):
     """
@@ -114,7 +114,7 @@ def main(debug = False):
         if chosen_phase == '0: Go Signal':
             from circle_training import circle_run
             completed = circle_run(debug, write_data, session_timeout_time,
-            current_sub["phase 0 params"])
+            shape_size, current_sub["phase 0 params"])
 
         elif chosen_phase == "1: Wait Screen":
             from varied_training import normal_training
@@ -125,7 +125,7 @@ def main(debug = False):
                 """
                 return 0
             completed = normal_training(debug, write_data, new_shape,
-            session_timeout_time, pos_shape_name, neg_shape_name, common_params)
+            session_timeout_time, pos_shape_name, neg_shape_name, shape_size, common_params)
 
         elif chosen_phase == "2: Alternating Stop Signal":
             from varied_training import normal_training
@@ -136,7 +136,7 @@ def main(debug = False):
                 """
                 return trial_num % 2
             completed = normal_training(debug, write_data, new_shape,
-            session_timeout_time, pos_shape_name, neg_shape_name, common_params)
+            session_timeout_time, pos_shape_name, neg_shape_name, shape_size, common_params)
 
         elif chosen_phase == "3: Random Stop Signal":
             from varied_training import normal_training
@@ -147,12 +147,12 @@ def main(debug = False):
                 """
                 return choice((0, 1))
             completed = normal_training(debug, write_data, new_shape, 
-            session_timeout_time, pos_shape_name, neg_shape_name, common_params)
+            session_timeout_time, pos_shape_name, neg_shape_name, shape_size, common_params)
 
         elif chosen_phase == "4: Experiment":
             from experiment import run_experiment
             completed = run_experiment(debug, write_data, pos_shape_name,
-            neg_shape_name, common_params, current_sub["phase 4 params"])
+            neg_shape_name, shape_size, common_params, current_sub["phase 4 params"])
     if debug:
         print(f'Experiment completed: {completed}')
     # Record any changes to subject parameters
