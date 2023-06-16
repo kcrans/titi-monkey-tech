@@ -6,7 +6,7 @@ monitor_name = 'macbook'
 # Put the name of your monitor in the quotes above
 window_size = [1440, 900]
 touch_screen = False
-shape_size = 1.0 # Scale for the size of all shape stimuli
+shape_size = 0.6 # Scale for the size of all shape stimuli
 font_size = 50 # Font size for touchsrcreen mode
 file_name = "titi_monkey_data.csv" # Name of file storing results
 style_sheet = f"""

@@ -203,3 +203,7 @@ second,paired,2023-06-14_14h43.43.207,3: Random Stop Signal,5,TRUE,FALSE,2.01276
 second,paired,2023-06-14_14h43.43.207,3: Random Stop Signal,6,TRUE,TRUE,0.8456939160023467,0,FALSE,0.6,30.0,circle,triangle,30.0,2.0,3.0,1.0,2.0
 test,paired,2023-06-14_23h36.09.758,1: Wait Screen,1,False,True,1.9396390830079326,0,True,1.0,30.0,circle,triangle,30.0,2.0,3.0,1.0,2.0
 test,paired,2023-06-14_23h36.09.758,1: Wait Screen,2,FALSE,FALSE,30.01388883400068,0,FALSE,1.0,30.0,circle,triangle,30.0,2.0,3.0,1.0,2.0
+testing,paired,2023-06-16_12h56.41.702,3: Random Stop Signal,1,TRUE,TRUE,1.2842874159978237,0,FALSE,0.6,20.0,triangle,cross,30.0,2.0,3.0,1.0,2.0
+testing,paired,2023-06-16_12h56.41.702,3: Random Stop Signal,2,False,True,0.9451472500077216,0,True,0.6,20.0,triangle,cross,30.0,2.0,3.0,1.0,2.0
+testing,paired,2023-06-16_12h56.41.702,3: Random Stop Signal,3,False,True,1.1464981250028359,0,False,0.6,20.0,triangle,cross,30.0,2.0,3.0,1.0,2.0
+testing,paired,2023-06-16_12h56.41.702,3: Random Stop Signal,4,TRUE,FALSE,2.012575042012031,0,FALSE,0.6,20.0,triangle,cross,30.0,2.0,3.0,1.0,2.0

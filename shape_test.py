@@ -75,7 +75,7 @@ while 'escape' not in keys:
             elif k == "k":
                 hor_pos += scale_unit
         dis_shape = shapes[shape_index]
-        dis_shape.pos = (hor_pos, 0)
+        dis_shape.pos = (hor_pos, dis_shape.pos[1])
         size_msg.text = f'Size: {shape_scale:0.2f}'
         pos_msg.text = f'Position: {hor_pos:0.2f}'
         dis_shape.draw()
