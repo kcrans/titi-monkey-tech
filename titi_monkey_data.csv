@@ -166,3 +166,44 @@ Gru,paired,2023-06-07_16h13.27.337,0: Go Signal,63,False,True,0.2552468750000116
 Gru,paired,2023-06-07_16h13.27.337,0: Go Signal,64,False,True,0.2593511250015581,0,True,0.8000000000000004,22.03,cross,strike_circle,30,2,3,1,2
 Gru,paired,2023-06-07_16h13.27.337,0: Go Signal,65,False,True,1.0737289999960922,0,True,0.8000000000000004,22.03,cross,strike_circle,30,2,3,1,2
 Gru,paired,2023-06-07_16h13.27.337,0: Go Signal,66,False,True,0.2548929170006886,0,True,0.8000000000000004,22.03,cross,strike_circle,30,2,3,1,2
+5,paired,2023-06-09_13h09.55.079,1: Wait Screen,1,False,True,1.494284583008266,0,True,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+5,paired,2023-06-09_13h09.55.079,1: Wait Screen,2,False,True,0.530517332997988,1,True,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+5,paired,2023-06-09_13h09.55.079,1: Wait Screen,3,False,True,0.8128765830042539,1,False,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+5,paired,2023-06-09_13h09.55.079,1: Wait Screen,4,False,True,0.8944422500062501,1,False,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+5,paired,2023-06-09_13h09.55.079,1: Wait Screen,5,False,True,0.4123121250013355,1,True,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+5,paired,2023-06-09_13h09.55.079,1: Wait Screen,6,False,True,0.629702542006271,1,False,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+5,paired,2023-06-09_13h09.55.079,1: Wait Screen,7,False,True,1.162141166991205,1,False,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+1,paired,2023-06-09_13h13.09.995,4: Experiment,1,True,True,1.3587269580020802,0,False,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+1,paired,2023-06-09_13h13.09.995,4: Experiment,2,True,True,0.7621113329951186,1,False,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+1,paired,2023-06-09_13h13.09.995,4: Experiment,3,False,False,30.01365054199414,1,False,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+1,paired,2023-06-09_13h13.09.995,4: Experiment,4,True,False,2.0165104160114424,0,False,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+1,paired,2023-06-09_13h13.09.995,4: Experiment,5,True,False,2.013462333008647,0,False,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+1,paired,2023-06-09_13h13.09.995,4: Experiment,6,False,False,30.01356120800483,0,False,0.6,30.0,circle,triangle,30,2.0,3.0,1.0,2
+10,paired,2023-06-14_12h50.40.215,3: Random Stop Signal,1,False,True,0.5784652920046938,0,False,0.6,50.0,circle,triangle,30,2.0,3.0,1.0,2
+10,paired,2023-06-14_12h50.40.215,3: Random Stop Signal,2,TRUE,FALSE,2.006368458001816,1,FALSE,0.6,50.0,circle,triangle,30,2.0,3.0,1.0,2
+10,paired,2023-06-14_12h50.40.215,3: Random Stop Signal,3,TRUE,TRUE,1.4125541660032468,0,FALSE,0.6,50.0,circle,triangle,30,2.0,3.0,1.0,2
+10,paired,2023-06-14_12h50.40.215,3: Random Stop Signal,4,TRUE,FALSE,2.011205249997147,1,FALSE,0.6,50.0,circle,triangle,30,2.0,3.0,1.0,2
+10,paired,2023-06-14_12h50.40.215,3: Random Stop Signal,5,TRUE,FALSE,2.0136748340009945,0,FALSE,0.6,50.0,circle,triangle,30,2.0,3.0,1.0,2
+10,paired,2023-06-14_12h50.40.215,3: Random Stop Signal,6,TRUE,TRUE,1.4286523340051644,0,FALSE,0.6,50.0,circle,triangle,30,2.0,3.0,1.0,2
+10,paired,2023-06-14_12h50.40.215,3: Random Stop Signal,7,TRUE,FALSE,2.0116385419969447,1,FALSE,0.6,50.0,circle,triangle,30,2.0,3.0,1.0,2
+10,paired,2023-06-14_12h50.40.215,3: Random Stop Signal,8,False,True,0.747114749996399,0,False,0.6,50.0,circle,triangle,30,2.0,3.0,1.0,2
+10,paired,2023-06-14_12h50.40.215,3: Random Stop Signal,9,False,True,0.7280627079962869,1,False,0.6,50.0,circle,triangle,30,2.0,3.0,1.0,2
+6,paired,2023-06-14_14h40.37.057,2: Alternating Stop Signal,1,False,True,0.6725699590024306,0,True,0.6,33.0,circle,triangle,30,2.0,3.0,1.0,2
+6,paired,2023-06-14_14h40.37.057,2: Alternating Stop Signal,2,TRUE,FALSE,2.013529040996218,1,FALSE,0.6,33.0,circle,triangle,30,2.0,3.0,1.0,2
+6,paired,2023-06-14_14h40.37.057,2: Alternating Stop Signal,3,False,True,0.6130634159999317,0,False,0.6,33.0,circle,triangle,30,2.0,3.0,1.0,2
+6,paired,2023-06-14_14h40.37.057,2: Alternating Stop Signal,4,TRUE,FALSE,2.0113649160048226,1,FALSE,0.6,33.0,circle,triangle,30,2.0,3.0,1.0,2
+6,paired,2023-06-14_14h40.37.057,2: Alternating Stop Signal,5,False,True,0.5304652920021908,0,False,0.6,33.0,circle,triangle,30,2.0,3.0,1.0,2
+6,paired,2023-06-14_14h40.37.057,2: Alternating Stop Signal,6,TRUE,FALSE,2.01108837499487,1,FALSE,0.6,33.0,circle,triangle,30,2.0,3.0,1.0,2
+6,paired,2023-06-14_14h40.37.057,2: Alternating Stop Signal,7,False,True,0.6965237500044168,0,False,0.6,33.0,circle,triangle,30,2.0,3.0,1.0,2
+second,paired,2023-06-14_14h43.43.207,3: Random Stop Signal,1,TRUE,FALSE,2.0121429999999236,0,FALSE,0.6,30.0,circle,triangle,30.0,2.0,3.0,1.0,2.0
+second,paired,2023-06-14_14h43.43.207,3: Random Stop Signal,2,False,True,0.6314299590012524,0,True,0.6,30.0,circle,triangle,30.0,2.0,3.0,1.0,2.0
+second,paired,2023-06-14_14h43.43.207,3: Random Stop Signal,3,False,True,0.6284573750017444,1,False,0.6,30.0,circle,triangle,30.0,2.0,3.0,1.0,2.0
+second,paired,2023-06-14_14h43.43.207,3: Random Stop Signal,4,TRUE,FALSE,2.012766959000146,1,FALSE,0.6,30.0,circle,triangle,30.0,2.0,3.0,1.0,2.0
+second,paired,2023-06-14_14h43.43.207,3: Random Stop Signal,5,TRUE,FALSE,2.012765457999194,0,FALSE,0.6,30.0,circle,triangle,30.0,2.0,3.0,1.0,2.0
+second,paired,2023-06-14_14h43.43.207,3: Random Stop Signal,6,TRUE,TRUE,0.8456939160023467,0,FALSE,0.6,30.0,circle,triangle,30.0,2.0,3.0,1.0,2.0
+test,paired,2023-06-14_23h36.09.758,1: Wait Screen,1,False,True,1.9396390830079326,0,True,1.0,30.0,circle,triangle,30.0,2.0,3.0,1.0,2.0
+test,paired,2023-06-14_23h36.09.758,1: Wait Screen,2,FALSE,FALSE,30.01388883400068,0,FALSE,1.0,30.0,circle,triangle,30.0,2.0,3.0,1.0,2.0
+testing,paired,2023-06-16_12h56.41.702,3: Random Stop Signal,1,TRUE,TRUE,1.2842874159978237,0,FALSE,0.6,20.0,triangle,cross,30.0,2.0,3.0,1.0,2.0
+testing,paired,2023-06-16_12h56.41.702,3: Random Stop Signal,2,False,True,0.9451472500077216,0,True,0.6,20.0,triangle,cross,30.0,2.0,3.0,1.0,2.0
+testing,paired,2023-06-16_12h56.41.702,3: Random Stop Signal,3,False,True,1.1464981250028359,0,False,0.6,20.0,triangle,cross,30.0,2.0,3.0,1.0,2.0
+testing,paired,2023-06-16_12h56.41.702,3: Random Stop Signal,4,TRUE,FALSE,2.012575042012031,0,FALSE,0.6,20.0,triangle,cross,30.0,2.0,3.0,1.0,2.0

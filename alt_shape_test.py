@@ -40,8 +40,8 @@ def get_shape(shape_name):
             win=mywin, name='go_circle',
             size=(shape_size, shape_size), vertices='circle',
             ori=0.0, pos=(0, 0), anchor='center',
-            lineWidth=1,     colorSpace='rgb', fillColor='white',
-            opacity=None, interpolate=True)
+            lineWidth=4,     colorSpace='rgb', fillColor=None,
+            lineColor = "White", opacity=None, interpolate=True)
         return circle
 
     # create triangle stimuli
@@ -50,15 +50,15 @@ def get_shape(shape_name):
             win=mywin, name='stop_triangle',
             size=(shape_size, shape_size), vertices='triangle',
             ori=0.0, pos=(0, 0), anchor='center',
-            lineWidth=1,     colorSpace='rgb', fillColor='grey',
-            opacity=None, interpolate=True)
+            lineWidth=4,     colorSpace='rgb', fillColor=None,
+            lineColor = "Yellow", opacity=None, interpolate=True)
         return triangle
 
     # create square stimuli
     if shape_name == 'square':
         square = visual.rect.Rect(
-            win=mywin, size = (shape_size- 0.1, shape_size - 0.1), pos=(0,0),
-            fillColor='white', name = "stop_square"
+            win=mywin, size = (shape_size - 0.1, shape_size - 0.1), pos=(0,0),
+            fillColor=None, lineWidth=4, lineColor = "Red", name = "stop_square"
             )
         return square
 
@@ -82,7 +82,7 @@ def get_shape(shape_name):
             win=mywin, name='go_cross',
             size=(shape_size, shape_size), vertices=cross_vertices,
             ori=0.0, pos=(0, 0), anchor='center',
-            lineWidth=1,     colorSpace='rgb', fillColor='grey',
+            lineWidth=4,     colorSpace='rgb', fillColor=None, lineColor = "Blue",
             opacity=None, interpolate=True)
         return cross
 
@@ -105,7 +105,7 @@ def get_shape(shape_name):
             win=mywin, name='go_cross',
             size=(shape_size + 0.1, shape_size + 0.1), vertices=star_points,
             ori=0.0, pos=(0, 0), anchor='center',
-            lineWidth=1,     colorSpace='rgb', fillColor='grey',
+            lineWidth=4, lineColor = "Green", colorSpace='rgb', fillColor=None,
             opacity=None, interpolate=True)
         return star
 
@@ -167,3 +167,79 @@ else: # When using a touch screen
                 return True
             # Else if position of pointer hasn't changed:
             return False
+            
+            
+
+shape_scale = shape_size # Starting value
+
+scale_unit = 0.05 # How much to increment or decrement
+
+# Create a list of shape objects to cycle through
+shapes = [get_shape(shape_str) for shape_str in
+['circle', 'triangle', 'square', 'cross', 'star']]
+shape_index = 0 # Tracks which shape is displayed
+
+def change_size(delta):
+    for shape in shapes:
+        old_size = shape.size[0]
+        shape.size = (old_size + delta, old_size + delta)
+
+hor_pos = 0.5*(hor_scale/2) # How far to go horizontally on the left and right
+print(f'Scaling factor: {hor_scale} and horizontal position: {hor_pos}')
+
+keys = kb.getKeys()
+side = -1
+
+size_msg = visual.TextStim(mywin, text=' ', pos=(0.0, 0.0),
+color = (1.0, 0.0, 0.0), height= 0.05)
+pos_msg = visual.TextStim(mywin, text=' ', pos=(hor_pos, 0.4),
+color = (1.0, 0.0, 0.0), height= 0.05)
+size_controls = visual.TextStim(mywin,
+text='a, d: move left or right                   \n w, s: increase or decrease size ',
+pos=(-1*hor_pos, -0.4), color = (1.0, 0.0, 0.0), height= 0.05)
+pos_controls = visual.TextStim(mywin, text='space: flip side',
+pos=(hor_pos, -0.4), color = (1.0, 0.0, 0.0), height= 0.05)
+mywin.flip()
+device = InputTracker()
+
+hor_pos = 0
+for dis_shape in shapes:
+    dis_shape.pos = (0, 0)
+    dis_shape.draw()
+size_msg.text = f'Size: {shape_scale:0.2f}'
+pos_msg.text = f'Position: {hor_pos:0.2f}'
+size_msg.draw()
+pos_msg.draw()
+size_controls.draw()
+pos_controls.draw()
+mywin.flip()
+while 'escape' not in keys:
+    event.clearEvents()
+    keys = kb.getKeys()
+    if keys:
+        for k in keys:
+            if k == 'w' and shape_scale <= 1.5:
+                shape_scale += scale_unit
+                change_size(scale_unit)
+            elif k == 's' and shape_scale > scale_unit:
+                shape_scale -= scale_unit
+                change_size((-1)*scale_unit)
+            elif k == "a":
+                hor_pos -= scale_unit
+            elif k == "d":
+                hor_pos += scale_unit
+            elif k == "space":
+                hor_pos = -1*hor_pos
+        for dis_shape in shapes:
+            dis_shape.pos = (hor_pos, dis_shape.pos[1])
+            dis_shape.draw()
+        size_msg.text = f'Size: {shape_scale:0.2f}'
+        pos_msg.text = f'Position: {hor_pos:0.2f}'
+        size_msg.draw()
+        pos_msg.draw()
+        size_controls.draw()
+        pos_controls.draw()
+        mywin.flip()
+mywin.close()
+print(f'Shape scale: {shape_scale:0.4f}, Offset position: {hor_pos:0.4f}')
+
