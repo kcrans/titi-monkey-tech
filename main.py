@@ -114,7 +114,7 @@ def main(debug = False):
         if chosen_phase == '0: Go Signal':
             from circle_training import circle_run
             completed = circle_run(debug, write_data, session_timeout_time,
-            shape_size, current_sub["phase 0 params"])
+            current_sub["phase 0 params"])
 
         elif chosen_phase == "1: Wait Screen":
             from varied_training import normal_training
