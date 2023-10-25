@@ -1,5 +1,6 @@
 
 # Titi Monkey Technology 
+![titi_pic](https://github.com/kcrans/titi-monkey-tech/assets/69497802/65a4addb-b091-4382-8bd2-8570fa942877)
 
 A cross-platform python application for running reaction-based expirements with non-human primates.
 
